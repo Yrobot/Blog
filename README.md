@@ -24,7 +24,7 @@
 #### JS
 <a href="" id="JS"></a>
 
-1. [JS多线程Web Worker](JS/JS多线程Web Worker/README.md) 2018年08月23日
+1. [JS多线程Web Worker](JS/JS多线程WebWorker/README.md) 2018年08月23日   
 
 #### JSON
 <a href="" id="JSON"></a>
