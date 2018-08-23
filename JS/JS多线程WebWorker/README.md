@@ -1,4 +1,7 @@
 # JS多线程Web Worker
+时间：2018年08月23日  
+作者：Yrobot  
+
 [为什么使用Web Woker](#why)  
 [Web Woker是什么](#what)  
 [检测浏览器支持](#support)  
