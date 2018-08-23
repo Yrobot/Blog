@@ -6,7 +6,7 @@
 [mainjs与worker之间的数据传递](#message)  
 [主线程中worker的属性](#workerPro)  
 [子线程中的全局属性](#selfPro)  
-[关闭子线程](#close)  
+[关闭子线程](#close) 
 
 <a href="" id="why"></a>
 
