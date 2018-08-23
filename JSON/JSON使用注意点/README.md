@@ -50,3 +50,6 @@ ECMAScript 5对解析JSON的行为进行了规范，定义了全局对象JSON。
 1 JSON.parse('{"foo" : 1 }');  
 2 JSON.parse('{"foo" : 1.0 }');  
    
+
+
+### [返回首页](/README.md)
