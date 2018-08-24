@@ -2,6 +2,7 @@
 时间：2018年08月23日  
 作者：Yrobot  
 
+__本页目录：__   
 [关于引入](#import)  
 [关于操作](#todo)  
 
@@ -13,7 +14,7 @@
 
 ECMAScript 5对解析JSON的行为进行了规范，定义了全局对象JSON。
 
-![](/JSON/JSON使用注意点/bVdkWG.png)  
+![](https://ws2.sinaimg.cn/large/006tNbRwgy1fuklqfg3zcj30hi06sjro.jpg)
 据网上资料，浏览器对JSON的支持情况 ： IE8 chrome1+ safari3+ firefox3+，所以在这些浏览器中使用JSON可以不引入json2.js，在其他低版本浏览器中需要引入json2.js。所以，默认引入即可，去除注释的json2也才8kb不到。
 
 <a href="" id="todo"></a>
@@ -56,3 +57,4 @@ ECMAScript 5对解析JSON的行为进行了规范，定义了全局对象JSON。
 
 
 ### [返回首页](/README.md)
+
