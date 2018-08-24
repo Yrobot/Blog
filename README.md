@@ -29,6 +29,7 @@
 3. [JS的三个定时器](JS/JS的三个定时器/README.md) 2018年08月24日   
 4. [JS异步编程](JS/JS异步编程/README.md) 2018年08月24日  
 5. [遍历obj和array](JS/遍历obj和array/README.md) 2018年08月24日 
+6. [JS函数与闭包](JS/JS函数与闭包/README.md) 2018年08月24日
 
 #### JSON
 <a href="" id="JSON"></a>
