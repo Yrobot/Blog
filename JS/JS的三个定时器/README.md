@@ -72,6 +72,38 @@ window.requestAnimationFrame(render);
 1. __PU节能__：使用 setTimeout 实现的动画，当页面被隐藏或最小化时，setTimeout 仍然在后台执行动画任务，由于此时页面处于不可见或不可用状态，刷新动画是没有意义的，而且还浪费 CPU 资源。而 rAF 则完全不同，当页面处理未激活的状态下，该页面的屏幕绘制任务也会被系统暂停，因此跟着系统步伐走的 rAF 也会停止渲染，当页面被激活时，动画就从上次停留的地方继续执行，有效节省了 CPU 开销。
 
 2. __函数节流__：在高频率事件(resize,scroll 等)中，为了防止在一个刷新间隔内发生多次函数执行，使用 rAF 可保证每个绘制间隔内，函数只被执行一次，这样既能保证流畅性，也能更好的节省函数执行的开销。一个绘制间隔内函数执行多次时没有意义的，因为显示器每16.7ms 绘制一次，多次绘制并不会在屏幕上体现出来。
+
+<a href="" id="suitDown"></a>
+
+## 适配低版本
+以下代码考虑到部分浏览器不支持requestAnimationFrame的情况，对requestAnimationFrame和cancelAnimationFrame进行降级适配。
+```
+if (!Date.now)
+    Date.now = function() { return new Date().getTime(); };
+ 
+(function() {
+    'use strict';
+     
+    var vendors = ['webkit', 'moz'];
+    for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
+        var vp = vendors[i];
+        window.requestAnimationFrame = window[vp+'RequestAnimationFrame'];
+        window.cancelAnimationFrame = (window[vp+'CancelAnimationFrame']
+                                   || window[vp+'CancelRequestAnimationFrame']);
+    }
+    if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+        || !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+        var lastTime = 0;
+        window.requestAnimationFrame = function(callback) {
+            var now = Date.now();
+            var nextTime = Math.max(lastTime + 16, now);
+            return setTimeout(function() { callback(lastTime = nextTime); },
+                              nextTime - now);
+        };
+        window.cancelAnimationFrame = clearTimeout;
+    }
+}());
+```
 ---
 *本章节部分参考[一像素 博客](https://www.cnblogs.com/onepixel/p/7078617.html)，在此感谢！*
 ### [返回首页](/README.md)
