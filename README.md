@@ -25,6 +25,9 @@
 <a href="" id="JS"></a>
 
 1. [JS多线程Web Worker](JS/JS多线程WebWorker/README.md) 2018年08月23日   
+2. [THIS的指向](JS/THIS的指向/README.md) 2018年08月24日   
+3. [JS的三个定时器](JS/JS的三个定时器/README.md) 2018年08月24日   
+4. [JS异步编程](JS/JS异步编程/README.md) 2018年08月24日   
 
 #### JSON
 <a href="" id="JSON"></a>

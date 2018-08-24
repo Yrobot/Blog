@@ -24,7 +24,7 @@ __本页目录：__
 <a id='requestAnimationFrame'></a>
 
 ## requestAnimationFrame 
-不能指定延迟时间，而是根据浏览器的刷新频率而定（帧），即浏览器页面刷新一次函数就执行一次，适合实现页面动画  
+- 不能指定延迟时间，而是根据浏览器的刷新频率而定（帧），即浏览器页面刷新一次函数就执行一次，适合实现页面动画  
 
 <a id='jsAnimation'></a>
 
@@ -104,6 +104,6 @@ if (!Date.now)
     }
 }());
 ```
----
+---  
 *本章节部分参考[一像素 博客](https://www.cnblogs.com/onepixel/p/7078617.html)，在此感谢！*
 ### [返回首页](/README.md)
