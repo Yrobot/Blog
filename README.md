@@ -28,6 +28,10 @@
 2. [CSS3过渡](CSS3/CSS3过渡/README.md) 2018年08月28日  
 3. [CSS3动画](CSS3/CSS3动画/README.md) 2018年08月28日  
 4. [CSS3-2D转换](CSS3/CSS3-2D转换/README.md) 2018年08月28日  
+1. [CSS3边框](CSS3/CSS3新增属性/README.md#id1) 2018年08月27日  
+1. [CSS3背景](CSS3/CSS3新增属性/README.md#id2) 2018年08月27日  
+1. [CSS3文本效果](CSS3/CSS3新增属性/README.md#id3) 2018年08月27日  
+1. [CSS3字体](CSS3/CSS3新增属性/README.md#id4) 2018年08月27日  
 
 #### JS
 <a href="" id="JS"></a>

@@ -152,6 +152,9 @@ __CSS3新增的动画属性：__  通过CSS3动画，我们能够创建动画，
     }
     ``` 
 
+#### __效果：__
+[参考W3school的demo](http://www.w3school.com.cn/tiy/t.asp?f=css3_animation4)
+
 <a href="" id="id3"></a>
 
 ## 浏览器支持
