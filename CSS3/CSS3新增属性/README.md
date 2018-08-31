@@ -171,7 +171,15 @@ Internet Explorer 9 需要前缀 -ms-
 <a id='id6'></a>
 
 ## CSS3 3D 转换
-__CSS3新增的3D变换属性：__  
+__CSS3新增的3D变换属性：__  CSS3 3D 转换支持开发者在css代码中利用css3的3D函数，在页面里开发出3D的效果。
+
+跳转 [CSS3-3D转换/RAEDME.md](../CSS3-3D转换/README.md)
+
+__浏览器支持：__
+![](https://ws4.sinaimg.cn/large/006tNbRwgy1fuqf7u1vz0j30u204ot9y.jpg)
+Internet Explorer 10 和 Firefox 支持 3D 转换。  
+Chrome 和 Safari 需要前缀 -webkit-。  
+Opera 仍然不支持 3D 转换（它只支持 2D 转换）。
 
 <a id='id7'></a>
 
@@ -199,13 +207,97 @@ Chrome 和 Safari 需要前缀 -webkit-。
 <a id='id9'></a>
 
 ## CSS3 多列
-__CSS3新增的多列属性：__  
+__CSS3新增的多列属性：__ 使用css3多列属性，可以将内容分成几列，类似报纸中文章的形式。   
+1. __column-count__: 规定元素应该被分隔的列数。  
+   __语法：__   `column-count: number|auto;`  
+   - `number` 元素内容将被划分的最佳列数。   
+   - `auto` 由其他属性决定列数，比如 "column-width"。      
+   __示例：__   
+   ```
+    div
+    {
+    -moz-column-count: 3; /* Firefox */
+    -webkit-column-count: 3; /* Safari 和 Chrome */
+    column-count: 3;
+    }
+   ``` 
+   ![](https://ws2.sinaimg.cn/large/006tNbRwgy1fuqrbczw9jj30x80d679n.jpg)
 
+2. __column-fill__: 规定如何填充列。  
+   __语法：__   `column-fill: balance|auto;`  
+   - `balance` 对列进行协调。浏览器应对列长度的差异进行最小化处理。   
+   - `auto` 按顺序对列进行填充，列长度会各有不同。      
+   __示例：__   
+   ```
+    div
+    {
+    column-fill:auto;
+    }
+   ``` 
+
+3. __column-gap__: 规定列之间的间隔。  
+   __语法：__   `column-gap: length|normal;`  
+   - `length` 把列间的间隔设置为指定的长度。   
+   - `normal` 规定列间间隔为一个常规的间隔。W3C 建议的值是 1em。      
+   __示例：__   
+   ```
+    div
+    {
+    -moz-column-gap:40px; /* Firefox */
+    -webkit-column-gap:40px; /* Safari 和 Chrome */
+    column-gap:40px;
+    }
+   ``` 
+   ![](https://ws3.sinaimg.cn/large/006tNbRwgy1fuqrjcfhi9j30xi08wdiy.jpg)
+   
+4. __column-rule__: 设置所有 column-rule-* 属性的简写属性。包括 列之间 的 颜色、样式、宽度    
+   __语法：__   `column-rule: column-rule-width column-rule-style column-rule-color;`  
+   - __`column-rule-width`__	设置列之间的宽度规则。 
+        - __语法：__   `column-rule-width: thin|medium|thick|length;`   
+        - `thin`	定义纤细规则。  
+        - `medium`	定义中等规则。  
+        - `thick`	定义宽厚规则。    
+        - `length`	规定规则的宽度。
+   - __`column-rule-style`__	设置列之间的样式规则。  
+        - __语法：__   `column-rule-style: none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset;`   
+        - `none`	定义没有规则。	  
+        - `hidden`	定义隐藏规则。	  
+        - `dotted`	定义点状规则。	  
+        - `dashed`	定义虚线规则。	  
+        - `solid`	定义实线规则。	  
+        - `double`	定义双线规则。	  
+        - `groove`	定义 3D grooved 规则。该效果取决于宽度和颜色值。	  
+        - `ridge`	定义 3D ridged 规则。该效果取决于宽度和颜色值。	  
+        - `inset`	定义 3D inset 规则。该效果取决于宽度和颜色值。	  
+        - `outset`	定义 3D outset 规则。该效果取决于宽度和颜色值。	  
+
+   - __`column-rule-color`__	设置列之间的颜色规则。   
+        - __语法：__   `column-rule-color: color;`   
+        - `color`	规定颜色规则。请参阅 [CSS 颜色值](http://www.w3school.com.cn/cssref/css_colors_legal.asp)。  
+  
+   __示例：__   
+   ```
+    div
+    {
+    -moz-column-rule:3px outset #ff0000;	/* Firefox */
+    -webkit-column-rule:3px outset #ff0000;	/* Safari and Chrome */
+    column-rule:3px outset #ff0000;
+    }
+   ``` 
+   ![](https://ws2.sinaimg.cn/large/006tNbRwgy1fusmomdnszj30xg09mgpn.jpg)
+   
+__浏览器支持：__
+![](https://ws3.sinaimg.cn/large/006tNbRwgy1fuqqzk5gl6j30u20eewi4.jpg) 
+Internet Explorer 10 和 Opera 支持多列属性。  
+Firefox 需要前缀 -moz-。  
+Chrome 和 Safari 需要前缀 -webkit-。  
 
 <a id='id10'></a>
 
 ## CSS3 用户界面
-__CSS3新增的用户界面属性：__  
+__CSS3新增的用户界面属性：__ 利用css3的用户界面属性，可以重设元素尺寸、盒尺寸以及轮廓等。  
+
+
 
 --- 
 ### [返回首页](/README.md)
