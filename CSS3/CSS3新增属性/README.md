@@ -297,6 +297,70 @@ Chrome 和 Safari 需要前缀 -webkit-。
 ## CSS3 用户界面
 __CSS3新增的用户界面属性：__ 利用css3的用户界面属性，可以重设元素尺寸、盒尺寸以及轮廓等。  
 
+__先看所有的用户界面属性__   
+- `appearance`	允许您将元素设置为标准用户界面元素的外观  
+- `box-sizing`	允许您以确切的方式定义适应某个区域的具体内容。  
+- `icon`	为创作者提供使用图标化等价物来设置元素样式的能力。  
+- `nav-down`	规定在使用 arrow-down 导航键时向何处导航。  
+- `nav-index`	设置元素的 tab 键控制次序。	  
+- `nav-left`	规定在使用 arrow-left 导航键时向何处导航。	  
+- `nav-right`	规定在使用 arrow-right 导航键时向何处导航。	  
+- `nav-up`	规定在使用 arrow-up 导航键时向何处导航。	  
+- `outline-offset`	对轮廓进行偏移，并在超出边框边缘的位置绘制轮廓。	  
+- `resize`	规定是否可由用户对元素的尺寸进行调整。	  
+
+__我这边简单介绍一下 浏览器支持比较好的 几个属性__  
+1. __box-sizing__: 改变css 的 width、height 在盒模型中的指向。  
+   - 因为css默认width指向的是盒模型的内容宽度(图中蓝色部分)，而 整个盒模型的宽度 = padding + border + 内容width，整个盒模型所占据文本流的位置还要包括其margin值。  
+   - 而一般我们所想的，我们设置的width值，应该是 整个盒模型的宽度，所以问题就产生了。  
+   - 那么这个`box-sizing`，就是用来解决width、height 在盒模型中的指向问题的。  
+   ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fusoa0l7n5j30ak0aa74j.jpg)  
+   
+   __语法：__   `box-sizing: content-box|border-box|inherit;`  
+   - `content-box` 默认，CSS2.1 规定的宽度高度行为。将width、height指向内容宽度，padding、border不被包括在内。  
+    _width、height指向如下图：_  
+    ![](https://ws3.sinaimg.cn/large/006tNbRwgy1fusob65rl6j30au0aeaam.jpg) 
+   - `border-box` width指向 内容宽度+padding+border，内容宽度根据减法自适应。height同理。  
+    _width、height指向如下图：_  
+    ![](https://ws2.sinaimg.cn/large/006tNbRwgy1fusob3mmr2j30au0aeq3i.jpg)
+   - `inherit`   继承 父元素 box-sizing属性的值。  
+   
+   __示例：__   
+   ```
+    div
+    {
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; /* Safari */
+    }
+   ``` 
+   __浏览器支持：__
+    ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fusofkoju7j30vc06oabn.jpg)
+    Internet Explorer、Opera 以及 Chrome 支持 box-sizing 属性。  
+    Firefox 支持替代的 -moz-box-sizing 属性。   
+
+2. __outline-offset__: 此属性对轮廓进行偏移。  
+   __语法：__   `outline-offset: length|inherit;`  
+   - `length`	轮廓与边框边缘的距离。  
+   - `inherit`	规定应从父元素继承 outline-offset 属性的值。  
+   
+   __示例：__   
+   ```
+    div
+    {
+    border:2px solid black;
+    outline:2px solid red;
+    outline-offset:15px;
+    }
+   ```  
+   __使用对比：__ _后者为使用了`outline-offset:15px;`_   
+   ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fuson2ha9gj30ck07mwev.jpg)
+   ![](https://ws2.sinaimg.cn/large/006tNbRwgy1fusomvlpg6j30cs08ajrs.jpg)  
+   __浏览器支持：__   
+    所有主流浏览器都支持 outline-offset 属性，除了 Internet Explorer。  
+
+__其余几个属性只有小部分浏览器支持__   
+[__参看所有转换属性的使用__](http://www.w3school.com.cn/css3/css3_user_interface.asp)  
 
 
 --- 
