@@ -171,7 +171,7 @@ Internet Explorer 9 需要前缀 -ms-
 <a id='id6'></a>
 
 ## CSS3 3D 转换
-__CSS3新增的3D变换属性：__  CSS3 3D 转换支持开发者在css代码中利用css3的3D函数，在页面里开发出3D的效果。
+__CSS3新增的3D变换属性：__  CSS3 3D 转换支持开发者在css代码中利用css3的3D函数，在页面里开发出一些简单的3D效果。  
 
 跳转 [CSS3-3D转换/RAEDME.md](../CSS3-3D转换/README.md)
 
@@ -315,7 +315,7 @@ __我这边简单介绍一下 浏览器支持比较好的 几个属性__
    - 而一般我们所想的，我们设置的width值，应该是 整个盒模型的宽度，所以问题就产生了。  
    - 那么这个`box-sizing`，就是用来解决width、height 在盒模型中的指向问题的。  
    ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fusoa0l7n5j30ak0aa74j.jpg)  
-   
+
    __语法：__   `box-sizing: content-box|border-box|inherit;`  
    - `content-box` 默认，CSS2.1 规定的宽度高度行为。将width、height指向内容宽度，padding、border不被包括在内。  
     _width、height指向如下图：_  

@@ -1,72 +1,196 @@
 # CSS3-3D转换  
-时间：2018年08月29日  
+时间：2018年08月31日  
 作者：Yrobot  
 
 __本页目录：__    
-[怎么使用](#id1)  
-- [平移函数translate()](#id11)
-- [旋转函数rotate()](#id12)
-- [缩放函数scale()](#id13)
-- [倾斜函数skew()](#id14)
-- [矩阵操作matrix()](#id15)  
+[3D元素的属性](#id1)  
+- [transform](#id11)
+- [transform-origin](#id12)
+- [transform-style](#id13)
+- [perspective](#id14)
+- [perspective-origin](#id15)  
+- [backface-visibility](#id16)  
 
-[浏览器支持](#id2)  
+[3D元素的方法](#id2)  
 
-__CSS3新增的3D变换属性：__  CSS3 3D 转换支持开发者在css代码中利用css3的3D函数，在页面里开发出3D的效果。
+__CSS3新增的3D变换属性：__  CSS3 3D 转换支持开发者在css代码中利用css3的3D函数，在页面里开发出一些简单的3D效果。  
 
 <a href="" id="id1"></a>
 
-## 怎么使用
+## 3D元素的属性
 <a href="" id="id11"></a>
 
-1. __translate()__：设置元素相对于当前的位置。  
-   __语法：__ `transform: translate(length,length);`  
-   - 设置元素基于当前位置向右向下偏移。   
-   - `length` 偏离的距离数据。  
-   __示例：__ `transform: translate(50px,100px);`  
-   ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fuockbel15j30ai0euwey.jpg) 
+1. __transform__：利用一些方法对元素进行2D或者3D转换。具体转换方法参看 [3D元素的方法](#id2)    
+   __语法：__ `transform: none|transform-functions;`  
+   - `none` 定义不进行转换。  
+   - `transform-functions` 使用[3D元素的方法](#id2)  
+  
 <a href="" id="id12"></a>
 
-2. __rotate()__：将元素进行顺时针旋转，旋转中心`transform-origin`进行设置，默认为元素中心  
-   __语法：__ `transform: rotate(rot);`     
-   - `rot` 元素顺时针转动的角度数据。   
-   __示例：__ `transform: rotate(30deg);`   
-   ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fuockq1b1rj308i0aggmc.jpg)
+2. __transform-origin__：设置元素坐标系原点的位置，影响到2D、3D的旋转效果    
+   __语法：__ `transform-origin: x-axis y-axis z-axis;`      
+   - x-axis	定义视图被置于 X 轴的何处。可能的值：  
+    _left_  
+    _center_  
+    _right_  
+    _length_  
+    _%_  
+   - y-axis	定义视图被置于 Y 轴的何处。可能的值：  
+    _top_  
+    _center_  
+    _bottom_  
+    _length_  
+    _%_  
+   - z-axis	定义视图被置于 Z 轴的何处。可能的值：  
+    _length_
+
+   __示例：__ `-webkit-transform-origin:20% 40%;	/* Safari 和 Chrome */`   
+
+   __取值对比：__  1.数字和百分比相对于左上角 2.关键字相对于整个元素  
+   ```
+    top = top center = center top = 50% 0  
+    right = right center = center right = 100%或(100% 50%)  
+    bottom = bottom center = center bottom = 50% 100%  
+    left = left center = center left = 0或(0 50%)   
+    center = center center = 50%或（50% 50%）  
+    top left = left top = 0 0  
+    right top = top right = 100% 0  
+    bottom right = right bottom = 100% 100%  
+    bottom left = left bottom = 0 100%  
+   ```
+   __浏览器支持__  
+  ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fut27g9rczj30v806oabn.jpg)
+  Internet Explorer 10、Firefox、Opera 支持 transform-origin 属性。  
+  Internet Explorer 9 支持替代的 -ms-transform-origin 属性（仅适用于 2D 转换）。  
+  Safari 和 Chrome 支持替代的 -webkit-transform-origin 属性（3D 和 2D 转换）。  
+  Opera 只支持 2D 转换。  
+
 <a href="" id="id13"></a>   
 
-3. __scale()__：使用scale方法来实现文字或图像的缩放处理  
-   __语法：__ `transform: scale(times);`     
-   - `times` 数字，表示相对于当前元素缩放的倍数。可以有两个参数，表示长宽。  
-   __示例：__ `transform: scale(0.5, 2);`   
-   ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fuoclaoa1uj30fa0lqjsf.jpg)
-<a href="" id="14"></a>
+3. __transform-style__：规定如何在 3D 空间中呈现被嵌套的元素  
+   __语法：__ `transform-style: flat|preserve-3d;`     
+   - `flat`	所有子元素在 2D 平面呈现。  
+      沿着X轴或Y轴方向旋转该元素将导致位于正或负Z轴位置的子元素显示在该元素的平面上，而不是它的前面或者后面。著作权归作者所有。  
+   - `preserve-3d`	子元素将保留其 3D 位置。    
+  
+   __示例：__ `-webkit-transform-style: preserve-3d;	/* Safari 和 Chrome */`  
+  
+   __浏览器支持__  
+  ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fut2ohsc19j30v006mtae.jpg)
+  Firefox 支持 transform-style 属性。  
+  Chrome、Safari 和 Opera 支持替代的 -webkit-transform-style 属性。 
+   
+<a href="" id="id14"></a>
 
-4. __skew()__：使用skew方法来实现文字或图像的倾斜处理，默认坐标中心在元素中心   
-   __语法：__ `transform: skew(rot);`  
-   - 参数中分布指定水平方向上的倾斜角度与垂直方向上的倾斜角度。第一个围绕X轴，第二个围绕Y轴    
-   - `rot` 一方向的倾斜角度。  
-   __示例：__ `transform: skew(30deg, 30deg);`   
-   ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fuocmattrhj30880a4jrw.jpg)
-<a href="" id="15"></a>
+4. __perspective__：perspective 属性定义 3D 元素距视图的距离，以像素计。（改变视角距离）  
+   - 提示：请与 perspective-origin 属性一同使用该属性，这样您就能够改变 3D 元素的底部位置。   
+   
+   __语法：__ `perspective: number|none;`  
+   - `number`	元素距离视图的距离，以像素计。  
+   - `none`	默认值。与 0 相同。不设置透视。  
+      
+   __示例：__ 
+    ```
+    div
+    {
+    perspective: 500;
+    -webkit-perspective: 500; /* Safari 和 Chrome */
+    }
+    ``` 
+    __浏览器支持__  
+  目前浏览器都不支持 perspective 属性。  
+  Chrome 和 Safari 支持替代的 -webkit-perspective 属性。  
+   
+<a href="" id="id15"></a>
 
-5. __matrix()__：矩阵操作。matrix() 方法可以把所有 2D 转换方法组合在一起  
-   __语法：__ `transform: matrix(a,b,c,d,e,f);`  
-   - 实际上，这6参数，对应的矩阵如下： _注意书写方向是竖着的_   
-     ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fuoak0zwuhj304302kq2w.jpg)  
-   - 进行运算：  
-     ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fuoaq82zpxj30cm02xwep.jpg)  
-     坐标就从[x,y]变成了[ax+cy+e,bx+dy+f]  
-   - 关于为什么要`3*3`的矩阵？   
-     主要是为了统一用矩阵乘的操作，其实平移只需要`2*2`，为了统一利用`3*3`乘法变相实现加法(平移)效果。具体思想参考计算机图形学    
-   __示例：__ `transform: matrix(1, 0, 0, 1, 30, 30);`根据运算，可以得出此矩阵可以将元素向右下平移[30,30]   
+5. __perspective-origin__：改变 3D 元素的底部位置（改变视角的朝向）  
+   __语法：__ `perspective-origin: x-axis y-axis;` 数字和百分比相对于左上角   
+   - x-axis	定义视图被置于 X 轴的何处。可能的值：  
+    _left_  
+    _center_  
+    _right_  
+    _length_  
+    _%_  
+   - y-axis	定义视图被置于 Y 轴的何处。可能的值：  
+    _top_  
+    _center_  
+    _bottom_  
+    _length_  
+    _%_  
 
+   __示例：__ 
+   ```
+   div
+    {
+    perspective:150;
+    perspective-origin: 10% 10%;
+    -webkit-perspective:150;	/* Safari 和 Chrome */
+    -webkit-perspective-origin: 10% 10%;	/* Safari 和 Chrome */
+    }
+   ```
+   __浏览器支持__  
+  目前浏览器都不支持 perspective-origin 属性。  
+  Chrome 和 Safari 支持替代的 -webkit-perspecitve-origin 属性。  
+
+<a href="" id="id16"></a>
+
+6. __backface-visibility__：backface-visibility 属性定义当元素不面向屏幕时是否可见。  
+   __语法：__ `backface-visibility 属性定义当元素不面向屏幕时是否可见。`   
+   - `visible`	背面是可见的。  
+   - `hidden`	背面是不可见的。  
+
+   __示例：__   
+   ```
+   div
+    {
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;	/* Chrome 和 Safari */
+    -moz-backface-visibility:hidden; 	/* Firefox */
+    -ms-backface-visibility:hidden; 	/* Internet Explorer */
+    }
+   ```
+   __浏览器支持__   
+  只有 Internet Explorer 10+ 和 Firefox 支持 backface-visibility 属性。  
+  Opera 15+、Safari 和 Chrome 支持替代的 -webkit-backface-visibility 属性。  
 <a id='id2'></a>
 
-## 浏览器支持  
+## 3D元素的方法  
+__语法：__ `transform: none|transform-functions;` 方法使用应该加`transform:`前缀   
+   - `none`	定义不进行转换。  
+   - `transform-functions`	3D变换函数。具体函数及功能如下：  
+      - _matrix3d(n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n)_	定义 3D 转换，使用 16 个值的 4x4 矩阵。  
+      - _translate3d(x,y,z)_	定义 3D 转化。  
+      - _translateX(x)_	定义 3D 转化，仅使用用于 X 轴的值。  
+      - _translateY(y)_	定义 3D 转化，仅使用用于 Y 轴的值。  
+      - _translateZ(z)_	定义 3D 转化，仅使用用于 Z 轴的值。  
+      - _scale3d(x,y,z)_	定义 3D 缩放转换。  
+      - _scaleX(x)_	定义 3D 缩放转换，通过给定一个 X 轴的值。  
+      - _scaleY(y)_	定义 3D 缩放转换，通过给定一个 Y 轴的值。  
+      - _scaleZ(z)_	定义 3D 缩放转换，通过给定一个 Z 轴的值。  
+      - _rotate3d(x,y,z,angle)_	定义 3D 旋转。  
+      - _rotateX(angle)_	定义沿 X 轴的 3D 旋转。  
+      - _rotateY(angle)_	定义沿 Y 轴的 3D 旋转。  
+      - _rotateZ(angle)_	定义沿 Z 轴的 3D 旋转。  
+      - _perspective(n)_	定义 3D 转换元素的透视视图。  
+  
+__示例：__   
+```
+div
+{
+transform:rotate(7deg);
+-ms-transform:rotate(7deg); 	/* IE 9 */
+-moz-transform:rotate(7deg); 	/* Firefox */
+-webkit-transform:rotate(7deg); /* Safari 和 Chrome */
+-o-transform:rotate(7deg); 	/* Opera */
+}
+```
+
+__浏览器支持__   
 ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fuqf7u1vz0j30u204ot9y.jpg)
-Internet Explorer 10 和 Firefox 支持 3D 转换。  
-Chrome 和 Safari 需要前缀 -webkit-。  
-Opera 仍然不支持 3D 转换（它只支持 2D 转换） 
+Internet Explorer 10、Firefox、Opera 支持 transform 属性。  
+Internet Explorer 9 支持替代的 -ms-transform 属性（仅适用于 2D 转换）。  
+Safari 和 Chrome 支持替代的 -webkit-transform 属性（3D 和 2D 转换）。  
+Opera 只支持 2D 转换。
 
 --- 
 ### [返回首页](/README.md)
