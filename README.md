@@ -19,7 +19,7 @@
 2. [CSS中可以和不可以继承的属性](HTML&CSS/CSS中可以和不可以继承的属性/README.md) 2018年08月24日
 3. HTML的meta标签
    1. [Meta标签—Viewport](HTML&CSS/HTML的meta标签/Meta标签—Viewport/README.md) 2018年08月25日
-4. [利用css绘制多边形]() 2018年08月31日
+4. [利用css绘制多边形](HTML&CSS/利用css绘制多边形/README.md) 2018年09月3日
 
 #### CSS3
 <a href="" id="CSS3"></a>
