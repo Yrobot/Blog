@@ -9,6 +9,8 @@
 [JS](#JS)  
 [JSON](#JSON)  
 [MarkDown](#MarkDown)  
+[微信小程序](#wechat)  
+[React](#react)  
 
 ## 技术列表
 
@@ -58,7 +60,20 @@
 
 1. [markdown注意点](MarkDown/markdown注意点/README.md) 2018年08月24日
 
+#### 微信小程序 
 
+<a href="" id="wechat"></a>
+
+1. [小程序的运行](微信小程序/小程序的运行/README.md) 2018年09月03日
+
+#### React 
+
+<a href="" id="react"></a>
+
+1. react的状态管理(数据管理)
+    1. [利用props状态提升](React/react的状态管理/利用props状态提升.md) 2018年09月18日
+    <!-- 2. [利用context注入](React/react的状态管理/利用context注入.md) 2018年09月18日
+    3. [利用react-redux](React/react的状态管理/利用react-redux.md) 2018年09月18日 -->
 
 
 ## 建博初衷

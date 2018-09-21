@@ -11,6 +11,9 @@ __本页目录：__
 
 __CSS3新增的动画属性：__  通过CSS3动画，我们能够创建动画，这可以在许多网页中取代动画图片、Flash动画 以及 JavaScript。作为页面切换的交互动画。
 
+__NOTE：__  
+1. 一个元素要使用多个动画时（比如前一秒动画1，后面动画2），可以在css属性中用一个animation表示，动画之间用逗号相隔。例子：`animation: animation1 1s, animation2 1s 1s infinite alternate ;`
+
 <a id='id1'></a>
 
 ## 怎么使用
