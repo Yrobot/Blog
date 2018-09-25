@@ -72,8 +72,8 @@
 
 1. react的状态管理(数据管理)
     1. [利用props状态提升](React/react的状态管理/利用props状态提升.md) 2018年09月18日
-    <!-- 2. [利用context注入](React/react的状态管理/利用context注入.md) 2018年09月18日
-    3. [利用react-redux](React/react的状态管理/利用react-redux.md) 2018年09月18日 -->
+    2. [利用context注入](React/react的状态管理/利用context注入.md) 2018年09月22日
+    3. [利用react-redux](React/react的状态管理/利用react-redux.md) 2018年09月25日
 
 
 ## 建博初衷
