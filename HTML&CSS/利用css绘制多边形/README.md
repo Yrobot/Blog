@@ -326,4 +326,5 @@ __css的伪元素：__ 之所以被称为伪元素，是因为他们不是真正
 ```
 ![](https://ws3.sinaimg.cn/large/0069RVTdgy1fuwe4xtv6lj30ec0dowen.jpg)
 --- 
-### [返回首页](/README.md)
+### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [返回首页](../../README.md)

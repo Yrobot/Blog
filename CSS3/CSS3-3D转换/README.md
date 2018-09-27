@@ -199,4 +199,5 @@ Safari 和 Chrome 支持替代的 -webkit-transform 属性（3D 和 2D 转换）
 Opera 只支持 2D 转换。
 
 --- 
-### [返回首页](/README.md)
+### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [返回首页](../../README.md)

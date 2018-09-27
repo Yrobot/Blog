@@ -16,11 +16,11 @@ __本页目录：__
 ## 问题的起因
 - 事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。  
 - 考虑下面这段代码，就不写html->head,body之类的代码了，自行脑补  
-```
-<div id="outer">
-    <p id="inner">Click me!</p>
-</div>
-```
+    ```
+    <div id="outer">
+        <p id="inner">Click me!</p>
+    </div>
+    ```
 - 上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？  
 - 为了解决这个问题微软和网景提出了两种几乎完全相反的概念：__事件冒泡 和 事件捕获__。 
 
@@ -119,4 +119,5 @@ IE浏览器对addEventListener兼容性并不算太好，只有IE9以上可以�
 两个参数与`addEventListener`相似，分别是事件和处理函数，默认是事件冒泡阶段调用处理函数，要注意的是，写事件名时候要加上"`on`"前缀（"`onload`"、"`onclick`"等）。
 
 --- 
-### [返回首页](/README.md)
+### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [返回首页](../../README.md)

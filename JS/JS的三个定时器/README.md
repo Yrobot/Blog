@@ -106,4 +106,5 @@ if (!Date.now)
 ```
 ---  
 *本章节部分参考[一像素 博客](https://www.cnblogs.com/onepixel/p/7078617.html)，在此感谢！*
-### [返回首页](/README.md)
+### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [返回首页](../../README.md)

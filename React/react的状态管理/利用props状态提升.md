@@ -103,4 +103,5 @@ class Content extends Component {
 
 --- 
 *本章节部分参考[React.js 小书](http://huziketang.mangojuice.top/books/react/lesson29)，在此感谢！*
-### [返回首页](/README.md)
+### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [返回首页](../../README.md)

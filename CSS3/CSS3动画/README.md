@@ -166,4 +166,5 @@ Internet Explorer 10、Firefox 以及 Opera 支持 @keyframes 规则和 animatio
 Chrome 和 Safari 需要前缀 -webkit-。
 
 --- 
-### [返回首页](/README.md)
+### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [返回首页](../../README.md)

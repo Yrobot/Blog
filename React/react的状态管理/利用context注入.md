@@ -146,4 +146,5 @@ class Content extends Component {
 
 --- 
 
-### [返回首页](/README.md)
+### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [返回首页](../../README.md)

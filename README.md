@@ -1,6 +1,6 @@
 # Yrobot的前端技术博客
 
-您的Star是我进行创作的动力！
+[您的Star是我进行创作的动力!](https://github.com/Yrobot/Yrobot-FrontEnd-Blog)
 
 ## 目录
 

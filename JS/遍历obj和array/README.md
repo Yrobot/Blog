@@ -64,4 +64,5 @@ arr.forEach(function callback(value[, index[, array]]) { // value:属性值，in
     3. 利用object.keys()方法获取keys，再用keys.forEach()遍历获取属性值
 
 --- 
-### [返回首页](/README.md)
+### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [返回首页](../../README.md)
