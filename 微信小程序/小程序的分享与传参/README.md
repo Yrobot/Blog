@@ -126,11 +126,13 @@ __缺点：__
 ## 二维码传参
 #### 方法简述
 利用小程序生成二维码的API生成二维码，让用户直接分享二维码  
+
 #### 方法步骤
 1. 利用appID和appSECRET获取access_token
 2. 利用access_token作为参数请求二维码API
 3. 接口返回二维码的二进制数据，处理成url
 4. 利用wx接口下载url并保存
+
 #### 注意点
 官方二维码生成接口有3种方法，具体参考[官方API](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/qr-code.html)      
 三种方式的参数和url，data格式都不一样，具体可以参考[博客链接](https://www.jianshu.com/p/441882c67b6a)   
@@ -142,12 +144,14 @@ __缺点：__
 ## shareTicket
 #### 方法简述
 shareTicket的作用是用来换取 群的openID  
+
 #### 方法步骤
 1. 在showSHareMenu()或者updateShareMenu()中设置shareTicket为true
 2. 将小程序分享到群中
 3. 有用户打开此链接后,即可在App.onLaunch 或 App.onShow 获取到一个 shareTicket
 4. 利用wx.getShareInfo将shareTicket转化成加密数据
-5. 加密数据解密后获得 群openID
+5. 加密数据解密后获得 群openID 
+
 #### 注意点
 1. 18年10月10号，微信关闭分享回调函数，所以无法再用户分享会后立刻获得shareTicket
 2. 使用App.onLaunch获取要注意，App.onLaunch只在小程序初始化时触发，即当已经打开小程序，再去群里点击链接，是不会触发App.onLaunch的。推荐使用App.onShow
@@ -197,10 +201,12 @@ onShow: options => {
 #### 方法简述
 利用剪切板监听的方式，获取页面和参数   
 功能类似于淘宝、支付宝的分享   
+
 #### 方法内容
 - 利用wx.setClipboardData设置剪切板内容  
 - 利用wx.getClipboardData获取剪切内容  
 - 监听到剪切板时当前小程序的分享字符串时，进行解析、跳转  
+
 #### 注意点
 注意传参的话最好进行加密混淆、否则明码容易被用户手动替换   
 最好就是对整体进行签名，签名认证不一致(用户修改过)就不进行解析   
