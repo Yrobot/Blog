@@ -2,7 +2,7 @@
 
 [使用Github Pages展示以获取更好的阅读体验](https://yrobot.github.io/Yrobot-FrontEnd-Blog/)
 
-[去Github页给Yrobot小星星](https://github.com/Yrobot/Yrobot-FrontEnd-Blog)
+[去Github页给 Yrobot 小星星✨](https://github.com/Yrobot/Yrobot-FrontEnd-Blog)
 
 ## 目录
 
