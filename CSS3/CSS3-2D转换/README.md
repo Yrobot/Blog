@@ -68,5 +68,5 @@ Chrome 和 Safari 需要前缀 -webkit-
 Internet Explorer 9 需要前缀 -ms-  
 
 --- 
-### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
 ### [返回首页](../../README.md)

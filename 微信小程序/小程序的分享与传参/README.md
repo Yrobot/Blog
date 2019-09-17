@@ -230,5 +230,5 @@ onShow: options => {
 [微信开放社区 - “分享监听”能力调整](https://developers.weixin.qq.com/community/develop/doc/0000447a5b431807af57249a551408?highLine=%25E5%2588%2586%25E4%25BA%25AB%25E5%259B%259E%25E8%25B0%2583%25E6%2588%2590%25E5%258A%259F)[时间准确]
 
 --- 
-### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
 ### [返回首页](../../README.md)

@@ -20,7 +20,7 @@ __本页目录：__
 
 <a id='nest'></a>
 
-## display有哪些值,以及作用
+## html元素嵌套规则
 
 1. 块级元素可以包含内联元素或某些块级元素，但内联元素不能包含块级元素，它只能包含其它内联元素。
 2. 块级元素不能放在p里面。
@@ -29,5 +29,5 @@ __本页目录：__
 5. 块级元素与块级元素并列、内联元素与内联元素并列。
 
 --- 
-### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
 ### [返回首页](../../README.md)

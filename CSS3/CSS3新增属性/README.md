@@ -364,5 +364,5 @@ __其余几个属性只有小部分浏览器支持__
 
 
 --- 
-### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
 ### [返回首页](../../README.md)

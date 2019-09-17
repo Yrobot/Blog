@@ -119,5 +119,5 @@ IE浏览器对addEventListener兼容性并不算太好，只有IE9以上可以�
 两个参数与`addEventListener`相似，分别是事件和处理函数，默认是事件冒泡阶段调用处理函数，要注意的是，写事件名时候要加上"`on`"前缀（"`onload`"、"`onclick`"等）。
 
 --- 
-### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
 ### [返回首页](../../README.md)

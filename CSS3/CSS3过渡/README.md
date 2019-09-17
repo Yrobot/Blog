@@ -50,5 +50,5 @@ Internet Explorer 10、Firefox、Chrome 以及 Opera 支持 transition 属性。
 Safari 需要前缀 -webkit-。
 
 --- 
-### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
 ### [返回首页](../../README.md)

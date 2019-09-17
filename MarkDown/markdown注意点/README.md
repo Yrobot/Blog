@@ -26,5 +26,5 @@ __解决方案__：直接使用a标签即可
 - 个人vscode的.md文件一直不提示，无奈修改"editor.action.triggerSuggest"快捷键，强制唤醒md文件的代码提示。
 
 --- 
-### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
 ### [返回首页](../../README.md)

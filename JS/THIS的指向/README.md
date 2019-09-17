@@ -34,5 +34,5 @@ __本页目录：__
 5. html元素脚本中，函数参数中的`this`指向元素本身  
 
 ---
-### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
 ### [返回首页](../../README.md)

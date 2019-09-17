@@ -153,5 +153,5 @@ export default connect(  //绑定组件 //高阶组件:函数接受一个组件�
 
 --- 
 
-### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
 ### [返回首页](../../README.md)
