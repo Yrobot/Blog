@@ -160,5 +160,5 @@ function  sliceJob() {
 但是异步过程在执行的过程中，如果耗时过长，仍然会阻塞浏览器线程，导致浏览器不可操作（卡死）。  
 
 ---
-### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
 ### [返回首页](../../README.md)

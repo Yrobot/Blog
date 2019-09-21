@@ -56,6 +56,6 @@ ECMAScript 5对解析JSON的行为进行了规范，定义了全局对象JSON。
    
 
 
-### [评论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
 ### [返回首页](../../README.md)
 
