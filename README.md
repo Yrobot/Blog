@@ -54,6 +54,7 @@
 6. [JS函数与闭包](JS/JS函数与闭包/README.md) 2018年08月24日
 7. [JS-DOM事件触发机制](JS/JS-DOM事件触发机制/README.md) 2018年08月24日
 8. [DOM操作](JS/DOM操作/README.md) 2018年09月26日
+9. [JS模块化](JS/JS模块化/README.md) 2019年10月15日
 
 #### JSON
 <a href="" id="JSON"></a>
