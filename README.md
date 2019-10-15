@@ -55,6 +55,8 @@
 7. [JS-DOM事件触发机制](JS/JS-DOM事件触发机制/README.md) 2018年08月24日
 8. [DOM操作](JS/DOM操作/README.md) 2018年09月26日
 9. [JS模块化](JS/JS模块化/README.md) 2019年10月15日
+9. [探讨ESM对当前开发的意义或影响](JS/探讨ESM对当前开发的意义或影响/README.md) 2019年10月15日
+9. [浏览器是怎么处理多个defer或async的script的](JS/浏览器是怎么处理多个defer或async的script的/README.md) 2019年10月15日
 
 #### JSON
 <a href="" id="JSON"></a>
