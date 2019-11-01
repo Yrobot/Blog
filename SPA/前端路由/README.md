@@ -1,6 +1,6 @@
 <a id='top'></a>
 # 前端路由 
-时间：2019年11月1日
+时间：2019年11月1日  
 作者：Yrobot  
 
 <a href="#top" style="position: fixed;font-size: 30px;color: rgb(88, 153, 226);right: 10px;bottom: 20px;z-index: 999;">TOP</a>
@@ -9,7 +9,7 @@ __本页目录：__
 [前世今生](#compare)  
 [前端路由需要做什么](#what)    
 [没有路由系统的SPA的弊端](#bad)    
-[前端路由的实现](#cometrue)    
+[前端路由的实现](#cometrue) 
 
 
 <a id='compare'></a>

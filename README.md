@@ -12,7 +12,7 @@
 [JSON](#JSON)  
 [MarkDown](#MarkDown)  
 [微信小程序](#wechat)  
-[React](#react)  
+[SPA](#SPA)  
 [计算机网络](#net)  
 
 ## 技术列表
@@ -77,7 +77,7 @@
 
 #### SPA 
 
-<a href="" id="react"></a>
+<a href="" id="SPA"></a>
 
 1. react的状态管理(数据管理)
     1. [利用props状态提升](SPA/react的状态管理/利用props状态提升.md) 2018年09月18日
