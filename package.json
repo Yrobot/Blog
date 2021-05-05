@@ -1,0 +1,43 @@
+{
+  "name": "yrobot-blog",
+  "version": "1.0.0",
+  "description": "yrobot's blog",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "export": "next build && next export"
+  },
+  "dependencies": {
+    "dayjs": "^1.10.4",
+    "next": "latest",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.1",
+    "fdir": "^5.0.0",
+    "gray-matter": "4.0.2",
+    "gray-matter-editor": "^1.0.0",
+    "nodejieba": "^2.5.2",
+    "postcss": "^8.2.4",
+    "remark": "13.0.0",
+    "remark-html": "13.0.1",
+    "tailwindcss": "^2.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yrobot/Blog.git"
+  },
+  "keywords": [
+    "yrobot",
+    "blog",
+    "nextjs"
+  ],
+  "author": "yrobot",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Yrobot/Blog/issues"
+  },
+  "homepage": "https://github.com/Yrobot/Blog#readme"
+}

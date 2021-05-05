@@ -1,0 +1,40 @@
+---
+title: display 属性
+author: yrobot
+keywords: display,属性
+createTime: 1535040000000
+createTimeStr: 2018年08月24日
+---
+# display 属性  
+时间：2018年08月24日  
+作者：Yrobot  
+
+__本页目录：__   
+[display有哪些值,以及作用](#display)  
+[html元素嵌套规则](#nest)  
+
+<a id='display'></a>
+
+## display有哪些值,以及作用
+
+  - block 块类型。默认宽度为父元素宽度，可设置宽高，换行显示。
+  - none 缺省值。像行内元素类型一样显示。
+  - inline 行内元素类型。默认宽度为内容宽度，__不可设置宽高、margin上下、padding上下__，同行显示。
+  - inline-block 默认宽度为内容宽度，可以设置宽高，同行显示。__元素间会有间隙__（HTML 中的换行符、空格符、制表符等合并为空白符，字体大小不为 0 的情况下，空白符自然占据一定的宽度，使用inline-block 会产生元素间的空隙）
+  - list-item 像块类型元素一样显示，并添加样式列表标记。
+  - table 此元素会作为块级表格来显示。
+  - inherit 规定应该从父元素继承display属性的值
+
+<a id='nest'></a>
+
+## html元素嵌套规则
+
+1. 块级元素可以包含内联元素或某些块级元素，但内联元素不能包含块级元素，它只能包含其它内联元素。
+2. 块级元素不能放在p里面。
+3. 有几个特殊的块级元素只能包含内联元素，不能包含块级元素。如h1,h2,h3,h4,h5,h6,p,dt
+4. li内可以包含div
+5. 块级元素与块级元素并列、内联元素与内联元素并列。
+
+--- 
+### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
+### [返回首页](../../README.md)
