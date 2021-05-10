@@ -9,6 +9,7 @@
     "export": "next build && next export"
   },
   "dependencies": {
+    "classnames": "^2.3.1",
     "date-fns": "^2.21.2",
     "dayjs": "^1.10.4",
     "next": "latest",

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
-import styles from './Comment.module.sass';
+import styles from './index.module.sass';
 
-export default function Comment({ ...props }) {
+export default function Comment(props) {
   useEffect(() => {
     new Valine({
       el: '#vcomments',
@@ -12,6 +12,7 @@ export default function Comment({ ...props }) {
       avatar: 'hide',
       recordIP: true,
       requiredFields: ['nick'],
+      ...props,
     });
   }, []);
   return (

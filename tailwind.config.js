@@ -2,32 +2,43 @@ module.exports = {
   purge: ['./components/**/*.js', './pages/**/*.js'],
   theme: {
     extend: {
-      colors: {
-        'accent-1': '#FAFAFA',
-        'accent-2': '#EAEAEA',
-        'accent-7': '#333',
-        success: '#0070f3',
-        cyan: '#79FFE1',
-      },
-      spacing: {
-        28: '7rem',
-      },
-      letterSpacing: {
-        tighter: '-.04em',
-      },
-      lineHeight: {
-        tight: 1.2,
+      boxShadow: {
+        menu: '20px 20px 40px rgba(0, 0, 0, 0.25)',
       },
       fontSize: {
-        '5xl': '2.5rem',
-        '6xl': '2.75rem',
-        '7xl': '4.5rem',
-        '8xl': '6.25rem',
+        '16px': ['16px', '16px'],
+        '20px': ['20px', '20px'],
+        '30px': ['30px', '30px'],
+        '50px': ['50px', '50px'],
+        '60px': ['60px', '60px'],
       },
-      boxShadow: {
-        sm: '0 5px 10px rgba(0, 0, 0, 0.12)',
-        md: '0 8px 30px rgba(0, 0, 0, 0.12)',
+      width: {
+        '20px': '20px',
+        '30px': '30px',
+        '50px': '50px',
+        '60px': '60px',
+        '90px': '90px',
+        '120px': '120px',
+        '580px': '580px',
+        '600px': '600px',
+        '850px': '850px',
+      },
+      height: {
+        '20px': '20px',
+        '30px': '30px',
+        '50px': '50px',
+        '60px': '60px',
+        '90px': '90px',
+        '120px': '120px',
+        '580px': '580px',
+        '600px': '600px',
+        '850px': '850px',
+      },
+      margin: {
+        '15px': '15px',
+        '20px': '20px',
+        '50px': '50px',
       },
     },
   },
-}
+};

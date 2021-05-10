@@ -1,15 +1,26 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-export default class MyDocument extends Document {
+class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
-        <Head />
+      <Html>
+        <Head>
+          <link
+            rel='preload'
+            href='//at.alicdn.com/t/font_2533274_yhzuq4j0hfr.woff2'
+            as='font'
+            type='font/woff2'
+            crossorigin='anonymous'
+          />
+          <link rel='stylesheet' href='//at.alicdn.com/t/font_2533274_yhzuq4j0hfr.css' />
+        </Head>
         <body>
           <Main />
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
+
+export default MyDocument;
