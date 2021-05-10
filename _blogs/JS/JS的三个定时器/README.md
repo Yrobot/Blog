@@ -4,10 +4,11 @@ author: yrobot
 keywords: JS,定时器,三个
 createTime: 1535040000000
 createTimeStr: 2018年08月24日
+length: 4228
 ---
 # JS的三个定时器  
-时间：2018年08月24日   
-作者：Yrobot  
+   
+ 
 
 __本页目录：__   
 [setTimeout](#setTimeout)  
@@ -113,5 +114,5 @@ if (!Date.now)
 ```
 ---  
 *本章节部分参考[一像素 博客](https://www.cnblogs.com/onepixel/p/7078617.html)，在此感谢！*
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)
+
+

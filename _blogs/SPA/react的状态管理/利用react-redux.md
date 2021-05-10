@@ -4,11 +4,9 @@ author: yrobot
 keywords: react,redux,状态管理,利用
 createTime: 1537632000000
 createTimeStr: 2018年09月23日
+length: 3707
 ---
 # react的状态管理—利用react-redux 
-时间：2018年09月23日  
-作者：Yrobot  
-
 __本页目录：__   
 [场景思考](#index)  
 [利用react-redux](#redux)  
@@ -158,7 +156,4 @@ export default connect(  //绑定组件 //高阶组件:函数接受一个组件�
 )(Content);
 ```
 
---- 
 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

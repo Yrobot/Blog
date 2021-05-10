@@ -4,12 +4,11 @@ author: yrobot
 keywords: ESM,探讨,意义,当前,开发,影响
 createTime: 1571068800000
 createTimeStr: 2019年10月15日
+length: 1634
 ---
 <a id='top'></a>
-# 探讨ESM对当前开发的意义或影响  
-时间：2019年10月15日  
-作者：Yrobot  
 
+# 探讨ESM对当前开发的意义或影响  
 <a href="#top" style="position: fixed;font-size: 30px;color: rgb(88, 153, 226);right: 10px;bottom: 20px;z-index: 999;">TOP</a>
 
 __本页目录：__   
@@ -50,7 +49,4 @@ A：[浏览器是怎么处理多个defer或async的script的](../浏览器是怎
 ## 总的来说  
 1. 对于一些大项目，势必会用到打包工具进行优化（代码压缩，label，eslint），然而es6原生模块支持即使在良好的关系网维护以及浏览器预解析关系网并预加载依赖的最好情况下，加载时间也不比commonjs打包成一整个js文件快多少。但是维护依赖关系网这件事也并不轻松。所以大项目使用ESM的意义目前来看并不是很大。  
 2. 但是对于一些小项目，总共js依赖文件没多少的那种，使用webpack这种臃肿的大包工具并不会对项目起到多大的优化作用，那么何尝不试试直接使用ESM，开发静态网页的快感谁试谁知道，所以出现了将commonjs模块标准转换成ESM的工具[@pika/web](https://github.com/pikapkg/web)。
-
---- 
-### [返回首页](../../README.md)
 

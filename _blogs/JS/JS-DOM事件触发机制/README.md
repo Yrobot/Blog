@@ -4,11 +4,9 @@ author: yrobot
 keywords: DOM,JS,触发,机制,事件
 createTime: 1535040000000
 createTimeStr: 2018年08月24日
+length: 3416
 ---
 # JS-DOM事件触发机制  
-时间：2018年08月24日  
-作者：Yrobot  
-
 __本页目录：__   
 [问题的起因](#id1)  
 [事件冒泡](#id2)  
@@ -125,6 +123,3 @@ IE浏览器对addEventListener兼容性并不算太好，只有IE9以上可以�
 
 两个参数与`addEventListener`相似，分别是事件和处理函数，默认是事件冒泡阶段调用处理函数，要注意的是，写事件名时候要加上"`on`"前缀（"`onload`"、"`onclick`"等）。
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

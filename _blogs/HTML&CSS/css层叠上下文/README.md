@@ -4,11 +4,9 @@ author: yrobot
 keywords: css,层叠,上下文
 createTime: 1568649600000
 createTimeStr: 2019年09月17日
+length: 1515
 ---
 # css层叠上下文 
-时间：2019年09月17日  
-作者：Yrobot  
-
 __本页目录：__   
 [元素之间有重叠，浏览器要怎么展示呢](#question)  
 [怎么确定元素层叠关系](#how)  
@@ -92,6 +90,3 @@ C1-B1 => C1-B1
 2. 再根据[层叠顺序](#xdsx)的规则去判断元素的层叠关系吧！！！
 
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

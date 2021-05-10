@@ -4,11 +4,9 @@ author: yrobot
 keywords: CSS3,动画
 createTime: 1535385600000
 createTimeStr: 2018年08月28日
+length: 4452
 ---
 # CSS3动画  
-时间：2018年08月28日  
-作者：Yrobot  
-
 __本页目录：__   
 [怎么使用](#id1)  
 - [定义动画](#id11)
@@ -172,6 +170,3 @@ __NOTE：__
 Internet Explorer 10、Firefox 以及 Opera 支持 @keyframes 规则和 animation 属性。  
 Chrome 和 Safari 需要前缀 -webkit-。
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

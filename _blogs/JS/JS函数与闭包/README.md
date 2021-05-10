@@ -4,11 +4,9 @@ author: yrobot
 keywords: 闭包,JS,函数
 createTime: 1535040000000
 createTimeStr: 2018年08月24日
+length: 2063
 ---
 # JS函数与闭包  
-时间：2018年08月24日  
-作者：Yrobot  
-
 __本页目录：__   
 [JS函数](#func)  
 [闭包](#bibao)  
@@ -83,6 +81,3 @@ compareNames = null;
   2. 作用域链的这种配置机制引出了一个值得注意的副作用，即闭包只能取得包含函数中任何变量的后一个值。  
 
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

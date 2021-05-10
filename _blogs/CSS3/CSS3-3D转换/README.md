@@ -1,14 +1,12 @@
 ---
 title: CSS3-3D转换
 author: yrobot
-keywords: CSS3,转换
+keywords: 3D,CSS3,转换
 createTime: 1535644800000
 createTimeStr: 2018年08月31日
+length: 5674
 ---
 # CSS3-3D转换  
-时间：2018年08月31日  
-作者：Yrobot  
-
 __本页目录：__    
 [3D元素的属性](#id1)  
 - [transform](#id11)
@@ -205,6 +203,3 @@ Internet Explorer 9 支持替代的 -ms-transform 属性（仅适用于 2D 转�
 Safari 和 Chrome 支持替代的 -webkit-transform 属性（3D 和 2D 转换）。  
 Opera 只支持 2D 转换。
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

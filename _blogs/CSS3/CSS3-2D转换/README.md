@@ -1,14 +1,12 @@
 ---
 title: CSS3-2D转换
 author: yrobot
-keywords: CSS3,转换
+keywords: 2D,CSS3,转换
 createTime: 1535385600000
 createTimeStr: 2018年08月28日
+length: 2284
 ---
 # CSS3-2D转换  
-时间：2018年08月28日  
-作者：Yrobot  
-
 __本页目录：__    
 [怎么使用](#id1)  
 - [平移函数translate()](#id11)
@@ -74,6 +72,3 @@ __CSS3新增的2D变换属性：__   通过 CSS3 转换，我们能够对元素�
 Chrome 和 Safari 需要前缀 -webkit-  
 Internet Explorer 9 需要前缀 -ms-  
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

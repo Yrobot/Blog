@@ -4,11 +4,9 @@ author: yrobot
 keywords: JS,异步,编程
 createTime: 1535040000000
 createTimeStr: 2018年08月24日
+length: 4481
 ---
 # JS异步编程  
-时间：2018年08月24日  
-作者：Yrobot  
-
 __本页目录：__   
 [概念学习](#gn)   
 [浏览器线程和Event Loop](#eventLoop)   
@@ -167,5 +165,5 @@ function  sliceJob() {
 但是异步过程在执行的过程中，如果耗时过长，仍然会阻塞浏览器线程，导致浏览器不可操作（卡死）。  
 
 ---
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)
+
+

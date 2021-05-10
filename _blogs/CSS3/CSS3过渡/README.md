@@ -4,11 +4,9 @@ author: yrobot
 keywords: CSS3,过渡
 createTime: 1535385600000
 createTimeStr: 2018年08月28日
+length: 1599
 ---
 # CSS3过渡  
-时间：2018年08月28日  
-作者：Yrobot  
-
 __本页目录：__   
 [用前思考](#id1)  
 [怎么使用](#id2)  
@@ -56,6 +54,3 @@ _cubic-bezier(n,n,n,n)_ ： 在 cubic-bezier 函数中定义自己的值。可�
 Internet Explorer 10、Firefox、Chrome 以及 Opera 支持 transition 属性。  
 Safari 需要前缀 -webkit-。
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

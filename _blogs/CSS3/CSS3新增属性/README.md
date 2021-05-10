@@ -4,11 +4,9 @@ author: yrobot
 keywords: CSS3,属性,新增
 createTime: 1535299200000
 createTimeStr: 2018年08月27日
+length: 11420
 ---
 # CSS3新增属性  
-时间：2018年08月27日  
-作者：Yrobot  
-
 __本页目录：__   
 [CSS3 边框](#id1)  
 [CSS3 背景](#id2)  
@@ -370,6 +368,3 @@ __其余几个属性只有小部分浏览器支持__
 [__参看所有转换属性的使用__](http://www.w3school.com.cn/css3/css3_user_interface.asp)  
 
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

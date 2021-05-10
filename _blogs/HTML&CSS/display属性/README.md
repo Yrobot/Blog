@@ -4,11 +4,9 @@ author: yrobot
 keywords: display,属性
 createTime: 1535040000000
 createTimeStr: 2018年08月24日
+length: 809
 ---
 # display 属性  
-时间：2018年08月24日  
-作者：Yrobot  
-
 __本页目录：__   
 [display有哪些值,以及作用](#display)  
 [html元素嵌套规则](#nest)  
@@ -35,6 +33,3 @@ __本页目录：__
 4. li内可以包含div
 5. 块级元素与块级元素并列、内联元素与内联元素并列。
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

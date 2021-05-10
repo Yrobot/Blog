@@ -4,11 +4,9 @@ author: yrobot
 keywords: array,obj,遍历
 createTime: 1535040000000
 createTimeStr: 2018年08月24日
+length: 1525
 ---
 # 遍历obj和array  
-时间：2018年08月24日  
-作者：Yrobot  
-
 __本页目录：__   
 [基础for循环](#for)  
 [for in 循环](#forin)  
@@ -70,6 +68,3 @@ arr.forEach(function callback(value[, index[, array]]) { // value:属性值，in
     2. for in利用属性名获取属性值
     3. 利用object.keys()方法获取keys，再用keys.forEach()遍历获取属性值
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

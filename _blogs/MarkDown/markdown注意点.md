@@ -4,11 +4,9 @@ author: yrobot
 keywords: markdown,注意
 createTime: 1535040000000
 createTimeStr: 2018年08月24日
+length: 525
 ---
 # markdown注意点  
-时间：2018年08月24日  
-作者：Yrobot  
-
 __本页目录：__   
 [链接](#url)  
 [VS-Code:snippet](#snippet)  
@@ -32,6 +30,3 @@ __解决方案__：直接使用a标签即可
 - 可以在vscode用户代码块添加对markdown的snippet。
 - 个人vscode的.md文件一直不提示，无奈修改"editor.action.triggerSuggest"快捷键，强制唤醒md文件的代码提示。
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

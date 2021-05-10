@@ -4,12 +4,10 @@ author: yrobot
 keywords: DOM,操作
 createTime: 1537977600000
 createTimeStr: 2018年09月27日
+length: 6747
 ---
 <a id='top'></a>
 # DOM操作  
-时间：2018年09月27日  
-作者：Yrobot  
-
 <a href="#top" style="position: fixed;font-size: 30px;color: rgb(88, 153, 226);right: 10px;bottom: 20px;z-index: 999;">TOP</a>
 
 __本页目录：__   
@@ -199,7 +197,4 @@ __本页目录：__
 2. `DOM.offsetLeft`：返回当前元素左上角相对于  HTMLElement.offsetParent (距离元素的最近的父级定位元素) 节点的左边界偏移的像素值。
 3. `DOM.scrollLeft` 属性可以读取或设置元素滚动条到元素左边的距离。
 
-
---- 
-### [返回首页](../../README.md)
 

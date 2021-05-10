@@ -4,11 +4,9 @@ author: yrobot
 keywords: Meta,Viewport,标签
 createTime: 1535126400000
 createTimeStr: 2018年08月25日
+length: 4561
 ---
 # Meta标签—Viewport  
-时间：2018年08月25日  
-作者：Yrobot  
-
 __本页目录：__   
 [Viewport概念](#id1)  
 [看下效果](#id2)  
@@ -134,6 +132,3 @@ if(document.documentElement.clientWidth >=600) {
 
 
 
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

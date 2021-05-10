@@ -4,12 +4,11 @@ author: yrobot
 keywords: JS,模块化
 createTime: 1571068800000
 createTimeStr: 2019年10月15日
+length: 5233
 ---
 <a id='top'></a>
-# JS模块化  
-时间：2019年10月15日  
-作者：Yrobot  
 
+# JS模块化  
 <a href="#top" style="position: fixed;font-size: 30px;color: rgb(88, 153, 226);right: 10px;bottom: 20px;z-index: 999;">TOP</a>
 
 __本页目录：__   
@@ -200,7 +199,4 @@ CMD推崇就近依赖，不像AMD在一开始就指明依赖，CMD只有在用�
     };
     ```
 2. CommonJS 模块是运行时加载，ES6 模块是编译时输出接口
-
---- 
-### [返回首页](../../README.md)
 

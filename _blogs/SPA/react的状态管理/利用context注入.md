@@ -4,11 +4,9 @@ author: yrobot
 keywords: context,状态管理,react,注入,利用
 createTime: 1537545600000
 createTimeStr: 2018年09月22日
+length: 3544
 ---
 # react的状态管理—利用context注入  
-时间：2018年09月22日  
-作者：Yrobot  
-
 __本页目录：__   
 [场景思考](#index)  
 [利用context注入](#context)  
@@ -151,7 +149,4 @@ class Content extends Component {
 }
 ```
 
---- 
 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

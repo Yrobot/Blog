@@ -4,11 +4,9 @@ author: yrobot
 keywords: css,多边形,绘制,利用
 createTime: 1535904000000
 createTimeStr: 2018年09月03日
+length: 7151
 ---
 # 利用css绘制多边形  
-时间：2018年09月03日  
-作者：Yrobot  
-
 本文主要讲解内容：  
 1. css绘制多边形的原理(一定要理解)  
 2. 一些简单多边形的绘制示例  
@@ -332,6 +330,3 @@ __css的伪元素：__ 之所以被称为伪元素，是因为他们不是真正
 }
 ```
 ![](https://ws3.sinaimg.cn/large/0069RVTdgy1fuwe4xtv6lj30ec0dowen.jpg)
---- 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)

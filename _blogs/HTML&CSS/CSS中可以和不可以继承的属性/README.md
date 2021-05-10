@@ -4,10 +4,11 @@ author: yrobot
 keywords: CSS,属性,继承
 createTime: 1535040000000
 createTimeStr: 2018年08月24日
+length: 2705
 ---
 # CSS中可以和不可以继承的属性    
-时间：2018年08月24日    
-作者：Yrobot    
+    
+   
   
 __本页目录：__     
 [无继承性的属性](#id1)    
@@ -82,5 +83,5 @@ color：文本颜色
 1. text-indent、text-align
   
 ---   
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)  
+
+  

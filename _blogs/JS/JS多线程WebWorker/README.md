@@ -4,11 +4,9 @@ author: yrobot
 keywords: 多线程,Worker,JS,Web
 createTime: 1534953600000
 createTimeStr: 2018年08月23日
+length: 3983
 ---
 # JS多线程Web Worker
-时间：2018年08月23日  
-作者：Yrobot  
-
 __本页目录：__   
 [为什么使用Web Woker](#why)  
 [Web Woker是什么](#what)  
@@ -163,5 +161,4 @@ worker.terminate();
 self.close();
 ```
 ---
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)
+

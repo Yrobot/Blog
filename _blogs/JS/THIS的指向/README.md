@@ -4,10 +4,9 @@ author: yrobot
 keywords: THIS,指向
 createTime: 1535040000000
 createTimeStr: 2018年08月24日
+length: 940
 ---
 # THIS的指向
-时间：2018年08月24日  
-作者：Yrobot
 
 __本页目录：__   
 [this的建立](#build)   
@@ -41,5 +40,5 @@ __本页目录：__
 5. html元素脚本中，函数参数中的`this`指向元素本身  
 
 ---
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)
+
+

@@ -5,12 +5,10 @@ author: yrobot
 keywords: JSON,注意,使用
 createTime: 1534953600000
 createTimeStr: 2018年08月23日
+length: 1814
 ---
 
 # JSON使用注意点  
-时间：2018年08月23日  
-作者：Yrobot  
-
 __本页目录：__   
 [关于引入](#import)  
 [关于操作](#todo)  
@@ -65,6 +63,6 @@ ECMAScript 5对解析JSON的行为进行了规范，定义了全局对象JSON。
    
 
 
-### [讨论专区](https://github.com/Yrobot/Yrobot-FrontEnd-Blog/issues/1)  
-### [返回首页](../../README.md)
+
+
 
