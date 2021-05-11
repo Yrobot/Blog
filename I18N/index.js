@@ -19,7 +19,7 @@ export function TransProvider({ children, data = {}, local: _local = 'zh' }) {
   return <I18NContext.Provider value={value}>{children}</I18NContext.Provider>;
 }
 
-export function useTrans() {
+function useTrans() {
   return useContext(I18NContext);
 }
 
@@ -37,6 +37,11 @@ export function Trans({ children, key }) {
   const _key = key || children;
   const [data] = useTrans();
   return keyValue(data, _key);
+}
+
+export function useLocal(key) {
+  const [data, setLocal, local] = useTrans();
+  return [keyValue(data, key), setLocal, local];
 }
 
 export function TransConsumer({ children }) {

@@ -1,25 +1,30 @@
 import { useEffect } from 'react';
+import { useLocal } from 'I18N';
 
-import styles from './index.module.sass';
+const langs = {
+  zh: 'zh-CN',
+  en: 'en',
+};
 
-export default function Comment(props) {
+export default function Comment({ placeholder: _p = 'Any thoughts after reading?', ...props }) {
+  const [placeholder, _, local] = useLocal(_p);
   useEffect(() => {
     new Valine({
       el: '#vcomments',
       appId: 'OWG1JIpm4qdH4oKWhaTRYtyg-gzGzoHsz',
       appKey: 'pkRlHOPGQicBGe2325oCTfHr',
-      placeholder: '看完之后有什么想法嘛？',
       avatar: 'hide',
       recordIP: true,
       requiredFields: ['nick'],
+      placeholder,
+      lang: langs[local] || 'zh-CN',
       ...props,
     });
-  }, []);
+  }, [placeholder]);
   return (
-    <div className={styles['comment-holder']}>
-      <div id='vcomments'>
-        <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-      </div>
+    <div className='mb-20px'>
+      <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+      <div id='vcomments'></div>
     </div>
   );
 }
