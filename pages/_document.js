@@ -5,6 +5,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link rel='icon' href='favicon.ico' />
           <link
             rel='preload'
             href='//at.alicdn.com/t/font_2533274_yhzuq4j0hfr.woff2'
