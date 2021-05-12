@@ -6,8 +6,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "export": "rm -rf .next && rm -rf docs && next build && next export -o docs && touch docs/.nojekyll",
-    "deploy": "gh-pages -d out -t true"
+    "export": "rm -rf .next && rm -rf docs && next build && next export -o docs && touch docs/.nojekyll"
   },
   "dependencies": {
     "classnames": "^2.3.1",
