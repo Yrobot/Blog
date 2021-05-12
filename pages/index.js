@@ -42,7 +42,9 @@ export default function Index({ typePosts = [], compeled }) {
 }
 
 export async function getStaticProps() {
-  const allPosts = require('lib/api').getAllPosts();
+  const allPosts = require('lib/api')
+    .getAllPosts()
+    .map(({ content, ...res }) => res);
 
   const compeled = allPosts.length;
 
