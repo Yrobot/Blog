@@ -8,10 +8,10 @@ export default function BlogItem({ blog }) {
   return (
     <div className='card p-15px mb-15px md:p-20px md:mb-20px md:flex flex-row items-center justify-between'>
       <div className='flex-auto md:w-0'>
-        <div className='text-16px leading-18px font-bold mb-4px md:mb-10px overflow-hidden whitespace-nowrap overflow-ellipsis'>
+        <div className='text-14px leading-16px font-bold mb-10px md:mb-10px overflow-hidden whitespace-nowrap overflow-ellipsis'>
           {title}
         </div>
-        <div className='text-14px leading-16px overflow-hidden whitespace-nowrap overflow-ellipsis'>
+        <div className='text-12px leading-14px overflow-hidden whitespace-nowrap overflow-ellipsis'>
           {keywords.replace(/\,/g, ', ')}
         </div>
       </div>
