@@ -22,9 +22,11 @@ export default function Index({ typePosts = [], compeled }) {
             name='viewport'
             content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'
           />
+          <meta name='keywords' content='yrobot,blog,博客,github,js,css,html,技术'></meta>
+          <meta name='description' content='yrobot的博客，纪录技术和生活。'></meta>
           <title>Yrobot's Blog</title>
         </Head>
-        <Menu home />
+        <Menu />
         <div className='min-w-0 flex-auto 2xl:flex flex-row items-start justify-between'>
           <div className='min-w-0 2xl:flex-auto 2xl:mr-50px 2xl:pt-30px'>
             <BlogProgress compeled={compeled} progress={1} />

@@ -22,7 +22,9 @@ export default function Index({ pre, blog, next }) {
             name='viewport'
             content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'
           />
-          <title>Yrobot's Blog</title>
+          <meta name='keywords' content={`yrobot,blog,博客,${blog.keywords}`}></meta>
+          <meta name='description' content={blog.title}></meta>
+          <title>{blog.title}</title>
         </Head>
         <Menu home />
         <div className='min-w-0 flex-auto 2xl:flex flex-row items-start justify-between'>
