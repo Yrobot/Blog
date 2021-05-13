@@ -16,7 +16,7 @@ export default function BlogContent({ blog = {} }) {
         {keywords}
       </div>
       <article
-        className='prose prose-sm md:prose 2xl:prose-lg mb-15px md:mb-20px'
+        className='prose prose-sm break-all md:prose 2xl:prose-lg mb-15px md:mb-20px'
         dangerouslySetInnerHTML={{ __html: content }}
       ></article>
     </>
