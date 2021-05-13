@@ -3,8 +3,8 @@ import Head from 'next/head';
 import Menu from 'components/Menu';
 import Comment from 'components/Comment';
 import Layout from 'components/Layout';
-import BlogProgress from 'components/BlogProgress';
-import BlogList from 'components/BlogList';
+import BlogBottomLink from 'components/BlogBottomLink';
+import BlogContent from 'components/BlogContent';
 import WelcomeCard from 'components/WelcomeCard';
 import GithubList from 'components/GithubList';
 import { TransProvider } from 'I18N';
@@ -13,7 +13,7 @@ import en from 'locales/en-US.js';
 
 const languages = { zh, en };
 
-export default function Index({ typePosts = [], compeled }) {
+export default function Index({ pre, blog, next }) {
   return (
     <TransProvider data={languages}>
       <Layout>
@@ -27,13 +27,13 @@ export default function Index({ typePosts = [], compeled }) {
         <Menu home />
         <div className='min-w-0 flex-auto 2xl:flex flex-row items-start justify-between'>
           <div className='min-w-0 2xl:flex-auto 2xl:mr-50px 2xl:pt-30px'>
-            <BlogProgress compeled={compeled} progress={1} />
-            <BlogList typePosts={typePosts} />
+            <BlogContent blog={blog} />
+            <BlogBottomLink pre={pre} next={next} />
+            <Comment placeholder='Leave a comment!' />
           </div>
           <div className='2xl:flex-none 2xl:w-580px'>
             <WelcomeCard />
             <GithubList />
-            <Comment placeholder='Leave a comment!' />
           </div>
         </div>
       </Layout>
@@ -41,39 +41,24 @@ export default function Index({ typePosts = [], compeled }) {
   );
 }
 
-export async function getStaticProps() {
-  const allPosts = require('lib/api')
-    .getAllPosts()
-    .map(({ content, ...res }) => res);
+export async function getStaticProps({ params }) {
+  const { path = [] } = params || {};
 
-  const compeled = allPosts.length;
-
-  const keywords = require('lib/api')
-    .getAllKeywords()
-    .filter(([_, num]) => num > 2)
-    .map(([key]) => key);
-
-  const hashMap = {};
-
-  allPosts.map((post) => {
-    keywords.forEach((key) => {
-      if (post.keywords.split(',').includes(key)) {
-        hashMap[key] = [...(hashMap[key] || []), post];
-      }
-    });
-  });
-
-  const typePosts = keywords.map((title) => ({
-    title,
-    list: hashMap[title],
-  }));
-
-  typePosts.unshift({
-    title: 'All',
-    list: allPosts,
-  });
+  const route = path.join('/');
+  const { pre = null, now: blog = null, next = null } = require('lib/api').getPostByroute(route);
 
   return {
-    props: { typePosts, compeled },
+    props: { pre, blog, next },
+  };
+}
+
+export async function getStaticPaths() {
+  const paths = require('lib/api')
+    .getAllPosts()
+    .map(({ url }) => url);
+  console.log(paths);
+  return {
+    paths,
+    fallback: false,
   };
 }

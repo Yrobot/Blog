@@ -2,6 +2,13 @@ module.exports = {
   purge: ['./components/**/*.js', './pages/**/*.js'],
   theme: {
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: null,
+          },
+        },
+      },
       colors: {
         black: '#000000',
         white: '#ffffff',
@@ -33,8 +40,10 @@ module.exports = {
         '16px': '16px',
         '18px': '18px',
         '20px': '20px',
+        '24px': '24px',
       },
       width: {
+        '8px': '8px',
         '16px': '16px',
         '20px': '20px',
         '30px': '30px',
@@ -45,6 +54,7 @@ module.exports = {
         '580px': '580px',
         '600px': '600px',
         '850px': '850px',
+        '40%': '40%',
       },
       height: {
         '16px': '16px',
@@ -67,6 +77,7 @@ module.exports = {
       },
       margin: {
         '4px': '4px',
+        '6px': '6px',
         '10px': '10px',
         '15px': '15px',
         '20px': '20px',
@@ -96,6 +107,10 @@ module.exports = {
       inset: {
         '20px': '20px',
       },
+      borderWidth: {
+        '1px': '1px',
+      },
     },
   },
+  plugins: [require('@tailwindcss/typography')],
 };
