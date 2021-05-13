@@ -9,6 +9,9 @@ module.exports = {
           },
         },
       },
+      maxWidth: {
+        '800px': '800px',
+      },
       colors: {
         black: '#000000',
         white: '#ffffff',
@@ -41,6 +44,7 @@ module.exports = {
         '18px': '18px',
         '20px': '20px',
         '24px': '24px',
+        '28px': '28px',
       },
       width: {
         '8px': '8px',
@@ -83,6 +87,7 @@ module.exports = {
         '20px': '20px',
         '40px': '40px',
         '50px': '50px',
+        '60px': '60px',
       },
       padding: {
         '4px': '4px',
