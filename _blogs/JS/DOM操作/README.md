@@ -2,9 +2,7 @@
 title: DOM操作
 author: yrobot
 keywords: DOM,操作
-createTime: 1537977600000
-createTimeStr: 2018年09月27日
-length: 6747
+createTime: 2018年09月27日
 ---
 <a id='top'></a>
 

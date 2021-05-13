@@ -2,9 +2,7 @@
 title: CSS中可以和不可以继承的属性
 author: yrobot
 keywords: CSS,属性,继承
-createTime: 1535040000000
-createTimeStr: 2018年08月24日
-length: 2705
+createTime: 2018年08月24日
 ---
 
     
@@ -81,7 +79,6 @@ color：文本颜色
   
 ## 块级元素可以继承的属性  
 1. text-indent、text-align
-  
----   
+  ---   
 
   

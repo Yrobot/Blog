@@ -2,9 +2,7 @@
 title: JS的三个定时器
 author: yrobot
 keywords: JS,定时器,三个
-createTime: 1535040000000
-createTimeStr: 2018年08月24日
-length: 4228
+createTime: 2018年08月24日
 ---
 
    
@@ -111,8 +109,7 @@ if (!Date.now)
         window.cancelAnimationFrame = clearTimeout;
     }
 }());
-```
----  
+```---  
 *本章节部分参考[一像素 博客](https://www.cnblogs.com/onepixel/p/7078617.html)，在此感谢！*
 
 

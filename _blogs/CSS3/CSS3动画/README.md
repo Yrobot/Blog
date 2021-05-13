@@ -2,9 +2,7 @@
 title: CSS3动画
 author: yrobot
 keywords: CSS3,动画
-createTime: 1535385600000
-createTimeStr: 2018年08月28日
-length: 4452
+createTime: 2018年08月28日
 ---
 
 __本页目录：__   

@@ -2,9 +2,7 @@
 title: JS异步编程
 author: yrobot
 keywords: JS,异步,编程
-createTime: 1535040000000
-createTimeStr: 2018年08月24日
-length: 4481
+createTime: 2018年08月24日
 ---
 
 __本页目录：__   
@@ -163,7 +161,6 @@ function  sliceJob() {
 此外。jQuery的deferred对象无法实现你的要求。  
 因为deferred对象的目的是为了串行处理异步过程。  
 但是异步过程在执行的过程中，如果耗时过长，仍然会阻塞浏览器线程，导致浏览器不可操作（卡死）。  
-
 ---
 
 

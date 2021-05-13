@@ -2,9 +2,7 @@
 title: 利用css绘制多边形
 author: yrobot
 keywords: css,多边形,绘制,利用
-createTime: 1535904000000
-createTimeStr: 2018年09月03日
-length: 7151
+createTime: 2018年09月03日
 ---
 
 本文主要讲解内容：  

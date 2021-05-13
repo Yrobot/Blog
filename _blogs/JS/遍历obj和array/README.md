@@ -2,9 +2,7 @@
 title: 遍历obj和array
 author: yrobot
 keywords: array,obj,遍历
-createTime: 1535040000000
-createTimeStr: 2018年08月24日
-length: 1525
+createTime: 2018年08月24日
 ---
 
 __本页目录：__   

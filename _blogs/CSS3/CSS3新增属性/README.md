@@ -2,9 +2,7 @@
 title: CSS3新增属性
 author: yrobot
 keywords: CSS3,属性,新增
-createTime: 1535299200000
-createTimeStr: 2018年08月27日
-length: 11420
+createTime: 2018年08月27日
 ---
 
 __本页目录：__   

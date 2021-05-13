@@ -2,9 +2,7 @@
 title: THIS的指向
 author: yrobot
 keywords: THIS,指向
-createTime: 1535040000000
-createTimeStr: 2018年08月24日
-length: 940
+createTime: 2018年08月24日
 ---
 
 
@@ -38,7 +36,6 @@ __本页目录：__
 3. `call`/`apply`可以利用参数改变`this`的指向  
 4. `obj.fun()`调用时，`fun()`AO中`this`指向obj (`new` 生成对象时默认`return this`，所以只有`this.xxx`的属性才能被访问到)  
 5. html元素脚本中，函数参数中的`this`指向元素本身  
-
 ---
 
 

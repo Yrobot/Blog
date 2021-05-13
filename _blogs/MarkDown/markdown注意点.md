@@ -2,9 +2,7 @@
 title: markdown注意点
 author: yrobot
 keywords: markdown,注意
-createTime: 1535040000000
-createTimeStr: 2018年08月24日
-length: 525
+createTime: 2018年08月24日
 ---
 
 __本页目录：__   

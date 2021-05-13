@@ -2,9 +2,7 @@
 title: JS-DOM事件触发机制
 author: yrobot
 keywords: DOM,JS,触发,机制,事件
-createTime: 1535040000000
-createTimeStr: 2018年08月24日
-length: 3416
+createTime: 2018年08月24日
 ---
 
 __本页目录：__   
@@ -13,7 +11,6 @@ __本页目录：__
 [事件捕获](#id3)  
 [addEventListener的第三个参数](#id4)  
 [事件捕获先还是事件冒泡先？](#id5)  
-
 ---
 
 <a id='id'></a>

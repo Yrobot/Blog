@@ -2,9 +2,7 @@
 title: css层叠上下文
 author: yrobot
 keywords: css,层叠,上下文
-createTime: 1568649600000
-createTimeStr: 2019年09月17日
-length: 1515
+createTime: 2019年09月17日
 ---
 
 __本页目录：__   

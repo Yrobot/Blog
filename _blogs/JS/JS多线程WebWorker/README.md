@@ -2,9 +2,7 @@
 title: JS多线程Web Worker
 author: yrobot
 keywords: 多线程,Worker,JS,Web
-createTime: 1534953600000
-createTimeStr: 2018年08月23日
-length: 3983
+createTime: 2018年08月23日
 ---
 
 __本页目录：__   
@@ -159,6 +157,5 @@ worker.terminate();
 
 // Worker 线程
 self.close();
-```
----
+```---
 

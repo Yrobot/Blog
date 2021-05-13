@@ -2,9 +2,7 @@
 title: 浏览器是怎么处理多个defer或async的script的
 author: yrobot
 keywords: async,script,defer,浏览器,多个,处理
-createTime: 1571068800000
-createTimeStr: 2019年10月15日
-length: 538
+createTime: 2019年10月15日
 ---
 <a id='top'></a>
 

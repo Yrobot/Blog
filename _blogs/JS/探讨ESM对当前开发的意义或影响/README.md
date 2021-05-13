@@ -2,9 +2,7 @@
 title: 探讨ESM对当前开发的意义或影响
 author: yrobot
 keywords: ESM,探讨,意义,当前,开发,影响
-createTime: 1571068800000
-createTimeStr: 2019年10月15日
-length: 1634
+createTime: 2019年10月15日
 ---
 <a id='top'></a>
 

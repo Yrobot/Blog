@@ -2,9 +2,7 @@
 title: display 属性
 author: yrobot
 keywords: display,属性
-createTime: 1535040000000
-createTimeStr: 2018年08月24日
-length: 809
+createTime: 2018年08月24日
 ---
 
 __本页目录：__   

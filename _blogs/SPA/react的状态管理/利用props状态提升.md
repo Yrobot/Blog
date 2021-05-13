@@ -2,9 +2,7 @@
 title: react的状态管理—利用props状态提升
 author: yrobot
 keywords: 状态管理,props,react,状态,提升,利用
-createTime: 1537200000000
-createTimeStr: 2018年09月18日
-length: 2494
+createTime: 2018年09月18日
 ---
 
 __本页目录：__   
@@ -104,7 +102,6 @@ class Content extends Component {
     }
 }
 ```
-
 
 --- 
 *本章节部分参考[React.js 小书](http://huziketang.mangojuice.top/books/react/lesson29)，在此感谢！*

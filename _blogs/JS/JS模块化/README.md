@@ -2,9 +2,7 @@
 title: JS模块化
 author: yrobot
 keywords: JS,模块化
-createTime: 1571068800000
-createTimeStr: 2019年10月15日
-length: 5233
+createTime: 2019年10月15日
 ---
 <a id='top'></a>
 

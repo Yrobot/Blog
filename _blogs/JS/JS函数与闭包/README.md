@@ -2,9 +2,7 @@
 title: JS函数与闭包
 author: yrobot
 keywords: 闭包,JS,函数
-createTime: 1535040000000
-createTimeStr: 2018年08月24日
-length: 2063
+createTime: 2018年08月24日
 ---
 
 __本页目录：__   

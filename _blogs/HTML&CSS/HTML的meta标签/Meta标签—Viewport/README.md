@@ -2,9 +2,7 @@
 title: Meta标签—Viewport
 author: yrobot
 keywords: Meta,Viewport,标签
-createTime: 1535126400000
-createTimeStr: 2018年08月25日
-length: 4561
+createTime: 2018年08月25日
 ---
 
 __本页目录：__   
