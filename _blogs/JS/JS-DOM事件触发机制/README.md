@@ -6,7 +6,7 @@ createTime: 1535040000000
 createTimeStr: 2018年08月24日
 length: 3416
 ---
-# JS-DOM事件触发机制  
+
 __本页目录：__   
 [问题的起因](#id1)  
 [事件冒泡](#id2)  

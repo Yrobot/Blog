@@ -6,7 +6,7 @@ createTime: 1535385600000
 createTimeStr: 2018年08月28日
 length: 1599
 ---
-# CSS3过渡  
+
 __本页目录：__   
 [用前思考](#id1)  
 [怎么使用](#id2)  

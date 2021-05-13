@@ -6,7 +6,7 @@ createTime: 1537545600000
 createTimeStr: 2018年09月22日
 length: 3544
 ---
-# react的状态管理—利用context注入  
+
 __本页目录：__   
 [场景思考](#index)  
 [利用context注入](#context)  

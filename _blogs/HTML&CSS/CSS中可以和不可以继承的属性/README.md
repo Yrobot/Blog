@@ -6,7 +6,7 @@ createTime: 1535040000000
 createTimeStr: 2018年08月24日
 length: 2705
 ---
-# CSS中可以和不可以继承的属性    
+
     
    
   

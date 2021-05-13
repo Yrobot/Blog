@@ -6,7 +6,7 @@ createTime: 1535040000000
 createTimeStr: 2018年08月24日
 length: 809
 ---
-# display 属性  
+
 __本页目录：__   
 [display有哪些值,以及作用](#display)  
 [html元素嵌套规则](#nest)  

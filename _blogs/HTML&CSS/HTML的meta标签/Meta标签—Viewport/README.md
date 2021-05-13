@@ -6,7 +6,7 @@ createTime: 1535126400000
 createTimeStr: 2018年08月25日
 length: 4561
 ---
-# Meta标签—Viewport  
+
 __本页目录：__   
 [Viewport概念](#id1)  
 [看下效果](#id2)  

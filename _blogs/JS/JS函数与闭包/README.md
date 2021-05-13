@@ -6,7 +6,7 @@ createTime: 1535040000000
 createTimeStr: 2018年08月24日
 length: 2063
 ---
-# JS函数与闭包  
+
 __本页目录：__   
 [JS函数](#func)  
 [闭包](#bibao)  

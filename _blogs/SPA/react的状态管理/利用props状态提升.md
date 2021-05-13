@@ -6,7 +6,7 @@ createTime: 1537200000000
 createTimeStr: 2018年09月18日
 length: 2494
 ---
-# react的状态管理—利用props状态提升  
+
 __本页目录：__   
 [场景思考](#index)  
 [利用props状态提升](#props)  

@@ -6,7 +6,7 @@ createTime: 1535040000000
 createTimeStr: 2018年08月24日
 length: 1525
 ---
-# 遍历obj和array  
+
 __本页目录：__   
 [基础for循环](#for)  
 [for in 循环](#forin)  

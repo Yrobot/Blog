@@ -6,7 +6,7 @@ createTime: 1537632000000
 createTimeStr: 2018年09月23日
 length: 3707
 ---
-# react的状态管理—利用react-redux 
+
 __本页目录：__   
 [场景思考](#index)  
 [利用react-redux](#redux)  
