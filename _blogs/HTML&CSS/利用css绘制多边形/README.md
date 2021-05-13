@@ -131,7 +131,7 @@ __css的伪元素：__ 之所以被称为伪元素，是因为他们不是真正
 
 ## css绘制非正四边形
 #### 绘制平行四边形  
-平行四边形利用[css3的倾斜函数skew()](/CSS3/CSS3-2D转换/README.md#14)比较方便  
+平行四边形利用[css3的倾斜函数skew()](/blog/CSS3/CSS3-2D转换#14)比较方便  
 ```
 .parallelogram {
   width: 100px;

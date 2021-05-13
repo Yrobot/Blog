@@ -166,7 +166,7 @@ __浏览器支持：__
 ## CSS3 2D 转换
 __CSS3新增的2D变换属性：__   通过 CSS3 转换，我们能够对元素进行移动、缩放、转动、拉长或拉伸。
 
-跳转 [CSS3-2D转换/RAEDME.md](../CSS3-2D转换/README.md)
+跳转 [CSS3-2D转换](./CSS3-2D转换)
 
 __浏览器支持：__
 ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fuo7z8j9byj318s04s3zs.jpg)  
@@ -178,7 +178,7 @@ Internet Explorer 9 需要前缀 -ms-
 ## CSS3 3D 转换
 __CSS3新增的3D变换属性：__  CSS3 3D 转换支持开发者在css代码中利用css3的3D函数，在页面里开发出一些简单的3D效果。  
 
-跳转 [CSS3-3D转换/RAEDME.md](../CSS3-3D转换/README.md)
+跳转 [CSS3-3D转换](./CSS3-3D转换)
 
 __浏览器支持：__
 ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fuqf7u1vz0j30u204ot9y.jpg)
@@ -191,7 +191,7 @@ Opera 仍然不支持 3D 转换（它只支持 2D 转换）。
 ## CSS3 过渡
 __CSS3的过渡属性：__  过渡属性可以设定元素在某些属性改变时，对变化过程填充逐渐变换的动画，类似于flash的补间动画  
 
-跳转 [CSS3过渡/RAEDME.md](../CSS3过渡/README.md)
+跳转 [CSS3过渡](./CSS3过渡)
 
 __浏览器支持：__
 ![](https://ws1.sinaimg.cn/large/0069RVTdgy1fup7uarmc3j30u204sjsn.jpg)
@@ -201,7 +201,7 @@ __浏览器支持：__
 ## CSS3 动画
 __CSS3新增的动画属性：__  通过CSS3动画，我们能够创建动画，这可以在许多网页中取代动画图片、Flash动画 以及 JavaScript。作为页面切换的交互动画。  
 
-跳转 [CSS3动画/RAEDME.md](../CSS3动画/README.md)
+跳转 [CSS3动画](./CSS3动画)
 
 __浏览器支持：__
 ![](https://ws2.sinaimg.cn/large/0069RVTdgy1fupd51aiv4j30u209k76w.jpg)  

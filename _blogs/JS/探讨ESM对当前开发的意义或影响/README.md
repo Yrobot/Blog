@@ -9,7 +9,6 @@ length: 1634
 <a id='top'></a>
 
 
-<a href="#top" style="position: fixed;font-size: 30px;color: rgb(88, 153, 226);right: 10px;bottom: 20px;z-index: 999;">TOP</a>
 
 __本页目录：__   
 [对比当前模块开发和ES6模块化开发](#compare)  
@@ -18,7 +17,7 @@ __本页目录：__
 
 __友情连接：__  
 Q：浏览器遇到多个script资源的时候是怎么做的呢？  
-A：[浏览器是怎么处理多个defer或async的script的](../浏览器是怎么处理多个defer或async的script的/README.md)
+A：[浏览器是怎么处理多个defer或async的script的](./浏览器是怎么处理多个defer或async的script的)
 
 <a id='compare'></a>
 

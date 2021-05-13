@@ -9,7 +9,6 @@ length: 5233
 <a id='top'></a>
 
 
-<a href="#top" style="position: fixed;font-size: 30px;color: rgb(88, 153, 226);right: 10px;bottom: 20px;z-index: 999;">TOP</a>
 
 __本页目录：__   
 [前言](#pre)  
@@ -22,7 +21,7 @@ __本页目录：__
 
 __友情连接：__  
 Q：那么新的ES6模块化对我们前端开发有什么意义呢？webpack就没有用了嘛？  
-A：[探讨ESM对当前开发的意义或影响](../探讨ESM对当前开发的意义或影响/README.md)
+A：[探讨ESM对当前开发的意义或影响](./探讨ESM对当前开发的意义或影响)
 
 <a id='pre'></a>
 
