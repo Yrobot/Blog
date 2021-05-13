@@ -15,7 +15,7 @@ __本页目录：__
 
 __友情连接：__  
 Q：浏览器遇到多个script资源的时候是怎么做的呢？  
-A：[浏览器是怎么处理多个defer或async的script的](./浏览器是怎么处理多个defer或async的script的)
+A：[浏览器是怎么处理多个defer或async的script的](../浏览器是怎么处理多个defer或async的script的)
 
 <a id='compare'></a>
 

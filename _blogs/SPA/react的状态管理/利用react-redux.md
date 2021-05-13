@@ -28,7 +28,7 @@ __本页目录：__
 换句话说，怎么更好的管理`Title`和`Content`的状态呢？ 
 
 #### 回顾上一节  
-上一节我们使用react自带的 [利用context注入](./利用context注入) 方法   
+上一节我们使用react自带的 [利用context注入](../利用context注入) 方法   
 利用react的context去实现状态共享很方便  
 但是react的context还是实验性的，何时会更新无法预知  
 所以为了保证软件的稳定性，我们还是使用react推荐的第三方状态管理redux   
