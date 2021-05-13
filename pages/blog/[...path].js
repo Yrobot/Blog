@@ -56,7 +56,6 @@ export async function getStaticPaths() {
   const paths = require('lib/api')
     .getAllPosts()
     .map(({ url }) => url);
-  console.log(paths);
   return {
     paths,
     fallback: false,
