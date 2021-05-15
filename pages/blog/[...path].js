@@ -11,6 +11,11 @@ import { TransProvider } from 'I18N';
 import zh from 'locales/zh-CN.js';
 import en from 'locales/en-US.js';
 
+import 'highlight.js/styles/night-owl.css';
+// import 'highlight.js/styles/hybrid.css';
+// import 'highlight.js/styles/androidstudio.css';
+// import 'highlight.js/styles/rainbow.css';
+
 const languages = { zh, en };
 
 export default function Index({ pre, blog, next }) {
