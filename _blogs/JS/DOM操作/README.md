@@ -192,16 +192,18 @@ createTime: 2018年09月27日
 
 1. `getBoundingClientRect()`:  
    `DOM.getBoundingClientRect()`的属性：
-   | Attribute | Type | Description |
+
+   | Attribute | Type  | Description                                                   |
    | --------- | ----- | ------------------------------------------------------------- |
-   | bottom | float | Y 轴，相对于视口原点（viewport origin）矩形盒子的底部。只读。 |
-   | height | float | 矩形盒子的高度（等同于 bottom 减 top）。只读。 |
-   | left | float | X 轴，相对于视口原点（viewport origin）矩形盒子的左侧。只读。 |
-   | right | float | X 轴，相对于视口原点（viewport origin）矩形盒子的右侧。只读。 |
-   | top | float | Y 轴，相对于视口原点（viewport origin）矩形盒子的顶部。只读。 |
-   | width | float | 矩形盒子的宽度（等同于 right 减 left）。只读。 |
-   | x | float | X 轴，相对于视口原点（viewport origin）矩形盒子的左侧。只读。 |
-   | y | float | Y 轴，相对于视口原点（viewport origin）矩形盒子的顶部。只读。 |
+   | bottom    | float | Y 轴，相对于视口原点（viewport origin）矩形盒子的底部。只读。 |
+   | height    | float | 矩形盒子的高度（等同于 bottom 减 top）。只读。                |
+   | left      | float | X 轴，相对于视口原点（viewport origin）矩形盒子的左侧。只读。 |
+   | right     | float | X 轴，相对于视口原点（viewport origin）矩形盒子的右侧。只读。 |
+   | top       | float | Y 轴，相对于视口原点（viewport origin）矩形盒子的顶部。只读。 |
+   | width     | float | 矩形盒子的宽度（等同于 right 减 left）。只读。                |
+   | x         | float | X 轴，相对于视口原点（viewport origin）矩形盒子的左侧。只读。 |
+   | y         | float | Y 轴，相对于视口原点（viewport origin）矩形盒子的顶部。只读。 |
+
    clientRect 是一个 DOMRect 对象，包含 width、height、left、top、right、bottom，它是相对于窗口顶部而不是文档顶部，**滚动页面时它们的值是会发生变化的**。
 
 1. `DOM.clientWidth`：表示元素的内部宽度，以像素计。盒模型的 content+padding
