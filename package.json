@@ -6,7 +6,9 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "export": "rm -rf .next && rm -rf docs && next build && next export -o docs && touch docs/.nojekyll"
+    "export": "rm -rf .next && rm -rf docs && next build && next export -o docs && touch docs/.nojekyll",
+    "urls": "node ./lib/scripts/fresh-urls.js",
+    "baidu-seo": "node ./lib/scripts/baidu-seo-push.js"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.4.0",
@@ -16,6 +18,7 @@
     "highlight.js": "^10.7.2",
     "marked": "^2.0.3",
     "next": "latest",
+    "node-fetch": "^2.6.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "sass": "^1.32.12",
