@@ -11,7 +11,7 @@ const commonParams = {
 
 const list = [
   {
-    src: 'https://github-readme-stats.vercel.app/api',
+    src: 'https://github-stats-yrobot.vercel.app/api',
     params: {
       count_private: true,
       show_icons: true,
@@ -20,7 +20,7 @@ const list = [
     href: 'https://github.com/Yrobot',
   },
   {
-    src: 'https://github-readme-stats.vercel.app/api/pin',
+    src: 'https://github-stats-yrobot.vercel.app/api/pin',
     params: {
       repo: 'mina-touch',
       ...commonParams,
@@ -28,7 +28,7 @@ const list = [
     href: 'https://github.com/Yrobot/mina-touch',
   },
   {
-    src: 'https://github-readme-stats.vercel.app/api/pin',
+    src: 'https://github-stats-yrobot.vercel.app/api/pin',
     params: {
       repo: 'react-mobile-table',
       ...commonParams,
@@ -36,7 +36,7 @@ const list = [
     href: 'https://github.com/Yrobot/react-mobile-table',
   },
   {
-    src: 'https://github-readme-stats.vercel.app/api/pin',
+    src: 'https://github-stats-yrobot.vercel.app/api/pin',
     params: {
       repo: 'mina-popups',
       ...commonParams,
