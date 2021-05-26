@@ -6,7 +6,6 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "export": "rm -rf .next && rm -rf docs && next build && next export -o docs && touch docs/.nojekyll",
     "urls": "node ./lib/scripts/fresh-urls.js",
     "baidu-seo": "node ./lib/scripts/baidu-seo-push.js"
   },

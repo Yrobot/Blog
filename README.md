@@ -10,13 +10,14 @@ React、Nextjs、Tailwindcss、markdown、marked、highlight.js、gray-matter、
 
 ### 站点部署：
 
-github-pages
+~~github-pages~~  
+[Vercel](https://vercel.com/)
 
 ### 博客作用：
 
 1. 学习 JS、CSS、HTML、React、计算机网络等互联网技术知识
 2. React 生成静态页面的最佳实践：NextJs-SSG
-3. Github-Pages 部署静态项目流程
+3. ~~github-pages~~ Vercel 部署静态项目流程
 
 ## 勘误及提问
 
