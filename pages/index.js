@@ -50,30 +50,24 @@ export async function getStaticProps() {
 
   const compeled = allPosts.length;
 
-  const keywords = require('lib/api')
-    .getAllKeywords()
-    .filter(([_, num]) => num > 2)
-    .map(([key]) => key);
-
   const hashMap = {};
 
   allPosts.map((post) => {
-    keywords.forEach((key) => {
-      if (post.keywords.split(',').includes(key)) {
-        hashMap[key] = [...(hashMap[key] || []), post];
-      }
-    });
+    const key = (post.url || '').split('/')[2] || '其他';
+    hashMap[key] = [...(hashMap[key] || []), post];
   });
 
-  const typePosts = keywords.map((title) => ({
+  const typePosts = Object.entries(hashMap).map(([title, list]) => ({
     title,
-    list: hashMap[title],
+    list,
   }));
 
   typePosts.unshift({
     title: 'All',
     list: allPosts,
   });
+
+  console.log(typePosts);
 
   return {
     props: { typePosts, compeled },
