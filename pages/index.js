@@ -67,8 +67,6 @@ export async function getStaticProps() {
     list: allPosts,
   });
 
-  console.log(typePosts);
-
   return {
     props: { typePosts, compeled },
   };
