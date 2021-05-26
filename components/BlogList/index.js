@@ -16,7 +16,7 @@ export default function BlogList({ typePosts = [] }) {
       <div className='text-20px md:text-24px mb-20px'>
         <Trans>Blogs</Trans>
       </div>
-      <div className='text-14px md:text-16px mb-20px whitespace-nowrap overflow-x-scroll select-none'>
+      <div className='text-14px md:text-16px mb-20px whitespace-nowrap overflow-x-scroll overflow-y-hidden select-none'>
         {typePosts.map(({ title }) => (
           <span
             key={title}
