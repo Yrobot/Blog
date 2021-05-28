@@ -13,7 +13,7 @@ import en from 'locales/en-US.js';
 
 const languages = { zh, en };
 
-export default function Index({ typePosts = [], compeled }) {
+export default function Index({ typePosts = [], compeled, draftCount }) {
   return (
     <TransProvider data={languages}>
       <Layout>
@@ -29,7 +29,7 @@ export default function Index({ typePosts = [], compeled }) {
         <Menu />
         <div className='min-w-0 flex-auto 2xl:flex flex-row items-start justify-between'>
           <div className='min-w-0 2xl:flex-auto 2xl:mr-50px 2xl:pt-30px'>
-            <BlogProgress compeled={compeled} progress={1} />
+            <BlogProgress compeled={compeled} progress={draftCount} />
             <BlogList typePosts={typePosts} />
           </div>
           <div className='2xl:flex-none 2xl:w-580px'>
@@ -47,6 +47,8 @@ export async function getStaticProps() {
   const allPosts = require('lib/api')
     .getAllPosts()
     .map(({ content, ...res }) => res);
+
+  const draftCount = require('lib/api').getAllDrafts().length;
 
   const compeled = allPosts.length;
 
@@ -68,6 +70,6 @@ export async function getStaticProps() {
   });
 
   return {
-    props: { typePosts, compeled },
+    props: { typePosts, compeled, draftCount },
   };
 }
