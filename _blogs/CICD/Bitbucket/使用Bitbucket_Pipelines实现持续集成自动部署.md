@@ -9,9 +9,10 @@ createTime: 2021年05月28日
 [什么是 Bitbucket](#bitbucket)  
 [什么是 CI/CD，好处又是什么？](#cicd)  
 [Bitbucket 的 CICD 工具 - Bitbucket Pipelines](#pipelines)  
-[配置 pipelines](#config)
-[pipe 能力列表](#pipelist)
-[在 bitbucket 查看 CICD 流程](#view)
+[配置 pipelines](#config)  
+[pipe 能力列表](#pipelist)  
+[在 CI/CD 过程中使用变量](#variables)  
+[在 bitbucket 查看 CI/CD 流程](#view)  
 [本管理和回滚](#rollback)
 
 <a id='bitbucket'></a>
@@ -79,14 +80,39 @@ pipelines:
 
 ## pipe 能力列表
 
-[![](https://gitee.com/yrobot/images/raw/master/2021-05-28/lHUyJN-17-30-34.png)](https://bitbucket.org/product/zh/features/pipelines/integrations)
+![](https://gitee.com/yrobot/images/raw/master/2021-05-28/lHUyJN-17-30-34.png)
+[查看所有 pipe](https://bitbucket.org/product/zh/features/pipelines/integrations)
+
+<a id='variables'></a>
+
+## 在 CI/CD 过程中使用变量
+
+在使用 pipelines 的过程中，还可以使用 变量 来实现一些动态大包的操作。
+
+下面列举几个场景：
+
+1. 项目打包为 docker-image 时，可以利用`$BITBUCKET_BUILD_NUMBER`作为 image 的 tag，便于版本管理。
+2. 使用 pipe 部署项目时，可以利用`$USER`、`$SERVER`等作为 pipe 配置项
+
+变量使用示例：
+使用`$BITBUCKET_BUILD_NUMBER`动态部署静态网站
+
+```yml
+pipelines:
+  - step:
+      name: Deploy
+      script:
+        - pipe: atlassian/scp-deploy
+          variables:
+            REMOTE_PATH: '/web/v_$BITBUCKET_BUILD_NUMBER$'
+```
 
 <a id='view'></a>
 
-## 在 bitbucket 查看 CICD 流程
+## 在 bitbucket 查看 CI/CD 流程
 
 自动化进程列表：
-![](https://gitee.com/yrobot/images/raw/master/2021-05-28/rxhx1L-17-34-32.jpg)
+![](https://gitee.com/yrobot/images/raw/master/2021-05-28/ua3wLp-20-11-55.jpg)
 
 查看 CICD 状态和 log：
 ![](https://gitee.com/yrobot/images/raw/master/2021-05-28/53OddV-17-37-44.jpg)
