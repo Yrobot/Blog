@@ -9,6 +9,9 @@ module.exports = {
           },
         },
       },
+      inset: {
+        '20px': '20px',
+      },
       maxWidth: {
         '800px': '800px',
       },

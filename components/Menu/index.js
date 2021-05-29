@@ -28,7 +28,7 @@ function Language({ local, setLocal }) {
 
 export default function Menu({ home = false }) {
   return (
-    <div className='card menu h-60px md:flex-none md:w-90px md:h-600px md:mr-20px 2xl:w-120px 2xl:h-850px 2xl: 2xl:mr-50px flex flex-row items-center justify-between md:flex-col mb-20px'>
+    <div className='card menu h-60px md:sticky md:top-20px md:flex-none md:w-90px md:h-600px md:mr-20px 2xl:w-120px 2xl:h-850px 2xl: 2xl:mr-50px flex flex-row items-center justify-between md:flex-col mb-20px'>
       <a className='iconfont iconlogo flex-none mr-auto ml-15px md:ml-0 md:mr-0 md:mt-20px md:mb-auto w-30px h-30px text-30px md:w-50px md:h-50px md:text-50px 2xl:w-60px 2xl:h-60px 2xl:text-60px'></a>
       {home && (
         <a
