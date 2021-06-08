@@ -28,11 +28,11 @@ export default function Index({ typePosts = [], compeled, draftCount }) {
         </Head>
         <Menu />
         <div className='min-w-0 flex-auto 2xl:flex flex-row items-start justify-between'>
-          <div className='min-w-0 2xl:flex-auto 2xl:mr-50px 2xl:pt-30px'>
+          <div className='min-w-0 2xl:flex-auto 2xl:mr-[50px] 2xl:pt-[30px]'>
             <BlogProgress compeled={compeled} progress={draftCount} />
             <BlogList typePosts={typePosts} />
           </div>
-          <div className='2xl:flex-none 2xl:w-580px'>
+          <div className='2xl:flex-none 2xl:w-[580px]'>
             <WelcomeCard />
             <GithubList />
             <Comment placeholder='Leave a comment!' />

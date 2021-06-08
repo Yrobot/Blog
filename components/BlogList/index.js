@@ -13,17 +13,17 @@ export default function BlogList({ typePosts = [] }) {
   }, [type]);
   return (
     <>
-      <div className='text-20px md:text-24px mb-20px'>
+      <div className='text-[20px] md:text-[24px] mb-[20px]'>
         <Trans>Blogs</Trans>
       </div>
-      <div className='text-14px md:text-16px mb-20px whitespace-nowrap overflow-x-scroll overflow-y-hidden select-none'>
+      <div className='text-[14px] md:text-[16px] mb-[20px] whitespace-nowrap overflow-x-scroll overflow-y-hidden select-none'>
         {typePosts.map(({ title }) => (
           <span
             key={title}
             onClick={() => {
               setType(title);
             }}
-            className={`mr-40px cursor-pointer ${type === title ? '' : 'opacity-30'}`}
+            className={`mr-[40px] cursor-pointer ${type === title ? '' : 'opacity-30'}`}
           >
             <Trans>{title}</Trans>
           </span>
