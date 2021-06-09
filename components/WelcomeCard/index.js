@@ -12,7 +12,7 @@ export default function WelcomeCard(props) {
         </div>
         <img
           className='h-[120px] md:h-[150px] 2xl:h-[190px] absolute bottom-0 right-[20px]'
-          src='/assets/person.svg'
+          src='https://gitee.com/yrobot/images/raw/master/2021-06-09/my-profile-16-47-21.svg'
           alt='person'
         />
       </div>
