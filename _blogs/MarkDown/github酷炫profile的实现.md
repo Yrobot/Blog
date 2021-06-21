@@ -38,7 +38,18 @@ draft: true
 
 ## 曲线救国思路 - 用 image 展示
 
-**使用 svg.foreignObject 包裹 html 和 style**
+其实图片作为页面主要载体，有几个通病：
+
+1. 由于图片体积不如直接使用 markdown，所以页面init时间会比较长
+2. 很难对页面中具体的某个节点做跳转配置
+
+### 直接设计然后切图
+
+图片的话，最快的肯定就是直接用设计切图。
+
+但是这个方案有个比较麻烦的问题，就是图片即使压缩了，文件还是很大。
+
+### 使用 svg.foreignObject 包裹 html 和 style
 
 [方案的代码仓库地址](https://github.com/sindresorhus/css-in-readme-like-wat)
 
@@ -106,3 +117,6 @@ svg 代码：
   </foreignObject>
 </svg>
 ```
+
+svg实现的问题：
+1. svg内部不能加载图片资源
