@@ -7,7 +7,9 @@ createTime: 2021年06月30日
 
 **本页目录：**  
 [什么是 Prisma](#what)  
-[Prisma](#what)
+[使用 Prisma](#usage)
+[example 代码地址](#example)
+[Prisma 的优势与不足](#good)
 
 <a id='what'></a>
 
@@ -45,6 +47,8 @@ createTime: 2021年06月30日
    > GUI to view and edit data in your database
 
    - 一个查看编辑数据库的可视化工具
+
+<a id='usage'></a>
 
 ## 使用 Prisma
 
@@ -292,10 +296,14 @@ POST http://localhost:3000/user/update
 DELETE http://localhost:3000/user/delete
 ```
 
+<a id='example'></a>
+
 ## example 代码地址
 
 [<img src='https://gitee.com/yrobot/images/raw/master/2021-07-02/tGQsQN-17-51-18.png' width='600'/>](https://github.com/yrobot-demo/prisma-demo)  
 [prisma-demo](https://github.com/yrobot-demo/prisma-demo)
+
+<a id='good'></a>
 
 ## Prisma 的不足
 
