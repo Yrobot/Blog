@@ -292,6 +292,11 @@ POST http://localhost:3000/user/update
 DELETE http://localhost:3000/user/delete
 ```
 
+## example 代码地址
+
+[<img src='https://gitee.com/yrobot/images/raw/master/2021-07-02/tGQsQN-17-51-18.png' width='600'/>](https://github.com/yrobot-demo/prisma-demo)  
+[prisma-demo](https://github.com/yrobot-demo/prisma-demo)
+
 ## Prisma 的不足
 
 ### ORM 通病，对象关系不匹配
@@ -315,7 +320,3 @@ DELETE http://localhost:3000/user/delete
 
 > 可以在 Prisma Studio 查看有哪些表，查看表内数据。
 > 支持 筛选，修改，暂存修改，保存修改，放弃修改，等等能力。
-
-```
-
-```
