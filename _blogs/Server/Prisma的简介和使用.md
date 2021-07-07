@@ -8,7 +8,7 @@ createTime: 2021年06月30日
 **本页目录：**  
 [什么是 Prisma](#what)  
 [使用 Prisma](#usage)   
-[example 代码地址](#example)  
+[example 代码地址](#example-demo)  
 [Prisma 的优势与不足](#good)   
 
 <a id='what'></a>
@@ -296,7 +296,7 @@ POST http://localhost:3000/user/update
 DELETE http://localhost:3000/user/delete
 ```
 
-<a id='example'></a>
+<a id='example-demo'></a>
 
 ## example 代码地址
 
