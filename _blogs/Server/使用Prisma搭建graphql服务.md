@@ -1,22 +1,22 @@
 ---
 title: 使用Prisma搭建graphql服务
 author: yrobot
-keywords: Prisma,graphql,Nodejs,server,typegraphql,typegraphql-prisma
+keywords: Prisma,graphql,Nodejs,server,typegraphql,typegraphql-prisma,Apollo
 createTime: 2021年07月09日
 draft: true
 ---
 
 **本页目录：**  
-[什么是 Prisma](#Prisma)  
-[什么是 graphql](#graphql)  
-[什么是 TypeGraphQL](#TypeGraphQL)  
-[暴露部分接口](#graphql)  
-[暴露部分字段](#graphql)  
-[接口返回结构控制](#graphql)  
-[接口传参控制](#graphql)  
-[处理 Authorization](#graphql)
-
-<a id='Prisma'></a>
+[什么是 Prisma](#什么是-prisma)  
+[什么是 graphql](#什么是-graphql)  
+[什么是 TypeGraphQL](#什么是-typegraphql)  
+[什么是 Apollo Server](#什么是-apollo-server)  
+[主流程思考和优化](#主流程思考和优化)  
+[暴露部分接口](#暴露部分接口)  
+[暴露部分字段](#暴露部分字段)  
+[接口返回结构控制](#接口返回结构控制)  
+[接口传参控制](#接口传参控制)  
+[处理 Authorization](#处理-authorization)
 
 ## 什么是 Prisma
 
@@ -24,15 +24,11 @@ draft: true
 
 具体介绍和使用请参看前一期 blog[《Prisma 的简介和使用》](./Prisma的简介和使用)
 
-<a id='graphql'></a>
-
 ## 什么是 graphql
 
 > GraphQL 是一种针对 Graph（图状数据）进行查询特别有优势的 Query Language（查询语言）
 
 具体介绍和使用请参看前一期 blog[《Prisma 的简介和使用》](./Prisma的简介和使用)
-
-<a id='TypeGraphQL'></a>
 
 ## 什么是 TypeGraphQL
 
@@ -42,48 +38,125 @@ draft: true
 
 具体介绍和使用请参看 [TypeGraphQL 官网](https://typegraphql.com/)
 
-## 实现 customer 接口，如 Login
+## 什么是 Apollo Server
+
+> A stand-alone GraphQL server, based on express
+
+> 基于 express 的 Graphql 服务框架
+
+具体介绍和使用请参看 [apollo-server 官网](https://www.apollographql.com/docs/apollo-server/#apollo-server-provides)
+
+## 主流程思考和优化
+
+#### 传统 graphql service 组成：
+
+> DB, DB 连接池, SQL 生成器, 业务逻辑层, graphql schema, Web 服务框架
+
+#### 本文涉及框架职责概述：
+
+- **Prisma:** DB 连接池, SQL 生成器, DB 管理器
+
+- **TypeScript:** 业务逻辑层语言
+
+- **Typegraphql-prisma:** DB 表结构映射成 ts schema，自动生成 CURD resolvers
+
+- **Typegraphql:** ts schema 映射生成 graphql schema
+
+#### 开发链路梳理：
+
+1. DB 服务启动 ->
+
+2. 利用 Prisma 配置 prisma schema 管理数据库 ->
+
+3. 利用 Typegraphql-prisma 根据 prisma schema 生成 TS schema 和通用 CURD reslovers ->
+
+4. 利用 Typegraphql 根据 TS schema 生成 graphql schema ->
+
+5. Apollo Server 引入 graphql schema 和 resolvers，监听端口，启动服务
+
+#### 短板梳理与控制
+
+> **NOTE:**  
+> 以下所有自动生成的 resolver 的短板都可以通过 customer resolver 来规避，通过 实现 customer resolver 接管 graphql 层，并在逻辑中调用自动生成的 resolver 即可。参看下文章节 [使用 customer resolver](#使用-customer-resolver)
+
+1. 自动生成的 resolvers 没有权限控制
+
+   > 如果 resolver 直接暴露的，需要利用 Typegraphql-prisma 的 `EnhanceMap` 对 resolvers 添加 `Authorized` 装饰器来设置权限
+
+   > 参看下文章节 [处理 Authorization](#处理-authorization)
+
+2. 自动生成的 resolvers 没有入参校验
+
+   > 需要利用 Typegraphql-prisma 的 `EnhanceMap` 对 Input 添加 `class-validator` 装饰器来设置校验
+
+   > 参看下文章节 [接口入参校验](#接口入参校验)
+
+3. 自动生成的 resolvers 返回包含隐私数据
+
+   > 主要思路是，使 typegraphl 不转换标记属性为 graphql schema
+
+   > 参看下文章节 [接口返回结构控制](#接口返回结构控制)
+
+4. 自动生成的 resolvers 的部分 input 应该是计算生成，如 UpdateAt，currentUser
+
+   > 主要思路是，标记属性不转换为 graphql schema input，并利用中间键传入数据
+
+   > 参看下文章节 [接口入参结构控制](#接口入参结构控制)
+
+#### 明确职责和规范
+
+在了解各个框架的能力和短板之后，我还是决定以以下准则来规范我的 server 业务层逻辑：
+
+1. 由于 typegraphql-prisma 自动生成的 resolver 存在一系列的安全问题，所以自动生成的代码将不会直接对外暴露（除非是通过简单配置可以解决的），生成的 ts schema 和 resolvers 将作为 逻辑层的开发辅助
+
+## 使用 customer resolver
+
+如 login 接口
 
 使用 `type-graphql` 实现 customer resolver
 
 > 查看 type-graphql 的 [Resolvers 教程](https://typegraphql.com/docs/resolvers.html)
 
 ```ts
-import { Resolver, Query, Ctx, Arg, ObjectType, Field } from 'type-graphql';
-import { AuthenticationError } from 'apollo-server';
+import { Resolver, Query, Ctx, Arg, ObjectType, Field } from 'type-graphql'
+import { AuthenticationError } from 'apollo-server'
 
-import { encode } from '../auth';
+import { encode } from '../auth'
 
 @ObjectType()
 class UserInfo {
   @Field()
-  name: string;
+  name: string
   @Field()
-  email: string;
+  email: string
 }
 
 @ObjectType()
 class Login {
   @Field()
-  token: string;
+  token: string
   @Field((type) => UserInfo)
-  user: UserInfo;
+  user: UserInfo
 }
 
 @Resolver()
 export default class LoginResolver {
   @Query(() => Login)
-  async login(@Ctx() { prisma }, @Arg('email') email: string, @Arg('password') password: string): Promise<Login> {
+  async login(
+    @Ctx() { prisma },
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+  ): Promise<Login> {
     const user = await prisma.user.findUnique({
       where: { email },
-    });
+    })
     if (user?.password === password) {
       return {
         user: user,
         token: encode(user),
-      };
+      }
     }
-    throw new AuthenticationError('No such account or the password error');
+    throw new AuthenticationError('No such account or the password error')
   }
 }
 ```
@@ -93,34 +166,157 @@ export default class LoginResolver {
 buildSchema `resolvers` 传参控制哪些接口对外暴露
 
 ```ts
-import { UserCrudResolver, PostCrudResolver } from '@generated/type-graphql';
-import LoginResolver from './LoginResolver';
+import { UserCrudResolver, PostCrudResolver } from '@generated/type-graphql'
+import LoginResolver from './LoginResolver'
 
 const schema = await buildSchema({
   resolvers: [LoginResolver, UserCrudResolver, PostCrudResolver],
   validate: false,
-});
+})
 ```
+
+## 接口入参结构控制
+
+如新建 blog 时，入参中的 author 应该使用 token 中 user 数据
+
+> 相关 issue  
+> [#Overwriting types classes](https://github.com/MichalLytek/typegraphql-prisma/issues/115)  
+> [#Support for omitting input fields](https://github.com/MichalLytek/typegraphql-prisma/issues/98)  
+> [#computedInputs](https://github.com/MichalLytek/typegraphql-prisma/issues/139)
+
+- 这块需求对自动生成的改动较大，包含 graphql 的改动和 resolver 参数的注入。
+- 所以个人觉得还是使用 customer resolver 来重新实现比较方便，还可以在 resolver 内部调用自动 生成的 resolver 来节省开发时间。
+
+> customer PostResolver
+
+```ts
+import {
+  Resolver,
+  Ctx,
+  Arg,
+  Field,
+  InputType,
+  Authorized,
+  Info,
+  Mutation,
+} from 'type-graphql'
+import { Length } from 'class-validator'
+import { Post } from '@/generated/type-graphql/models/Post'
+import { CreatePostResolver } from '@/generated/type-graphql/resolvers/crud/Post/CreatePostResolver'
+
+@InputType()
+class PostInput {
+  @Field()
+  @Length(4, 50)
+  title: string
+  @Field({ defaultValue: false })
+  published: boolean
+}
+
+@Resolver()
+export class PostResolver {
+  @Mutation(() => Post)
+  @Authorized()
+  async createPost(
+    @Ctx() ctx,
+    @Info() Info,
+    @Arg('input') postInput: PostInput,
+  ): Promise<Post> {
+    return await new CreatePostResolver().createPost(ctx, Info, {
+      data: {
+        ...postInput,
+        author: {
+          connect: {
+            id: ctx.currentUser.id, // 使用 token 中的 user.id 作为参数
+          },
+        },
+      },
+    })
+  }
+}
+```
+
+> 使用自动生成 resolver 时的 graphql schema
+
+<img src='https://gitee.com/yrobot/images/raw/master/2021-07-30/UVQxpC-15-41-03.png' width='250'/>
+
+> 替换成 customer PostResolver 后
+
+<img src='https://gitee.com/yrobot/images/raw/master/2021-07-30/mSotVl-16-57-40.png' width='250'/>
 
 ## 接口返回结构控制
 
-> 相关 issue [#Overwriting types classes](https://github.com/MichalLytek/typegraphql-prisma/issues/115)
+> 相关 issue  
+> [#Overwriting types classes](https://github.com/MichalLytek/typegraphql-prisma/issues/115)  
+> [#The best way to hide output field](https://github.com/MichalLytek/typegraphql-prisma/issues/143)
+
+#### 官方解决方案
+
+目前官网暂时给出的解决方案是在`schema.prisma`中给需要隐藏的`field`添加一个标记:
+
+> `/// @TypeGraphQL.omit(output: true)`
+
+<img src="https://gitee.com/yrobot/images/raw/master/2021-07-27/tiMQxY-17-02-06.png" width='400'/>
+
+这样配置之后 `password` 就会从 graphql schema 的 `User` 中删除:  
+<img src="https://gitee.com/yrobot/images/raw/master/2021-07-27/nU5q7d-17-07-04.png" width='250'/>
+
+具体参看文档[typegraphql-prims #hiding-field](https://prisma.typegraphql.com/docs/advanced/hiding-field)
+
+#### 自研解决方案 UnField
+
+> UnField.ts
+
+```ts
+import { getMetadataStorage } from 'type-graphql/dist/metadata/getMetadataStorage'
+import { MethodAndPropDecorator } from 'type-graphql/dist/decorators/types'
+import { SymbolKeysNotSupportedError } from 'type-graphql/dist/errors'
+
+export function UnField(): MethodAndPropDecorator
+export function UnField(): MethodDecorator | PropertyDecorator {
+  return (prototype, propertyKey, descriptor) => {
+    if (typeof propertyKey === 'symbol') {
+      throw new SymbolKeysNotSupportedError()
+    }
+
+    const target = prototype.constructor
+
+    getMetadataStorage().fields = getMetadataStorage().fields.filter(
+      (field) => !(propertyKey === field.name && field.target === target),
+    )
+  }
+}
+```
+
+> In EnhanceMap logic
+
+```ts
+applyModelsEnhanceMap({
+  User: {
+    fields: {
+      password: [UnField()],
+    },
+  },
+})
+```
+
+原理是利用 typegraphql，将当前 field 从 fields 列表去除，这样 typegraphql 就不会把这个 field 转换成 graphql schema
 
 ## 接口入参校验
 
 type-graphql 推荐配合 [class-validator](https://github.com/typestack/class-validator) 对参数进行校验,参看 [type-graphql#validation](https://typegraphql.com/docs/validation.html)
 
 ```ts
-import { MaxLength, Length, IsEmail } from 'class-validator';
+import { MaxLength, Length, IsEmail } from 'class-validator'
 @InputType()
 export class UserInput {
   @Field()
   @MaxLength(16)
-  name: string;
+  name: string
 
   @Field({ nullable: true })
   @IsEmail()
-  email?: string;
+  email?: string
 }
 ```
 
@@ -135,7 +331,7 @@ applyArgsTypesEnhanceMap({
       data: [ValidateNested()],
     },
   },
-});
+})
 
 applyInputTypesEnhanceMap({
   UserCreateInput: {
@@ -143,22 +339,12 @@ applyInputTypesEnhanceMap({
       email: [IsEmail()],
     },
   },
-});
+})
 ```
 
 > 添加 email validation 后的效果
 
 ![](https://gitee.com/yrobot/images/raw/master/2021-07-22/rVDLKP-16-52-18.png)
-
-## 接口入参结构控制
-
-> 相关 issue [#Overwriting types classes](https://github.com/MichalLytek/typegraphql-prisma/issues/115)
-
-## 接口使用 token 数据，如新建 blog 时直接绑定 token 内的 `user.id`
-
-> 相关 issue [#Overwriting types classes](https://github.com/MichalLytek/typegraphql-prisma/issues/115)
-
-> 相关 issue [#computedInputs](https://github.com/MichalLytek/typegraphql-prisma/issues/139)
 
 ## 处理 Authorization
 
@@ -175,10 +361,14 @@ applyInputTypesEnhanceMap({
 @Resolver()
 export default class AuthResolver {
   @Query(() => Login)
-  async login(@Ctx() { prisma }, @Arg('email') email: string, @Arg('password') password: string): Promise<Login> {
+  async login(
+    @Ctx() { prisma },
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+  ): Promise<Login> {
     const user = await prisma.user.findUnique({
       where: { email },
-    });
+    })
     if (user?.password === password)
       return {
         user: user,
@@ -186,8 +376,8 @@ export default class AuthResolver {
           role: user.role,
           id: user.id,
         }),
-      };
-    throw new AuthenticationError('No such account or the password error');
+      }
+    throw new AuthenticationError('No such account or the password error')
   }
 }
 ```
@@ -195,15 +385,20 @@ export default class AuthResolver {
 #### 利用 ApolloServer.context 检测 token，并解析 token 将数据传入 context
 
 ```ts
-const prisma = new PrismaClient();
+interface Context {
+  prisma: PrismaClient
+  currentUser?: TokenUser
+}
+const prisma = new PrismaClient()
 const server = new ApolloServer({
   schema: await getSchema(),
-  context: ({ req }) => {
-    let user = null;
-    if (req.headers.authorization) user = decode(req.headers.authorization);
-    return { user, prisma };
+  context: ({ req }): Context => {
+    let currentUser = null
+    if (req.headers.authorization)
+      currentUser = decode(req.headers.authorization)
+    return { currentUser, prisma }
   },
-});
+})
 ```
 
 #### 利用 TypeGraphQL 的 Authorized 规范接口权限配置
@@ -219,19 +414,19 @@ class MyResolver {
       publicField: 'Some public data',
       authorizedField: 'Data for logged users only',
       adminField: 'Top secret info for admin',
-    };
+    }
   }
 
   @Authorized()
   @Query()
   authedQuery(): string {
-    return 'Authorized users only!';
+    return 'Authorized users only!'
   }
 
   @Authorized('ADMIN', 'MODERATOR')
   @Mutation()
   adminMutation(): string {
-    return 'You are an admin/moderator, you can safely drop the database ;)';
+    return 'You are an admin/moderator, you can safely drop the database ;)'
   }
 }
 ```
@@ -239,29 +434,35 @@ class MyResolver {
 typegraphql-prisma 使用 applyResolversEnhanceMap 控制对外接口的 Authorized 配置，参看 [typegraphql-prisma README](https://github.com/MichalLytek/typegraphql-prisma)
 
 ```ts
-import { ResolversEnhanceMap, applyResolversEnhanceMap } from '@generated/type-graphql';
-import { Authorized } from 'type-graphql';
+import {
+  ResolversEnhanceMap,
+  applyResolversEnhanceMap,
+} from '@generated/type-graphql'
+import { Authorized } from 'type-graphql'
 
 const resolversEnhanceMap: ResolversEnhanceMap = {
   Category: {
     createCategory: [Authorized(Role.ADMIN)],
   },
-};
+}
 
-applyResolversEnhanceMap(resolversEnhanceMap);
+applyResolversEnhanceMap(resolversEnhanceMap)
 ```
 
 #### 利用 TypeGraphQL buildSchema 的 authChecker 处理请求权限判断
 
 ```ts
-const authChecker: AuthChecker<ContextType> = ({ root, args, context, info }, roles) => {
-  const role = context.user.role;
-  return roles.includes(role); // false: access is denied
-};
+const authChecker: AuthChecker<ContextType> = (
+  { root, args, context, info },
+  roles,
+) => {
+  const role = context.user.role
+  return roles.includes(role) // false: access is denied
+}
 const schema = await buildSchema({
   resolvers: [MyResolver],
   authChecker: authChecker,
-});
+})
 ```
 
 ## 埋点 log
