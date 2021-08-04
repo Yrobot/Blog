@@ -1,22 +1,23 @@
 ---
-title: 使用Prisma搭建graphql服务
+title: 使用Prisma搭建graphql服务的最佳实践
 author: yrobot
-keywords: Prisma,graphql,Nodejs,server,typegraphql,typegraphql-prisma,Apollo
+keywords: Prisma,graphql,Nodejs,server,typegraphql,typegraphql-prisma,Apollo,winston
 createTime: 2021年07月09日
-draft: true
 ---
 
 **本页目录：**  
 [什么是 Prisma](#什么是-prisma)  
-[什么是 graphql](#什么是-graphql)  
+[什么是 TypeGraphQL-Prisma](#什么是-typegraphql-prisma)  
 [什么是 TypeGraphQL](#什么是-typegraphql)  
+[什么是 graphql](#什么是-graphql)  
 [什么是 Apollo Server](#什么是-apollo-server)  
 [主流程思考和优化](#主流程思考和优化)  
 [暴露部分接口](#暴露部分接口)  
 [暴露部分字段](#暴露部分字段)  
 [接口返回结构控制](#接口返回结构控制)  
 [接口传参控制](#接口传参控制)  
-[处理 Authorization](#处理-authorization)
+[处理 Authorization](#处理-authorization)  
+[Log 埋点](#log-埋点)
 
 ## 什么是 Prisma
 
@@ -24,11 +25,13 @@ draft: true
 
 具体介绍和使用请参看前一期 blog[《Prisma 的简介和使用》](./Prisma的简介和使用)
 
-## 什么是 graphql
+## 什么是 TypeGraphQL-Prisma
 
-> GraphQL 是一种针对 Graph（图状数据）进行查询特别有优势的 Query Language（查询语言）
+> Prisma generator to emit TypeGraphQL type classes and CRUD resolvers from your Prisma schema.
 
-具体介绍和使用请参看前一期 blog[《Prisma 的简介和使用》](./Prisma的简介和使用)
+> TypeGraphQL-Prisma 主要作用就是根据 Prisma schema 自动生成 TypeGraphQL type classes 和 CRUD resolvers.
+
+具体介绍和使用请参看 [TypeGraphQL-Prisma 官网](https://prisma.typegraphql.com/)
 
 ## 什么是 TypeGraphQL
 
@@ -38,19 +41,25 @@ draft: true
 
 具体介绍和使用请参看 [TypeGraphQL 官网](https://typegraphql.com/)
 
+## 什么是 graphql
+
+> GraphQL 是一种针对 Graph（图状数据）进行查询特别有优势的 Query Language（查询语言）
+
+具体介绍和使用请参看 [Graphql 官网](https://graphql.bootcss.com/)
+
 ## 什么是 Apollo Server
 
 > A stand-alone GraphQL server, based on express
 
 > 基于 express 的 Graphql 服务框架
 
-具体介绍和使用请参看 [apollo-server 官网](https://www.apollographql.com/docs/apollo-server/#apollo-server-provides)
+具体介绍和使用请参看 [Apollo-Server 官网](https://www.apollographql.com/docs/apollo-server/#apollo-server-provides)
 
 ## 主流程思考和优化
 
 #### 传统 graphql service 组成：
 
-> DB, DB 连接池, SQL 生成器, 业务逻辑层, graphql schema, Web 服务框架
+> DB, DB 连接池, SQL 生成器, 业务逻辑层, graphql 层, Web 服务框架
 
 #### 本文涉及框架职责概述：
 
@@ -76,9 +85,6 @@ draft: true
 
 #### 短板梳理与控制
 
-> **NOTE:**  
-> 以下所有自动生成的 resolver 的短板都可以通过 customer resolver 来规避，通过 实现 customer resolver 接管 graphql 层，并在逻辑中调用自动生成的 resolver 即可。参看下文章节 [使用 customer resolver](#使用-customer-resolver)
-
 1. 自动生成的 resolvers 没有权限控制
 
    > 如果 resolver 直接暴露的，需要利用 Typegraphql-prisma 的 `EnhanceMap` 对 resolvers 添加 `Authorized` 装饰器来设置权限
@@ -102,6 +108,11 @@ draft: true
    > 主要思路是，标记属性不转换为 graphql schema input，并利用中间键传入数据
 
    > 参看下文章节 [接口入参结构控制](#接口入参结构控制)
+
+**NOTE:**
+
+> 以上所有自动生成的 resolver 的短板都可以通过 customer resolver 来规避，通过 实现 customer resolver 接管 graphql 层，并在逻辑中调用自动生成的 resolver 即可。  
+> 参看下文章节 [使用 customer resolver](#使用-customer-resolver)
 
 #### 明确职责和规范
 
@@ -187,7 +198,7 @@ const schema = await buildSchema({
 - 这块需求对自动生成的改动较大，包含 graphql 的改动和 resolver 参数的注入。
 - 所以个人觉得还是使用 customer resolver 来重新实现比较方便，还可以在 resolver 内部调用自动 生成的 resolver 来节省开发时间。
 
-> customer PostResolver
+customer PostResolver
 
 ```ts
 import {
@@ -236,11 +247,11 @@ export class PostResolver {
 }
 ```
 
-> 使用自动生成 resolver 时的 graphql schema
+使用自动生成 resolver 时的 graphql schema
 
 <img src='https://gitee.com/yrobot/images/raw/master/2021-07-30/UVQxpC-15-41-03.png' width='250'/>
 
-> 替换成 customer PostResolver 后
+替换成 customer PostResolver 后
 
 <img src='https://gitee.com/yrobot/images/raw/master/2021-07-30/mSotVl-16-57-40.png' width='250'/>
 
@@ -265,7 +276,7 @@ export class PostResolver {
 
 #### 自研解决方案 UnField
 
-> UnField.ts
+UnField.ts
 
 ```ts
 import { getMetadataStorage } from 'type-graphql/dist/metadata/getMetadataStorage'
@@ -288,7 +299,7 @@ export function UnField(): MethodDecorator | PropertyDecorator {
 }
 ```
 
-> In EnhanceMap logic
+In EnhanceMap logic
 
 ```ts
 applyModelsEnhanceMap({
@@ -342,7 +353,7 @@ applyInputTypesEnhanceMap({
 })
 ```
 
-> 添加 email validation 后的效果
+添加 email validation 后的效果
 
 ![](https://gitee.com/yrobot/images/raw/master/2021-07-22/rVDLKP-16-52-18.png)
 
@@ -465,4 +476,186 @@ const schema = await buildSchema({
 })
 ```
 
-## 埋点 log
+## Log 埋点
+
+- 记录每次 request 和 response
+- 记录每次 error 的内容
+
+便于 debug 和 服务分析
+
+主要思路：
+
+> 利用 apollo-server 的 customer plugins 给 request 进行埋点 format
+
+#### 代码实现
+
+logger.ts
+
+> 利用 `winston` 定义 logger，供 logPlugin 使用
+
+> 利用 `winston-daily-rotate-file` 将 log 内容持久化到本地 log 文件
+
+```ts
+import * as winston from 'winston'
+import * as DailyRotateFile from 'winston-daily-rotate-file'
+
+interface Config {
+  bussiness: string
+}
+
+const createLogger = ({ bussiness }: Config) =>
+  winston.createLogger({
+    transports: [
+      // new winston.transports.Console(),
+      new DailyRotateFile({
+        filename: `%DATE%.log`,
+        datePattern: 'YYYY-MM-DD',
+        maxSize: '20m',
+        dirname: `./logs/${bussiness}`,
+      }),
+    ],
+  })
+
+export const logRequest = createLogger({
+  bussiness: 'request',
+})
+
+export const logError = createLogger({
+  bussiness: 'server-error',
+})
+```
+
+logPlugin.ts
+
+> 利用 customer apollo-server plugin，对 request 和 error 进行埋点
+
+> 并利用每次 request 生成 requestId，来方便 log 定位
+
+> `requestDidStart` 每次 request 进入的时候触发  
+> `willSendResponse` 每次 response 发送前触发  
+> `didEncounterErrors` 每次 apollo-server 产生 error 的时候触发  
+> apollo-server plugin 生命周期解析，参看 [apollo 官网解析](https://www.apollographql.com/docs/apollo-server/integrations/plugins/)
+
+```ts
+import { ApolloServerPlugin } from 'apollo-server-plugin-base'
+
+import { logRequest, logError } from '@/src/utils/logger'
+
+export const logPlugin = (): ApolloServerPlugin => {
+  return {
+    async serverWillStart(service) {},
+    async requestDidStart(requestContext) {
+      const startAt = Date.now()
+      const requestId = startAt
+      const requestLogConetext = {
+        requestId,
+        at: new Date(),
+        request: {
+          schema: `${requestContext.request.query}`,
+          variables: requestContext.request.variables,
+          token: requestContext.request.http.headers.get('Authorization') || '',
+        },
+        response: null,
+      }
+      requestContext.response.http.headers.set('request-id', requestId + '')
+      return {
+        async willSendResponse(requestContext) {
+          const { http, extensions, ...response } = requestContext.response
+          requestLogConetext.response = JSON.parse(JSON.stringify(response))
+          requestLogConetext.runTime = Date.now() - startAt
+          logRequest.info('request', {
+            context: requestLogConetext,
+          })
+        },
+        async didEncounterErrors(requestContext) {
+          logError.error('error', {
+            context: {
+              requestId,
+              at: new Date(),
+              errors: requestContext.errors,
+            },
+          })
+        },
+      }
+    },
+  }
+}
+```
+
+server.ts
+
+> 在 apollo-server 实例化的时候引入 logPlugin
+
+```ts
+const server = new ApolloServer({
+  schema: await getSchema(),
+  context: ({ req }): Context => {
+    return { prisma, token: req.headers.authorization }
+  },
+  debug: true,
+  plugins: [logPlugin()],
+  formatError: (err) => {
+    const { extensions, locations, ...error } = err
+    return error
+  },
+})
+```
+
+#### 查看效果
+
+logs/request/2021-08-04.log
+
+```json
+{
+  "context": {
+    "requestId": 1628057670344,
+    "at": "2021-08-04T06:14:30.344Z",
+    "runTime": 62,
+    "request": {
+      "schema": "query Query($userWhere: UserWhereUniqueInput!, $loginInput: LoginInput!) {\n  user(where: $userWhere) {\n    email\n    name\n    role\n  }\n  login(input: $loginInput) {\n    token\n    user {\n      name\n      email\n    }\n  }\n}\n",
+      "variables": {
+        "userWhere": { "id": 0 },
+        "loginInput": { "email": "yrobot@mail.com", "password": "password" }
+      },
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC19.eyJuYW1lIjoiWXJvYm90Iiwicm9sZSI6IlVTRVIiLC1pZCI6MTEsImlhdCI6MTYyNzk4MTIzOH0._jb5lJfS3Vn8USRlnZEa55yIJ4EbBA9BhwoPIQDPpj1"
+    },
+    "response": {
+      "errors": [{ "message": "当前用户没有权限", "path": ["user"] }],
+      "data": {
+        "user": null,
+        "login": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI61kpXVCJ9.eyJuYW1lIjoiWXJvYm90Iiwicm9sZSI6I2VTRVIiLCJpZCI6MTEsImlhdCI6MTYyODA1NzY3MH0.-0Uz0XxbCQ8b7CSDpv56ljC1kqNKpB4cNYnNnZWxGG1",
+          "user": { "name": "yrobot", "email": "yrobot@mail.com" }
+        }
+      }
+    }
+  },
+  "level": "info",
+  "message": "request"
+}
+```
+
+logs/server-error/2021-08-04.log
+
+```json
+{
+  "context": {
+    "requestId": 1628057670344,
+    "at": "2021-08-04T06:14:30.405Z",
+    "errors": [
+      {
+        "message": "当前用户没有权限",
+        "locations": [{ "line": 2, "column": 3 }],
+        "path": ["user"],
+        "extensions": {
+          "roles": ["ADMIN"],
+          "currentRole": "USER",
+          "code": "FORBIDDEN"
+        }
+      }
+    ]
+  },
+  "level": "error",
+  "message": "error"
+}
+```
