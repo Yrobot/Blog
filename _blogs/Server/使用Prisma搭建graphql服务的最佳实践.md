@@ -17,7 +17,8 @@ createTime: 2021年07月09日
 [接口返回结构控制](#接口返回结构控制)  
 [接口传参控制](#接口传参控制)  
 [处理 Authorization](#处理-authorization)  
-[Log 埋点](#log-埋点)
+[Log 埋点](#log-埋点)  
+[example 代码地址](#example-代码地址)
 
 ## 什么是 Prisma
 
@@ -659,3 +660,18 @@ logs/server-error/2021-08-04.log
   "message": "error"
 }
 ```
+
+## example 代码地址
+
+[<img src='https://gitee.com/yrobot/images/raw/master/2021-08-04/CouWgs-18-40-15.png' width='600'/>](https://github.com/yrobot-demo/prisma-demo/tree/graphql)  
+[prisma-demo/graphql](hhttps://github.com/yrobot-demo/prisma-demo/tree/graphql)
+
+#### 获取 demo 代码 并 运行
+
+> run this three commond lines in your terminal
+
+- `git clone git@github.com:yrobot-demo/prisma-demo.git ./prisma-demo`
+- `cd ./prisma-demo`  
+- `git checkout graphql`  
+
+接下来跟着 `README.md` 的教程一步步走即可
