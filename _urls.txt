@@ -1,5 +1,9 @@
 https://blog.yrobot.top
-https://blog.yrobot.top/blog/SPA/React静态页面的最佳实践
+https://blog.yrobot.top/blog/浏览器/跨域问题
+https://blog.yrobot.top/blog/Server/使用Prisma搭建graphql服务的最佳实践
+https://blog.yrobot.top/blog/Server/Prisma的简介和使用
+https://blog.yrobot.top/blog/CICD/Bitbucket/使用Bitbucket_Pipelines实现持续集成自动部署
+https://blog.yrobot.top/blog/CICD/什么是CICD
 https://blog.yrobot.top/blog/SPA/前端路由
 https://blog.yrobot.top/blog/JS/JS模块化
 https://blog.yrobot.top/blog/JS/探讨ESM对当前开发的意义或影响
