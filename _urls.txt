@@ -1,5 +1,6 @@
 https://blog.yrobot.top
 https://blog.yrobot.top/blog/浏览器/跨域问题
+https://blog.yrobot.top/blog/架构设计/跨站点授权
 https://blog.yrobot.top/blog/Server/使用Prisma搭建graphql服务的最佳实践
 https://blog.yrobot.top/blog/Server/Prisma的简介和使用
 https://blog.yrobot.top/blog/CICD/Bitbucket/使用Bitbucket_Pipelines实现持续集成自动部署
