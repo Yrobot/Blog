@@ -45,8 +45,20 @@ window.parent.postMessage("secret", "https://yrobot.top");
 2. 只对白名单域名运行 postMessage 逻辑
 
 ```js
+const getParentOrigin = () => {
+  var url = null;
+  if (parent !== window) {
+    try {
+      url = parent.location.origin;
+    } catch (e) {
+      url = document.referrer;
+    }
+  }
+  return url && /^https?:\/\/[\w-.]+(:\d+)?/i.exec(url)[0];
+};
+
 const whitelist = ["https://yrobot.top"];
-if (whitelist.includes(window.parent.location.origin)) {
-  window.parent.postMessage("secret", window.parent.location.origin);
+if (whitelist.includes(getParentOrigin())) {
+  window.parent.postMessage("secret", getParentOrigin());
 }
 ```
