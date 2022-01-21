@@ -21,36 +21,33 @@ createTime: 2018年08月25日
 
 1. 布局视口
    - 本文的重点，meta 属性设置的对象。
-   - 布局视口 可以理解为  包含整个页面的区域，所以布局视口可能比可视区域还要大。
-     ![](https://ws2.sinaimg.cn/large/006tNbRwgy1fun61b567vj317g0wan4b.jpg)
+   - 布局视口 可以理解为 包含整个页面的区域，所以布局视口可能比可视区域还要大。
 1. 视觉视口
    - 视觉视口 是用户正在看到的网站的区域。用户可以通过缩放来操作视觉视口，同时不会影响布局视口，布局视口仍保持原来的宽度。
-     ![](https://ws3.sinaimg.cn/large/006tNbRwgy1fun62jqutdj317c0w8gsh.jpg)
      <a href="" id="ideal-viewport"></a>
 1. 理想视口
-   - 移动端浏览器还有一个理想视口的概念。其宽度就是  下文提到的 **理想视口宽度**
+   - 移动端浏览器还有一个理想视口的概念。其宽度就是 下文提到的 **理想视口宽度**
    - 布局视口的默认宽度并不是一个理想的宽度，大家从上面的图就可以看出来了，所以苹果公司就引进了理想窗口这个概念。
-   - 理想视口就是  最理想的布局视口的尺寸。将布局视口设置成理想视口，页面就能够适应到合适的尺寸，用户就不再需要自己去缩放和拖动网页了。
-   - 在  移动端，只有布局视口和理想视口一样大时，移动端显示在和 PC 预期一样，否则浏览器会缩放(不是修改布局视口，而是将整个内容缩小或放大)，以适应移动端显示。从而导致了移动端字体过小等问题。
-     ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fun6qqa0xrj30my04s3z4.jpg)
+   - 理想视口就是 最理想的布局视口的尺寸。将布局视口设置成理想视口，页面就能够适应到合适的尺寸，用户就不再需要自己去缩放和拖动网页了。
+   - 在 移动端，只有布局视口和理想视口一样大时，移动端显示在和 PC 预期一样，否则浏览器会缩放(不是修改布局视口，而是将整个内容缩小或放大)，以适应移动端显示。从而导致了移动端字体过小等问题。Î
 
 ### **以下 viewport 默认指的是布局视口**
 
-- 通俗的讲，viewport 就是 html 的  外层区域，在使用百分比布局时，html 设置 width：100%就是根据 viewport 宽度来的，所以 viewport 可以  理解为 html 的父素。
+- 通俗的讲，viewport 就是 html 的 外层区域，在使用百分比布局时，html 设置 width：100%就是根据 viewport 宽度来的，所以 viewport 可以 理解为 html 的父素。
   <a href="" id="default"></a>
 
 #### 默认 viewport 的宽度
 
 - 下图列出了一些设备上浏览器的默认 viewport 的宽度。
 - 要注意的是在 PC 浏览器中，布局视口和视觉视口是相同的，布局视口默认视口宽度会被覆盖。
-  ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fun4nndiqkj30r304caar.jpg)
   <a href="" id="initial-scale"></a>
 
 #### initial-scale
 
 - 而 viewport 还有一个 initial-scale 的概念，这个 initial-scale 是一个数值，用于记录 [理想视口宽度](#ideal-viewport) / viewport 宽度 的值。即 initial-scale = 理想视口宽度 / viewport 宽度 。
-- 而每个设备的 理想视口宽度 又是固定的，所以通过设置 initial-scale 就可确定 viewport 的值。以下是一些设备 理想视口宽度 的  值：
-  ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fun4n9lduzj30pw04cgme.jpg)
+- 而每个设备的 理想视口宽度 又是固定的，所以通过设置 initial-scale 就可确定 viewport 的值。
+- initial-scale 默认值：
+  - 根据测试，在 iphone 和 ipad 上，你给 viewport 设置的宽度后，而又没有指定初始的缩放值的话，iphone 和 ipad 会自动计算 initial-scale 这个值： 当前缩放值 = 理想视口宽度 / viewport 宽度
 
 <a id='id2'></a>
 
@@ -62,10 +59,12 @@ createTime: 2018年08月25日
 <body>
   <p class="title">My Title</p>
   <p class="content">
-    Apple documentation: Using the Viewport Meta Tag Mozilla: Using the viewport meta tag to control layout on mobile
-    browsers quirksmode.org: A tale of two viewports w3.org Mobile Web Application Best Practices: Use Meta Viewport
-    Element To Identify Desired Screen Size Quick Tip: Never use maximum-scale=1.0 on the A11y Project Tim Kadlec
-    explains IE10 Snap Mode and Responsive Design The @viewport rule proposal
+    Apple documentation: Using the Viewport Meta Tag Mozilla: Using the viewport
+    meta tag to control layout on mobile browsers quirksmode.org: A tale of two
+    viewports w3.org Mobile Web Application Best Practices: Use Meta Viewport
+    Element To Identify Desired Screen Size Quick Tip: Never use
+    maximum-scale=1.0 on the A11y Project Tim Kadlec explains IE10 Snap Mode and
+    Responsive Design The @viewport rule proposal
   </p>
 </body>
 ```
@@ -84,14 +83,14 @@ createTime: 2018年08月25日
 
 #### 移动端加 meta 的 Viewport 标签：
 
-- head 添加  标签 ：`<meta name="viewport" content="initial-scale=1.0">`
+- head 添加 标签 ：`<meta name="viewport" content="initial-scale=1.0">`
   ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fum9bgbjjgj30ig0so78a.jpg)
 - width：375px (iphone6 设备的 理想视口宽度 为 375px，所以`viewport = 375px / 1`, 参考[initial-scale](#initial-scale))
 
 #### 差别
 
-- 使用了`initial-scale=1.0`之后，浏览器的 viewport 从默认的 980px 变为  理想视口宽度 375px 的 1：1 关系的宽度 375px
--  设置`initial-scale=2.0`后 viewport 变为`375px/2=187px`
+- 使用了`initial-scale=1.0`之后，浏览器的 viewport 从默认的 980px 变为 理想视口宽度 375px 的 1：1 关系的宽度 375px
+- 设置`initial-scale=2.0`后 viewport 变为`375px/2=187px`
   ![](https://ws2.sinaimg.cn/large/006tNbRwgy1fumb1i32fjj30i60gimy4.jpg)
 - 可见 **`viewport宽度 = 理想视口宽度 / initial-scale值`**
 
@@ -147,5 +146,5 @@ if (document.documentElement.clientWidth >= 600) {
 ## 总结
 
 1. 影响显示排版的是布局视口，布局视口变了，整个页面排版位置才会改变。
-2. 一般移动端进行适配：`<meta name="viewport" content="width=device-width,initial-scale=1.0,userscalable=no">`
-3. 当然还可以  利用 js 获取布局视口大小，进一步设置，适配出自己想要的效果。
+2. 一般移动端进行适配：`<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">`, `width=device-width, initial-scale=1` 可以确保大部分设备上 viewport 的宽度和理想宽度一致。
+3. 可以 利用 js 获取布局视口大小，进一步设置，适配出自己想要的效果。
