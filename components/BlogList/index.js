@@ -23,7 +23,7 @@ export default function BlogList({ typePosts = [] }) {
             onClick={() => {
               setType(title);
             }}
-            className={`mr-2 mb-2 flex-none whitespace-nowrap rounded-full border border-black px-2 py-1 md:px-4 md:py-2 text-black ${
+            className={`mr-2 mb-2 flex-none cursor-pointer whitespace-nowrap rounded-full border border-black px-2 py-1 text-black md:px-4 md:py-2 ${
               type === title ? "" : "opacity-30"
             }`}
           >
