@@ -1,42 +1,46 @@
-import React from 'react';
-import dayjs from 'dayjs';
+import React from "react";
+import dayjs from "dayjs";
 
-import { Trans } from 'I18N';
+import { Trans } from "I18N";
 
 export default function BlogItem({ blog }) {
   const { title, keywords, createTime, length, url } = blog || {};
   return (
     <a href={url}>
-      <div className='card p-[15px] mb-[15px] md:p-[20px] md:mb-[20px] md:flex flex-row items-center justify-between'>
-        <div className='flex-auto md:w-0'>
-          <div className='text-[14px] leading-[16px] font-bold mb-[10px] md:mb-[10px] overflow-hidden whitespace-nowrap overflow-ellipsis'>
+      <div className="card mb-[15px] flex-row items-center justify-between p-[15px] md:mb-[20px] md:flex md:p-[20px]">
+        <div className="flex-auto md:w-0">
+          <div className="mb-[10px] overflow-hidden overflow-ellipsis whitespace-nowrap text-[14px] font-bold leading-[16px] md:mb-[10px]">
             {title}
           </div>
-          <div className='text-[12px] leading-[14px] overflow-hidden whitespace-nowrap overflow-ellipsis'>
-            {keywords.replace(/\,/g, ', ')}
+          <div className="overflow-hidden overflow-ellipsis whitespace-nowrap text-[12px] leading-[14px]">
+            {keywords.replace(/\,/g, ", ")}
           </div>
         </div>
-        <div className='flex flex-row items-center justify-between mt-[15px] md:hidden'>
-          <div className='text-[16px] font-bold mr-auto cursor-pointer'>
+        <div className="mt-[15px] flex flex-row items-center justify-between md:hidden">
+          <div className="mr-auto cursor-pointer text-[16px] font-bold">
             <Trans>view</Trans>
           </div>
-          <span className='iconfont icondate w-[16px] h-[16px] text-[16px] mr-[4px]'></span>
-          <span className='text-[14px] mr-[15px]'>
+          <span className="iconfont icontime mr-[4px] text-[16px]"></span>
+          <span className="mr-[15px] inline-block min-w-[50px] text-[14px]">
             {parseInt(length / 300)}
             <Trans>min</Trans>
           </span>
-          <span className='iconfont icontime w-[16px] h-[16px] text-[16px] mr-[4px]'></span>
-          <span className='text-[14px]'>{dayjs(createTime).format('YYYY-MM-DD')}</span>
+          <span className="iconfont icondate mr-[4px] text-[16px]"></span>
+          <span className="inline-block  min-w-[80px] text-[14px]">
+            {dayjs(createTime).format("YYYY-MM-DD")}
+          </span>
         </div>
-        <div className='hidden md:flex flex-none items-center justify-between'>
-          <span className='iconfont icondate w-[16px] h-[16px] text-[16px] mr-[4px]'></span>
-          <span className='text-[14px] mr-[15px]'>
+        <div className="hidden flex-none items-center justify-between md:flex">
+          <span className="iconfont icontime mr-[4px] text-[16px]"></span>
+          <span className="mr-[15px] inline-block min-w-[50px] text-[14px]">
             {parseInt(length / 300)}
             <Trans>min</Trans>
           </span>
-          <span className='iconfont icontime w-[16px] h-[16px] text-[16px] mr-[4px]'></span>
-          <span className='text-[14px] mr-[15px]'>{dayjs(createTime).format('YYYY-MM-DD')}</span>
-          <div className='px-[40px] py-[8px] bg-black text-white rounded-[8px] cursor-pointer'>
+          <span className="iconfont icondate mr-[4px] text-[16px]"></span>
+          <span className="mr-[15px] inline-block  min-w-[80px] text-[14px]">
+            {dayjs(createTime).format("YYYY-MM-DD")}
+          </span>
+          <div className="cursor-pointer rounded-[8px] bg-black px-[40px] py-[8px] text-white">
             <Trans>view</Trans>
           </div>
         </div>
