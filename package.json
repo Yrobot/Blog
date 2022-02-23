@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "urls": "node ./lib/scripts/fresh-urls.js",
-    "baidu-seo": "node ./lib/scripts/baidu-seo-push.js"
+    "baidu-seo": "node ./lib/scripts/baidu-seo-push.mjs"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.2",
