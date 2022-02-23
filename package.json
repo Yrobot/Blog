@@ -31,6 +31,8 @@
     "gray-matter-editor": "^1.0.0",
     "nodejieba": "^2.5.2",
     "postcss": "^8.2.4",
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.7",
     "remark": "13.0.0",
     "remark-html": "13.0.1",
     "tailwindcss": "^3.0.23"
