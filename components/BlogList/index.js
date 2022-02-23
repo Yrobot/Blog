@@ -17,7 +17,7 @@ export default function BlogList({ typePosts = [] }) {
         <Trans>Blogs</Trans>
       </div>
       <div className="mb-4 flex select-none flex-row flex-wrap overflow-x-hidden overflow-y-scroll text-xs md:text-base">
-        {typePosts.map(({ title }) => (
+        {typePosts.map(({ title, list = [] }) => (
           <div
             key={title}
             onClick={() => {
@@ -27,7 +27,7 @@ export default function BlogList({ typePosts = [] }) {
               type === title ? "" : "opacity-30"
             }`}
           >
-            <Trans>{title}</Trans>
+            <Trans>{title}</Trans> ({list.length})
           </div>
         ))}
       </div>
