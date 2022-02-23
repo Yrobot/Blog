@@ -1,6 +1,5 @@
 module.exports = {
-  mode: 'jit',
-  purge: ['./components/**/*.js', './pages/**/*.js'],
+  content: ["./pages/**/*.js", "./components/**/*.js"],
   theme: {
     extend: {
       typography: {
@@ -11,22 +10,22 @@ module.exports = {
         },
       },
       colors: {
-        black: '#000000',
-        white: '#ffffff',
-        'gray/100': '#f4f4f5',
-        'gray/200': '#e4e4e7',
-        'gray/500': '#71717a',
+        black: "#000000",
+        white: "#ffffff",
+        "gray/100": "#f4f4f5",
+        "gray/200": "#e4e4e7",
+        "gray/500": "#71717a",
       },
       fontFamily: {
-        'helvetica-neue': 'Helvetica Neue',
+        "helvetica-neue": "Helvetica Neue",
       },
       boxShadow: {
-        menu: '20px 20px 40px rgba(0, 0, 0, 0.25)',
+        menu: "20px 20px 40px rgba(0, 0, 0, 0.25)",
       },
       width: {
-        '40%': '40%',
+        "40%": "40%",
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [require("@tailwindcss/typography")],
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import Script from "next/script";
 
-import "tailwindcss/tailwind.css";
 import "./global.sass";
 
 function MyApp({ Component, pageProps }) {
