@@ -1,10 +1,10 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from "react";
 
-import { Trans } from 'I18N';
-import BlogItem from 'components/BlogItem';
+import { Trans } from "I18N";
+import BlogItem from "components/BlogItem";
 
 export default function BlogList({ typePosts = [] }) {
-  const [type, setType] = useState('All');
+  const [type, setType] = useState("All");
   const list = useMemo(() => {
     for (let i = 0; i < typePosts.length; i++) {
       const { title, list = [] } = typePosts[i];
@@ -13,20 +13,22 @@ export default function BlogList({ typePosts = [] }) {
   }, [type]);
   return (
     <>
-      <div className='text-[20px] md:text-[24px] mb-[20px]'>
+      <div className="mb-4 text-xl md:text-2xl">
         <Trans>Blogs</Trans>
       </div>
-      <div className='text-[14px] md:text-[16px] mb-[20px] whitespace-nowrap overflow-x-scroll overflow-y-hidden select-none'>
+      <div className="mb-4 flex select-none flex-row flex-wrap overflow-x-hidden overflow-y-scroll text-xs md:text-base">
         {typePosts.map(({ title }) => (
-          <span
+          <div
             key={title}
             onClick={() => {
               setType(title);
             }}
-            className={`mr-[40px] cursor-pointer ${type === title ? '' : 'opacity-30'}`}
+            className={`mr-2 mb-2 flex-none whitespace-nowrap rounded-full border border-black px-2 py-1 md:px-4 md:py-2 text-black ${
+              type === title ? "" : "opacity-30"
+            }`}
           >
             <Trans>{title}</Trans>
-          </span>
+          </div>
         ))}
       </div>
       {list.map((blog, i) => (
