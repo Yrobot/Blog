@@ -22,7 +22,7 @@ updateTime: 2022年02月25日
 而我期望`标题`和`内容`的主题可以一键修改
 
 首先来看看项目的组件树：  
-<img src="https://gitee.com/yrobot/images/raw/master/2022-02-25/QiwCKp-15-35-08.png" width='400' />
+<img src="https://gitee.com/yrobot/images/raw/master/2022-02-25/QiwCKp-15-35-08.png" width='500' />
 
 那么有什么方式使`Title`和`Content`的主题保持一致呢？
 
@@ -77,7 +77,7 @@ Content 组件中使用 props 传递的数据和方法：
 
 ```js
 
-import themeMap form '../themeConfig'
+import themeMap form '../themeConfig' // 各种theme的配置文件
 
 class Content extends Component {
     constructor(props) {
@@ -108,6 +108,7 @@ class Content extends Component {
 1. 性能问题：由于状态提升到最顶端组件，所以一旦状态变更就会引起最顶端组件 rerender，如果没有 memo 进行优化包裹，那么整个 App 都会 rerender。
 2. 用起来复杂：如果 App 层级较多，最底层逐渐主要用到全局状态的话，那么中间的每一层组件都需要接收并传递全局状态。
 3. 代码冗杂：大量重复的代码，单纯只是为了传递状态
+4. 状态管理混乱，无法像使用中间层一样轻易的给状态管理加上一些统一的逻辑
 
 <a id='better'></a>
 
@@ -119,7 +120,7 @@ class Content extends Component {
 2. 在全局状态无关的组件里无需添加任何逻辑
 3. 优雅的 debug，可以清晰的知道状态何时发生了变更，变更前后的值是什么
 
-**请移步进阶的状态管理方案：**
+### 请移步进阶的状态管理方案：
 
-- [《利用 context 注入》](../利用context注入)
+- [《利用 Context》](../利用Context)
 - [《利用 react-redux》](../利用react-redux)

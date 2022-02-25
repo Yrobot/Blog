@@ -21,7 +21,7 @@ updateTime: 2022年02月24日
 而我期望`标题`和`内容`的主题可以一键修改
 
 首先来看看项目的组件树：  
-<img src="https://gitee.com/yrobot/images/raw/master/2022-02-25/QiwCKp-15-35-08.png" width='400' />
+<img src="https://gitee.com/yrobot/images/raw/master/2022-02-25/QiwCKp-15-35-08.png" width='500' />
 
 那么有什么方式使`Title`和`Content`的主题保持一致呢？
 
