@@ -10,7 +10,7 @@ updateTime: 2022年02月25日
 [场景思考](#index)  
 [利用 props 状态提升](#props)  
 [查看代码](#code)  
-[存在的问题](#problem)
+[存在的问题](#problem)  
 [更好的方案](#better)
 
 <a id='index'></a>
