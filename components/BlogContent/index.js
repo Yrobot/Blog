@@ -1,22 +1,24 @@
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
-import { Trans } from 'I18N';
+import { Trans } from "I18N";
 
 export default function BlogContent({ blog = {} }) {
   const { content, title, date, length, author, keywords } = blog || {};
   return (
     <>
-      <div className='text-center text-xl mb-[6px] md:text-4xl md:font-bold md:mb-[10px] 2xl:text-5xl 2xl:mb-[15px] font-medium'>{title}</div>
-      <div className='text-center whitespace-pre-wrap text-gray-500 font-light text-[14px] leading-[20px] md:text-[16px] mb-[20px]'>
-        {`${dayjs(date).format('YYYY-MM-DD')}  |  `}
+      <div className="mb-[6px] mt-[20px] text-center text-xl font-medium md:mb-[10px] md:text-4xl md:font-bold xl:mb-[15px] xl:text-5xl">
+        {title}
+      </div>
+      <div className="mb-[20px] whitespace-pre-wrap text-center text-[14px] font-light leading-[20px] text-gray-500 md:text-[16px]">
+        {`${dayjs(date).format("YYYY-MM-DD")}  |  `}
         {parseInt(length / 300)}
         <Trans>min</Trans>
         {`  |  ${author}  |  `}
-        <span className='md:hidden'>{`\n`}</span>
+        <span className="md:hidden">{`\n`}</span>
         {keywords}
       </div>
       <article
-        className='prose prose-sm break-all md:prose 2xl:prose-lg mb-[15px] md:mb-[20px]'
+        className="prose prose-sm mb-[15px] break-all md:prose md:mb-[20px] xl:prose-lg"
         dangerouslySetInnerHTML={{ __html: content }}
       ></article>
     </>

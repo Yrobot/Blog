@@ -2,21 +2,18 @@
 @tailwind components
 @tailwind utilities
 
-:root
-  --primary-color: #000
-  --primary-color-oppo: #fff
-
-body
-  padding: 20px
-  line-height: normal
-
-.card
-  border-radius: 14px
-  background-color: #F4F4F5
-
-.menu
-  background-color: var(--primary-color)
-  color: var(--primary-color-oppo)
+@layer base
+  :root
+    --primary-color: #000
+    --primary-color-oppo: #fff
+  body
+    @apply py-5 px-5 md:px-8
+  .card
+    background-color: #F4F4F5
+    border-radius: 14px
+  .menu
+    background-color: var(--primary-color)
+    color: var(--primary-color-oppo)
 
 *::-webkit-scrollbar
   width: 2px

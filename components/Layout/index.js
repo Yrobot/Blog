@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import Footer from 'components/Footer';
-import styles from './index.module.sass';
+import Footer from "components/Footer";
 
 export default function Layout({ children }) {
   return (
-    <div className='mx-auto md:max-w-screen-lg 2xl:max-w-screen-2xl'>
-      <div className='md:flex flex-row items-start justify-between'>{children}</div>
+    <div className="mx-auto md:max-w-screen-lg xl:max-w-[1320px]">
+      <div className="flex-row items-start justify-between md:flex">
+        {children}
+      </div>
       <Footer />
     </div>
   );

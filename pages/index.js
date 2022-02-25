@@ -33,12 +33,12 @@ export default function Index({ typePosts = [], completed, draftCount }) {
           <title>Yrobot's Blog</title>
         </Head>
         <Menu />
-        <div className="min-w-0 flex-auto flex-row items-start justify-between 2xl:flex">
-          <div className="min-w-0 2xl:mr-[50px] 2xl:flex-auto 2xl:pt-[30px]">
+        <div className="min-w-0 flex-auto flex-row items-start justify-between xl:flex">
+          <div className="min-w-0 xl:mr-[40px] xl:flex-auto xl:pt-[30px]">
             <BlogProgress completed={completed} progress={draftCount} />
             <BlogList typePosts={typePosts} />
           </div>
-          <div className="2xl:w-[580px] 2xl:flex-none">
+          <div className="xl:w-[540px] xl:flex-none grid grid-cols-1 gap-5">
             <WelcomeCard />
             <GithubList />
             <Comment placeholder="Leave a comment!" />

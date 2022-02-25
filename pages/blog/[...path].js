@@ -35,13 +35,13 @@ export default function Index({ pre, blog, next }) {
           <title>{blog.title}</title>
         </Head>
         <Menu home />
-        <div className="min-w-0 flex-auto flex-row items-start justify-between 2xl:flex">
-          <div className="min-w-0 2xl:mr-[50px] 2xl:flex-auto 2xl:pt-[30px]">
+        <div className="min-w-0">
+          <div className="min-w-0">
             <BlogContent blog={blog} />
             <BlogBottomLink pre={pre} next={next} />
             <Comment placeholder="Leave a comment!" />
           </div>
-          <div className="2xl:w-[580px] 2xl:flex-none">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             <WelcomeCard />
             <GithubList />
           </div>
