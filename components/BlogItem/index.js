@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { Trans } from "I18N";
 
 export default function BlogItem({ blog }) {
-  const { title, keywords, createTime, length, url } = blog || {};
+  const { title, keywords, date, length, url } = blog || {};
   return (
     <a href={url}>
       <div className="card mb-[15px] flex-row items-center justify-between p-[15px] md:mb-[20px] md:flex md:p-[20px]">
@@ -27,7 +27,7 @@ export default function BlogItem({ blog }) {
           </span>
           <span className="iconfont icondate mr-[4px] text-[16px]"></span>
           <span className="inline-block  min-w-[80px] text-[14px]">
-            {dayjs(createTime).format("YYYY-MM-DD")}
+            {dayjs(date).format("YYYY-MM-DD")}
           </span>
         </div>
         <div className="hidden flex-none items-center justify-between md:flex">
@@ -38,7 +38,7 @@ export default function BlogItem({ blog }) {
           </span>
           <span className="iconfont icondate mr-[4px] text-[16px]"></span>
           <span className="mr-[15px] inline-block  min-w-[80px] text-[14px]">
-            {dayjs(createTime).format("YYYY-MM-DD")}
+            {dayjs(date).format("YYYY-MM-DD")}
           </span>
           <div className="cursor-pointer rounded-[8px] bg-black px-[40px] py-[8px] text-white">
             <Trans>view</Trans>

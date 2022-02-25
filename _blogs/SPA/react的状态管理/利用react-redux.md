@@ -1,5 +1,5 @@
 ---
-title: react的状态管理—利用react-redux
+title: react的状态管理3—利用react-redux
 author: yrobot
 keywords: react,redux,状态管理,利用
 createTime: 2018年09月23日

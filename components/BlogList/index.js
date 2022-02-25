@@ -16,14 +16,14 @@ export default function BlogList({ typePosts = [] }) {
       <div className="mb-4 text-xl md:text-2xl">
         <Trans>Blogs</Trans>
       </div>
-      <div className="mb-4 flex select-none flex-row flex-wrap overflow-x-hidden overflow-y-scroll text-xs md:text-base">
+      <div className="mb-4 flex select-none flex-row flex-wrap overflow-x-hidden overflow-y-scroll text-xs md:text-sm">
         {typePosts.map(({ title, list = [] }) => (
           <div
             key={title}
             onClick={() => {
               setType(title);
             }}
-            className={`mr-2 mb-2 flex-none cursor-pointer whitespace-nowrap rounded-full border border-black px-2 py-1 text-black md:px-4 md:py-2 ${
+            className={`mr-2 mb-2 flex-none cursor-pointer whitespace-nowrap rounded-full border border-black px-2 py-1 text-black md:px-3 md:py-1 ${
               type === title ? "" : "opacity-30"
             }`}
           >

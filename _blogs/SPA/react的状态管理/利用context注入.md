@@ -1,5 +1,5 @@
 ---
-title: react的状态管理—利用context注入
+title: react的状态管理2—利用context注入
 author: yrobot
 keywords: context,状态管理,react,注入,利用
 createTime: 2018年09月22日
