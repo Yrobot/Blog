@@ -1,7 +1,7 @@
 ---
 title: react的状态管理3—利用react-redux
 author: yrobot
-keywords: react,redux,状态管理,利用
+keywords: react,redux,状态管理,react-redux
 createTime: 2018年09月23日
 updateTime: 2022年02月24日
 ---
@@ -18,16 +18,12 @@ updateTime: 2022年02月24日
 
 现在我们用 react 去写一篇博客  
 博客包含 `标题` 和 `内容`  
-而我期望`标题`和`内容`的颜色可以一键修改
-
-当然最暴力的实现方式就是利用 dom 操作去被动的修改  
-但是有没有更优雅更可控的方式呢？
+而我期望`标题`和`内容`的主题可以一键修改
 
 首先来看看项目的组件树：  
-![](https://ws1.sinaimg.cn/large/006tNbRwgy1fvekxo7hlhj30c00aj0sy.jpg)
+<img src="https://gitee.com/yrobot/images/raw/master/2022-02-25/QiwCKp-15-35-08.png" width='400' />
 
-那么有什么好的优雅的方式使`Title`和`Content`的颜色保持一致呢？  
-换句话说，怎么更好的管理`Title`和`Content`的状态呢？
+那么有什么方式使`Title`和`Content`的主题保持一致呢？
 
 #### 回顾上一节
 

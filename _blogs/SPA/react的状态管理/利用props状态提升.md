@@ -1,7 +1,7 @@
 ---
 title: react的状态管理1—利用props状态提升
 author: yrobot
-keywords: 状态管理,props,react,状态,提升,利用
+keywords: 状态管理,props,react,状态提升
 createTime: 2018年09月18日
 updateTime: 2022年02月25日
 ---
@@ -22,7 +22,7 @@ updateTime: 2022年02月25日
 而我期望`标题`和`内容`的主题可以一键修改
 
 首先来看看项目的组件树：  
-![](https://gitee.com/yrobot/images/raw/master/2022-02-25/QiwCKp-15-35-08.png)
+<img src="https://gitee.com/yrobot/images/raw/master/2022-02-25/QiwCKp-15-35-08.png" width='400' />
 
 那么有什么方式使`Title`和`Content`的主题保持一致呢？
 
