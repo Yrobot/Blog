@@ -10,6 +10,7 @@ updateTime: 2022年02月25日
 [场景思考](#index)  
 [利用 Context](#context)  
 [查看代码](#code)  
+[利用 Context 实现全局状态管理的原理](#principle)  
 [存在的问题](#problem)  
 [更好的方案](#better)
 
@@ -42,6 +43,8 @@ react 自带的 [Context](https://zh-hans.reactjs.org/docs/context.html) 就是�
 ### context 的作用:
 
 Context 提供了一种在组件之间共享值的方式，而不必显式地通过组件树的逐层传递 props。
+
+Context 会根据引用标识来决定何时进行渲染（本质上是 value 属性值的浅比较）
 
 ### context 的使用方法:
 
@@ -161,6 +164,13 @@ class Content extends Component {
   }
 }
 ```
+
+<a id='principle'></a>
+
+## 利用 Context 实现全局状态管理的原理
+
+Context 本身只是解决的了跨组件数据传递的问题，即不需要一层层传递 state  
+状态管理的实现是利用顶层组件的 useState，在 state 变更后导致传入 Provider 的 value 值变更，从而引起监听组件的 rerender。
 
 <a id='problem'></a>
 

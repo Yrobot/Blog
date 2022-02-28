@@ -27,11 +27,11 @@ updateTime: 2022年02月24日
 
 #### 回顾上一节
 
-上一节我们使用 react 自带的 [ 利用 context 注入](../利用context注入) 方法  
-利用 react 的 context 去实现状态共享很方便  
-但是 react 的 context 只适合简单单一状态的管理，useContext 的更新逻辑是对 context 进行浅比较，前后不一致则触发组件 rerender
+上一节我们使用 react 自带的 [利用 Context](../利用Context) 方法  
+利用 react 的 context 去实现跨组件数据传递很方便  
+但是 react 的 context 只是对于数据传递的一只优雅的解决方案；但是状态管理还是利用顶层组件的 useState，在 state 变更后导致传入 Provider 的 value 值变更，从而引起监听组件的 rerender。
 
-所以当我们的 App 越来越复杂，需要管理的全局状态越来越多时，  
+当我们的 App 越来越复杂，需要管理的全局状态越来越多时，  
 如果使用一个 context 去管理，那么在 context 中的任何一个数据的变化都会引起所有的 Consumer 组件的 rerender（性能浪费。  
 我们可以通过 context 拆分的方式进行优化，但是这个解决方案不是很 fancy，管理不同 context 的逻辑也会变得不好维护。
 
