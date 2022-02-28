@@ -3,7 +3,7 @@ title: react的状态管理3—利用react-redux
 author: yrobot
 keywords: react,redux,状态管理,react-redux
 createTime: 2018年09月23日
-updateTime: 2022年02月24日
+updateTime: 2022年02月26日
 ---
 
 **本页目录：**  
@@ -32,10 +32,12 @@ updateTime: 2022年02月24日
 但是 react 的 context 只是对于数据传递的一只优雅的解决方案；但是状态管理还是利用顶层组件的 useState，在 state 变更后导致传入 Provider 的 value 值变更，从而引起监听组件的 rerender。
 
 当我们的 App 越来越复杂，需要管理的全局状态越来越多时，  
-如果使用一个 context 去管理，那么在 context 中的任何一个数据的变化都会引起所有的 Consumer 组件的 rerender（性能浪费。  
-我们可以通过 context 拆分的方式进行优化，但是这个解决方案不是很 fancy，管理不同 context 的逻辑也会变得不好维护。
+如果使用一个 context 去管理，那么在 context 中的任何一个数据的变化都会引起子组件的 rerender（性能浪费）。  
+即使我们对所有子组件使用 React.memo 包裹，避免 props 传参一致的组件 rerender，但是还是没法做到监听的具体数据层级的优化（如单纯 context.type 变更时还是会引起 context.theme 监听组件的 rerender）
 
-这时 react-redux 就可以很好的解决了上述场景，只需要声明一个全局 state（当然也可以多个），在不同的组件里对于 state 进行监听，组件只会在对应的 selector 后的值变化后 rerender。
+我们可以通过拆分 context 的方式进行优化（拆分成 typeContext 和 themeContext），但是这个解决方案不是很 fancy，管理多个 context 的逻辑也会变得不好维护。
+
+这时 react-redux 就可以很完美的解决了上述场景，只需要声明一个全局 state，在不同的组件里对于 state 中具体值进行监听，组件只会在对应的 selector 的值变化后 rerender。
 
 当然 redux 的优势还是其本身对于全局状态管理的实现设计。
 
