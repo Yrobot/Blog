@@ -48,17 +48,15 @@ updateTime: 2022年02月26日
 redux 是一套专业解决应用状态管理的通用模块  
 它不仅可以和 react 结合，形成 react-redux，也可以和 vue、angular 结合
 
-**react-redux 的作用：** 类似于 react 的 context， react-redux 在顶层组件利用 Provider 将 store 注入，在需要用到状态的组件处用 connect 函数包裹，从组件的 props 中获取 store，或直接利用 useSelector 的 hooks 监听状态值和变化。
+**react-redux 的作用：** 用户可以自定义全局状态，并在组件中声明式的监听对应状态，便可实现状态变更后组件的自动更新
 
 **react-redux 的使用方法：**
 
-1. 根据全局数据，将其拆分为多个`reducer`
-2. 对于每个`reducer`分配`state`（`reducers.reducer`）和`action`，处理对应的`action`操作，生成新的`state` 并 return
-3. 将`reducer`合并成`reducers`,`reducers`分配传入的`state`和`action`操作到`reducer`
-4. `createStore()`传入`reducers`生成`store`，并用`Provider`将`store`注入顶层组件
-5. 在要引用`store`的组件部分用`connect()`连接，`connect()`会注册监听、将`dispatch()`[默认写入]和`mapStateToProps`的属性写入`props`，当然如果使用`mapDispatchToProps`生成的`action creator`也会写入`props`。
-6. 在组件中通过`props`获取 5 中写入`props`的数据即可使用。
-7. 通过`dispatch()`的参数会触发`reducers`的`action`操作，从而更新状态
+1. 定义初始化状态数据，定义`reducer`处理状态更新
+2. 调用`createStore()`传入`reducer`生成`store`
+3. 引入`Provider`并包裹 App，将`store`注入`Provider`
+4. 在组件内使用 `connect` 或 `useSelector` 声明式监听对应状态
+5. 通过`dispatch()`触发`reducer`，从而更新状态
 
 **react-redux 的优势：**
 
