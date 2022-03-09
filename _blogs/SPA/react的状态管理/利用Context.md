@@ -135,7 +135,7 @@ class BlogPage extends Component {
 > Content.js 组件中获取使用 Consumer 传递的数据和方法：
 
 ```ts
-import themeMap form '../themeConfig' // 各种theme的配置文件
+import { themeMap } from "../config"; // 各种theme的配置文件
 import { themeContext } from "./themeContext";
 
 class Content extends Component {
@@ -147,17 +147,21 @@ class Content extends Component {
     return (
       <themeContext.Consumer>
         {(value) => {
-          const { color, changeTheme }  = themeMap[value.theme];
-          return <div className="content" style={{ color }}>
-            blog文本...
-            <button
-              onClick={() => {
-                changeTheme('dark')
-              }}
-            >
-              切换主题
-            </button>
-          </div>
+          const { color, updateTheme } = themeMap[value.theme];
+          return (
+            <>
+              <button
+                onClick={() => {
+                  updateTheme("dark");
+                }}
+              >
+                切换主题
+              </button>
+              <div className="content" style={{ color: color }}>
+                内容...
+              </div>
+            </>
+          );
         }}
       </themeContext.Consumer>
     );

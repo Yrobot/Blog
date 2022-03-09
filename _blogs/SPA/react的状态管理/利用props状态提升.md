@@ -76,28 +76,29 @@ class BlogPage extends Component {
 Content 组件中使用 props 传递的数据和方法：
 
 ```js
-
-import themeMap form '../themeConfig' // 各种theme的配置文件
+import { themeMap } from "../config"; // 各种theme的配置文件
 
 class Content extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
-    changeTheme = () => {
-        const { theme } = this.props;
-        this.props.changeTheme(theme ==='white' ? 'black' : 'white');
-    }
-    render() {
-        const { theme }=this.props;
-        const { color } = themeMap[theme]
-        return (
-            <div className="content" style={{color}}>
-                内容...
-                <div className="button" onClick={this.changeTheme}>切换主题</div>
-            </div>
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  changeTheme = () => {
+    const { theme } = this.props;
+    this.props.changeTheme(theme === "white" ? "black" : "white");
+  };
+  render() {
+    const { theme } = this.props;
+    const { color } = themeMap[theme];
+    return (
+      <div className="content" style={{ color }}>
+        内容...
+        <div className="button" onClick={this.changeTheme}>
+          切换主题
+        </div>
+      </div>
+    );
+  }
 }
 ```
 
