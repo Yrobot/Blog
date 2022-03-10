@@ -10,7 +10,8 @@ updateTime: 2022年02月26日
 [场景思考](#index)  
 [依然存在问题](#unprod)  
 [利用 react-redux](#redux)  
-[查看代码](#code)
+[查看代码](#code)  
+[对比其他方案](#compare)
 
 <a id='index'></a>
 
@@ -160,3 +161,19 @@ export default () => {
   );
 };
 ```
+
+<a id='compare'></a>
+
+## 对比其他方案
+
+之前已经探讨过使用原生 react 技术实现的全局状体的管理方案，[《利用 props 状态提升》](../利用props状态提升)和[《利用 react-redux》](../利用react-redux)
+
+但是多少都存在使用和性能问题。
+
+使用了 react-redux 后，可以发现代码量其实是有所上升的，
+
+关于状态定义和状态使用部分，其实代码量没有很大的差异。
+
+但是 redux 为了实现 可预测性 和 状态的时空旅行，使用纯函数和类型分发来更新状态，这就导致了 redux 比其他方案多了 reducer 和 dispatch 的代码。
+
+所以对于单纯需要一个全局状态管理（无需时空旅行），redux 用起来还是繁琐了些。
