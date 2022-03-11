@@ -1,0 +1,50 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "import { marked } from 'marked';\n\n// Override function\nconst renderer = {\n  heading(text, level) {\n    const escapedText = text.toLowerCase().replace(/[^\\w]+/g, '-');\n\n    return `\n            <h${level}>\n              <a name=\"${escapedText}\" class=\"anchor\" href=\"#${escapedText}\">\n                <span class=\"header-link\"></span>\n              </a>\n              ${text}\n            </h${level}>`;\n  }\n};\n\nmarked.use({ renderer });\n\n// Run marked\nconsole.log(marked.parse('# Level1 \\n## Level2-1  \\n2-1 \\n## Level2-2   \\n2-2 \\n# Level2 \\n22222'));"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                "            <h1>",
+                                "              <a name=\"level1\" class=\"anchor\" href=\"#level1\">",
+                                "                <span class=\"header-link\"></span>",
+                                "              </a>",
+                                "              Level1",
+                                "            </h1>",
+                                "            <h2>",
+                                "              <a name=\"level2-1\" class=\"anchor\" href=\"#level2-1\">",
+                                "                <span class=\"header-link\"></span>",
+                                "              </a>",
+                                "              Level2-1",
+                                "            </h2><p>2-1 </p>",
+                                "",
+                                "            <h2>",
+                                "              <a name=\"level2-2\" class=\"anchor\" href=\"#level2-2\">",
+                                "                <span class=\"header-link\"></span>",
+                                "              </a>",
+                                "              Level2-2",
+                                "            </h2><p>2-2 </p>",
+                                "",
+                                "            <h1>",
+                                "              <a name=\"level2\" class=\"anchor\" href=\"#level2\">",
+                                "                <span class=\"header-link\"></span>",
+                                "              </a>",
+                                "              Level2",
+                                "            </h1><p>22222</p>",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
