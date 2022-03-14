@@ -22,7 +22,7 @@ export default function Comment({ placeholder: _p = 'Any thoughts after reading?
     });
   }, [placeholder]);
   return (
-    <div className='mb-[20px]'>
+    <div className='box'>
       <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
       <div id='vcomments'></div>
     </div>

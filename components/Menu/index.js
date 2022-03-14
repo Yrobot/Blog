@@ -28,7 +28,7 @@ function Language({ local, setLocal }) {
 
 export default function Menu({ home = false }) {
   return (
-    <div className="card menu mb-[20px] flex h-[60px] flex-row items-center justify-between md:sticky md:top-[20px] md:mr-[20px] md:h-[80vh] md:max-h-[700px] md:min-h-[500px] md:w-[90px] md:flex-none md:flex-col xl:mr-[40px] xl:w-[120px]">
+    <div className="card menu mb-[20px] flex h-[60px] flex-row items-center justify-between md:sticky md:top-[20px] md:h-[80vh] md:max-h-[700px] md:min-h-[500px] md:w-[90px] md:flex-none md:flex-col xl:w-[120px]">
       <a className="iconfont iconlogo mr-auto ml-[15px] flex-none text-[30px] md:ml-0 md:mr-0 md:mt-[20px] md:mb-auto md:text-[50px] xl:h-[60px] xl:w-[60px] xl:text-[60px]"></a>
       {home && (
         <a

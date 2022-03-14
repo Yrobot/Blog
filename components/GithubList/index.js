@@ -5,8 +5,8 @@ const commonParams = {
   title_color: '000000',
   icon_color: '000000',
   text_color: '000000',
-  border_color: 'F4F4F5',
-  bg_color: 'F4F4F5',
+  border_color: 'ffffff',
+  bg_color: 'ffffff',
 };
 
 const list = [

@@ -3,14 +3,18 @@
 @tailwind utilities
 
 @layer base
+  html
+    scroll-behavior: smooth
+    @apply bg-gray/100
   :root
     --primary-color: #000
     --primary-color-oppo: #fff
   body
     @apply py-5 px-5 md:px-8
+  .box
+    @apply bg-white p-8 box-border rounded-lg mb-6
   .card
-    background-color: #F4F4F5
-    border-radius: 14px
+    @apply bg-white rounded-lg box-border
   .menu
     background-color: var(--primary-color)
     color: var(--primary-color-oppo)
@@ -31,9 +35,6 @@
       @apply pl-4
     .level-3
       @apply pl-6
-
-html
-  scroll-behavior: smooth
 
 *::-webkit-scrollbar
   width: 2px
