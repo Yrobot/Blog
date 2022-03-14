@@ -3,7 +3,7 @@
         {
             "language": "typescript",
             "source": [
-                "import { marked } from 'marked';\n\n// Override function\nconst renderer = {\n  heading(text, level) {\n    const escapedText = text.toLowerCase().replace(/[^\\w]+/g, '-');\n\n    return `\n            <h${level}>\n              <a name=\"${escapedText}\" class=\"anchor\" href=\"#${escapedText}\">\n                <span class=\"header-link\"></span>\n              </a>\n              ${text}\n            </h${level}>`;\n  }\n};\n\nmarked.use({ renderer });\n\n// Run marked\nconsole.log(marked.parse('# Level1 \\n## Level2-1  \\n2-1 \\n## Level2-2   \\n2-2 \\n# Level2 \\n22222'));"
+                "import { marked } from \"marked\";\n\nconst menu = [];\n\n// Override function\nconst renderer = {\n  heading(text, level) {\n    const anchor = text.toLowerCase().replace(/ /g, \"-\");\n    menu.push({\n      text,\n      level,\n      anchor,\n    });\n    return `\n            <h${level}>\n              ${text}<a name=\"${anchor}\" class=\"anchor\" href=\"#${anchor}\">#</a>\n            </h${level}>\n            `;\n  },\n};\n\nmarked.use({ renderer });\n\nconsole.log(\n  marked.parse(\n    \"## 利用 Context  \\n> Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法。  \\n### context 的作用:  \\nContext 提供了一种在组件之间共享值的方式，而不必显式地通过组件树的逐层传递 props。  \\nContext 会根据引用标识来决定何时进行渲染（本质上是 value 属性值的浅比较）  \\n### context 的使用方法:  \\n1. 利用生成一个 实例，实例包含  \\n2. 用包裹 顶层组件，利用他 props 的 value 字段传入共享状态与方法\"\n  )\n);\n\nmenu;\n"
             ],
             "outputs": [
                 {
@@ -12,34 +12,53 @@
                             "mime": "application/vnd.code.notebook.stdout",
                             "value": [
                                 "",
-                                "            <h1>",
-                                "              <a name=\"level1\" class=\"anchor\" href=\"#level1\">",
-                                "                <span class=\"header-link\"></span>",
-                                "              </a>",
-                                "              Level1",
-                                "            </h1>",
                                 "            <h2>",
-                                "              <a name=\"level2-1\" class=\"anchor\" href=\"#level2-1\">",
-                                "                <span class=\"header-link\"></span>",
-                                "              </a>",
-                                "              Level2-1",
-                                "            </h2><p>2-1 </p>",
+                                "              利用 Context<a name=\"利用-context\" class=\"anchor\" href=\"#利用-context\">#</a>",
+                                "            </h2>",
+                                "            <blockquote>",
+                                "<p>Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法。  </p>",
+                                "</blockquote>",
                                 "",
-                                "            <h2>",
-                                "              <a name=\"level2-2\" class=\"anchor\" href=\"#level2-2\">",
-                                "                <span class=\"header-link\"></span>",
-                                "              </a>",
-                                "              Level2-2",
-                                "            </h2><p>2-2 </p>",
+                                "            <h3>",
+                                "              context 的作用:<a name=\"context-的作用:\" class=\"anchor\" href=\"#context-的作用:\">#</a>",
+                                "            </h3>",
+                                "            <p>Context 提供了一种在组件之间共享值的方式，而不必显式地通过组件树的逐层传递 props。<br>Context 会根据引用标识来决定何时进行渲染（本质上是 value 属性值的浅比较）  </p>",
                                 "",
-                                "            <h1>",
-                                "              <a name=\"level2\" class=\"anchor\" href=\"#level2\">",
-                                "                <span class=\"header-link\"></span>",
-                                "              </a>",
-                                "              Level2",
-                                "            </h1><p>22222</p>",
+                                "            <h3>",
+                                "              context 的使用方法:<a name=\"context-的使用方法:\" class=\"anchor\" href=\"#context-的使用方法:\">#</a>",
+                                "            </h3>",
+                                "            <ol>",
+                                "<li>利用生成一个 实例，实例包含  </li>",
+                                "<li>用包裹 顶层组件，利用他 props 的 value 字段传入共享状态与方法</li>",
+                                "</ol>",
                                 "",
                                 ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[",
+                                "  {",
+                                "    text: \u001b[32m'利用 Context'\u001b[39m,",
+                                "    level: \u001b[33m2\u001b[39m,",
+                                "    anchor: \u001b[32m'利用-context'\u001b[39m",
+                                "  },",
+                                "  {",
+                                "    text: \u001b[32m'context 的作用:'\u001b[39m,",
+                                "    level: \u001b[33m3\u001b[39m,",
+                                "    anchor: \u001b[32m'context-的作用:'\u001b[39m",
+                                "  },",
+                                "  {",
+                                "    text: \u001b[32m'context 的使用方法:'\u001b[39m,",
+                                "    level: \u001b[33m3\u001b[39m,",
+                                "    anchor: \u001b[32m'context-的使用方法:'\u001b[39m",
+                                "  }",
+                                "]"
                             ]
                         }
                     ]

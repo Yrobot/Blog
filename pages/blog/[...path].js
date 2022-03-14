@@ -5,6 +5,7 @@ import Comment from "components/Comment";
 import Layout from "components/Layout";
 import BlogBottomLink from "components/BlogBottomLink";
 import BlogContent from "components/BlogContent";
+import BlogCatalog from "components/BlogCatalog";
 import WelcomeCard from "components/WelcomeCard";
 import GithubList from "components/GithubList";
 import { TransProvider } from "I18N";
@@ -35,15 +36,18 @@ export default function Index({ pre, blog, next }) {
           <title>{blog.title}</title>
         </Head>
         <Menu home />
-        <div className="min-w-0">
+        <div className="flex min-w-0 flex-row items-start justify-between">
           <div className="min-w-0">
             <BlogContent blog={blog} />
             <BlogBottomLink pre={pre} next={next} />
             <Comment placeholder="Leave a comment!" />
           </div>
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            <WelcomeCard />
+          <div className="w-[350px] flex-none space-y-4">
+            {/* <WelcomeCard /> */}
             <GithubList />
+            <div className="sticky top-0">
+              <BlogCatalog catalog={blog.catalog} />
+            </div>
           </div>
         </div>
       </Layout>
@@ -59,7 +63,7 @@ export async function getStaticProps({ params }) {
     pre = null,
     now: blog = null,
     next = null,
-  } = require("lib/api").getPostByroute(route);
+  } = require("lib/api").getPostByRoute(route);
 
   return {
     props: { pre, blog, next },
