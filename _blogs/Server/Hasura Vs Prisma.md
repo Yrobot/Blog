@@ -6,11 +6,6 @@ createTime: 2021年07月01日
 draft: true
 ---
 
-**本页目录：**  
-[什么是 Prisma、Hasura](#what)
-
-<a id='what'></a>
-
 ## 什么是 Prisma、Hasura
 
 参看：  

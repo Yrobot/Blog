@@ -4,7 +4,7 @@ author: yrobot
 keywords: async,script,defer,浏览器,多个,处理
 createTime: 2019年10月15日
 ---
-<a id='top'></a>
+
 
 
 

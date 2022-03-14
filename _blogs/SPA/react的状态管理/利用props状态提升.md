@@ -6,15 +6,6 @@ createTime: 2018年09月18日
 updateTime: 2022年02月25日
 ---
 
-**本页目录：**  
-[场景思考](#index)  
-[利用 props 状态提升](#props)  
-[查看代码](#code)  
-[存在的问题](#problem)  
-[更好的方案](#better)
-
-<a id='index'></a>
-
 ## 场景思考
 
 现在我们用 react 去写一篇博客  
@@ -26,7 +17,7 @@ updateTime: 2022年02月25日
 
 那么有什么方式使`Title`和`Content`的主题保持一致呢？
 
-<a id='props'></a>
+
 
 ## 利用 props 状态提升
 
@@ -42,7 +33,7 @@ updateTime: 2022年02月25日
 
 > 可以看到，需要在 Content 和 Title 中用 theme，需要通过组件 props 层层传递到需要用状态的组件，更新函数也是同理
 
-<a id='code'></a>
+
 
 ## 查看代码
 
@@ -102,7 +93,7 @@ class Content extends Component {
 }
 ```
 
-<a id='problem'></a>
+
 
 ## 存在的问题
 
@@ -111,7 +102,7 @@ class Content extends Component {
 3. 代码冗杂：大量重复的代码，单纯只是为了传递状态
 4. 状态管理混乱，无法像使用中间层一样轻易的给状态管理加上一些统一的逻辑
 
-<a id='better'></a>
+
 
 ## 更好的方案
 

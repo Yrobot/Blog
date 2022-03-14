@@ -7,13 +7,6 @@ updateTime: 2022年03月11日
 draft: true
 ---
 
-**本页目录：**
-
-- [react-redux](#fudan)
-  - [react-redux](#fudan)
-
-<a id='fudan'></a>
-
 ## 使用 redux 的心里负担
 
 和大多数人一样，我第一次接触 redux，就是单纯的为了处理跨组件状态。

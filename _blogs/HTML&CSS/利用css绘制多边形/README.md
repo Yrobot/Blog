@@ -10,22 +10,6 @@ createTime: 2018年09月03日
 1. css 绘制多边形的原理(一定要理解)
 2. 一些简单多边形的绘制示例
 
-**本页目录：**  
-[css 绘制多边形的原理](#id1)
-
-- [首先我们要知道 css 盒模型是什么样的](#id11)
-- [然后我们还要理解 border](#id12)
-- [还要会用 css 伪元素](#id13)
-
-[css 绘制正四边形](#id2)  
-[css 绘制非正四边形](#id3)  
-[css 绘制三角形](#id4)  
-[css 绘制圆形](#id5)  
-[css 绘制梯形](#id6)  
-[css 绘制正五边形](#id7)  
-[css 绘制正七边形](#id8)
-
-<a id='id1'></a>
 
 ## css 绘制多边形的原理
 
@@ -113,7 +97,7 @@ css 是怎么处理 border 重叠的部分的？
 
 [css 伪元素的用法](https://www.cnblogs.com/wonyun/p/5807191.html)
 
-<a id='id2'></a>
+
 
 ## css 绘制正四边形
 
@@ -143,7 +127,7 @@ css 是怎么处理 border 重叠的部分的？
 
 ![](https://ws3.sinaimg.cn/large/0069RVTdgy1fuw6ypx233j30a208s74d.jpg)
 
-<a id='id3'></a>
+
 
 ## css 绘制非正四边形
 
@@ -211,7 +195,7 @@ css 是怎么处理 border 重叠的部分的？
 
 ![](https://ws4.sinaimg.cn/large/0069RVTdgy1fuwb07zx8zj308605o748.jpg)
 
-<a id='id4'></a>
+
 
 ## css 绘制三角形
 
@@ -251,7 +235,7 @@ css 是怎么处理 border 重叠的部分的？
 
 ![](https://ws1.sinaimg.cn/large/0069RVTdgy1fuwb2kyyzqj306g064746.jpg)
 
-<a id='id5'></a>
+
 
 ## css 绘制圆形
 
@@ -278,7 +262,7 @@ css 是怎么处理 border 重叠的部分的？
 ![](https://ws3.sinaimg.cn/large/0069RVTdgy1fuwcyjhdw6j308408874b.jpg)  
 看来 border-radius 把内外角度都设置了
 
-<a id='id6'></a>
+
 
 ## css 绘制梯形
 
@@ -304,7 +288,7 @@ css 是怎么处理 border 重叠的部分的？
 
 ![](https://ws1.sinaimg.cn/large/0069RVTdgy1fuwd59x6bsj306w04gwec.jpg)
 
-<a id='id7'></a>
+
 
 ## css 绘制正五边形
 
@@ -335,7 +319,7 @@ css 是怎么处理 border 重叠的部分的？
 
 ![](https://ws3.sinaimg.cn/large/0069RVTdgy1fuwdlbgoi3j30be0a8t8r.jpg)
 
-<a id='id8'></a>
+
 
 ## css 绘制正七边形
 

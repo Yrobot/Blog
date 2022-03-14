@@ -5,20 +5,6 @@ keywords: DOM,操作
 createTime: 2018年09月27日
 ---
 
-<a id='top'></a>
-
-**本页目录：**  
-[NodeList 和 HTMLCollection](#nh)  
-[获取 DOM 节点的方法](#get)  
-[生成节点的方法](#create)  
-[DOM 操作方法](#action)  
-[关系节点获取](#near)  
-[元素属性设置](#props)  
-[元素样式修改](#style)  
-[获取元素宽高、位置](#position)
-
-<a id='nh'></a>
-
 ## NodeList 和 HTMLCollection
 
 #### 共同点：
@@ -32,7 +18,7 @@ createTime: 2018年09月27日
 1. NodeList 可以包含任何节点类型（包括换行、元素间的文字），HTMLCollection 只包含元素节点（elementNode），elementNode 就是 HTML 中的标签
 2. HTMLCollection 比 NodeList 多一项方法：namedItem，可以通过传递 id 或 name 属性来获取节点信息
 
-<a id='get'></a>
+
 
 ## 获取 DOM 节点的方法
 
@@ -47,7 +33,7 @@ createTime: 2018年09月27日
 8. `document.documentElement`：获取 html 节点
 9. `document.body`：获取 body 节点
 
-<a id='create'></a>
+
 
 ## 生成节点的方法
 
@@ -56,7 +42,7 @@ createTime: 2018年09月27日
 2. `document.createTextNode("text")`:文本内容（无标签包裹），节点间的文本、节点内的文本
 3. `DOM.cloneNode()`：方法创建节点的拷贝，并返回该副本。
 
-<a id='action'></a>
+
 
 ## DOM 操作方法
 
@@ -94,7 +80,7 @@ createTime: 2018年09月27日
    ```
 2. `parentNode.replaceChild(newChild, oldChild)`：将 oldChild 替换为 newChild
 
-<a id='near'></a>
+
 
 ## 关系节点获取
 
@@ -110,7 +96,7 @@ createTime: 2018年09月27日
 9. `previousElementSibling` ：返回前一个 element 元素节点，前一个节点必须是 Element，注意 IE9 以下浏览器不支持。
 10. `nextElementSibling` ：返回后一个 element 元素节点，后一个节点必须是 Element，注意 IE9 以下浏览器不支持。
 
-<a id='props'></a>
+
 
 ## 元素属性设置
 
@@ -138,7 +124,7 @@ createTime: 2018年09月27日
    // 'someDataAttr' in el.dataset === true
    ```
 
-<a id='style'></a>
+
 
 ## 元素样式修改
 
@@ -186,7 +172,7 @@ createTime: 2018年09月27日
    window.getComputedStyle(elem, null).height = '100px';
    ```
 
-<a id='position'></a>
+
 
 ## 获取元素宽高、位置
 

@@ -15,7 +15,7 @@ __本页目录：__
 [内联元素可以继承的属性](#id4)    
 [块级元素可以继承的属性](#id5)    
   
-<a id='id1'></a>  
+  
   
 ## 无继承性的属性  
 1. display：规定元素应该生成的框的类型  
@@ -33,7 +33,7 @@ unicode-bidi：设置文本的方向
 8. 页面样式属性：size. page-break-before. page-break-after  
 9. 声音样式属性：pause-before. pause-after. pause. cue-before. cue-after. cue. play-during  
   
-<a id='id2'></a>  
+  
   
 ## 有继承性的属性  
 1. 字体系列属性  
@@ -62,20 +62,20 @@ color：文本颜色
 8. 页面样式属性：page. page-break-inside. windows. orphans  
 9. 声音样式属性：speak. speak-punctuation. speak-numeral. speak-header. speech-rate. volume. voice-family. pitch. pitch-range. stress. richness. . azimuth. elevation  
   
-<a id='id3'></a>  
+  
   
 ## 所有元素可以继承的属性  
 
 1. 元素可见性：visibility
 2. 光标属性：cursor  
 
-<a id='id4'></a>  
+  
   
 ## 内联元素可以继承的属性  
 1. 字体系列属性
 2. 除text-indent、text-align之外的文本系列属性  
 
-<a id='id5'></a>  
+  
   
 ## 块级元素可以继承的属性  
 1. text-indent、text-align

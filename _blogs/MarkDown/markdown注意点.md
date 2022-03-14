@@ -9,7 +9,7 @@ __本页目录：__
 [链接](#url)  
 [VS-Code:snippet](#snippet)  
 
-<a id='url'></a>
+
 
 ## 链接
 __链接跳转：__ `[描述](url)`  
@@ -21,7 +21,7 @@ __markdown语法要求：__
 
 __解决方案__：直接使用a标签即可  
 
-<a id='snippet'></a>
+
 
 ## VS-Code:snippet
 

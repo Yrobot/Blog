@@ -5,17 +5,6 @@ keywords: DOM,JS,触发,机制,事件
 createTime: 2018年08月24日
 ---
 
-**本页目录：**  
-[问题的起因](#id1)  
-[事件冒泡](#id2)  
-[事件捕获](#id3)  
-[addEventListener 的第三个参数](#id4)  
-[事件捕获先还是事件冒泡先？](#id5)
-
----
-
-<a id='id'></a>
-
 ## 问题的起因
 
 - 事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。
@@ -28,14 +17,14 @@ createTime: 2018年08月24日
 - 上面的代码当中一个 div 元素当中有一个 p 子元素，如果两个元素都有一个 click 的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？
 - 为了解决这个问题微软和网景提出了两种几乎完全相反的概念：**事件冒泡 和 事件捕获**。
 
-<a id='id2'></a>
+
 
 ## 事件冒泡
 
 - 微软提出了名为事件冒泡(event bubbling)的事件流。事件冒泡可以形象地比喻为把一颗石头投入水中，泡泡会一直从水底冒出水面。也就是说，事件会从最内层的元素开始发生，一直向上传播，直到 document 对象。
 
 - 因此在事件冒泡的概念下在 p 元素上发生 click 事件的顺序应该是 **p -> div -> body -> html -> document**
-  <a id='id3'></a>
+  
 
 ## 事件捕获
 
@@ -43,7 +32,7 @@ createTime: 2018年08月24日
 
 - 因此在事件捕获的概念下在 p 元素上发生 click 事件的顺序应该是 **document -> html -> body -> div -> p**
 
-<a id='id4'></a>
+
 
 ## addEventListener 的第三个参数
 
@@ -58,7 +47,7 @@ addEventListener 的第三个参数就是为冒泡和捕获准备的.
 第二个参数`function`是触发事件后要执行的函数  
 第三个参数`useCapture`默认值是 false，表示在事件冒泡阶段调用事件处理函数; 如果参数为 true，则表示在事件捕获阶段调用处理函数。
 
-<a id='id5'></a>
+
 
 ## 事件捕获先还是事件冒泡先？
 
@@ -102,52 +91,53 @@ addEventListener 的第三个参数就是为冒泡和捕获准备的.
     </div>
     <div id="text"></div>
     <script>
-      var Son = document.getElementById('son');
-      var Father = document.getElementById('father');
+      var Son = document.getElementById("son");
+      var Father = document.getElementById("father");
       function Click(Id, Type) {
-        document.getElementById('text').innerHTML += Id + '  ' + Type + ' clicked  ||   ';
+        document.getElementById("text").innerHTML +=
+          Id + "  " + Type + " clicked  ||   ";
       }
       Son.addEventListener(
-        'click',
+        "click",
         function () {
-          Click('son', 'false');
+          Click("son", "false");
         },
-        false,
+        false
       );
       Son.addEventListener(
-        'click',
+        "click",
         function () {
-          Click('son', 'true');
+          Click("son", "true");
         },
-        true,
+        true
       );
       Father.addEventListener(
-        'click',
+        "click",
         function () {
-          Click('father', 'true');
+          Click("father", "true");
         },
-        true,
+        true
       );
       Father.addEventListener(
-        'click',
+        "click",
         function () {
-          Click('father', 'false');
+          Click("father", "false");
         },
-        false,
+        false
       );
       mather.addEventListener(
-        'click',
+        "click",
         function () {
-          Click('mather', 'true');
+          Click("mather", "true");
         },
-        true,
+        true
       );
       mather.addEventListener(
-        'click',
+        "click",
         function () {
-          Click('mather', 'false');
+          Click("mather", "false");
         },
-        false,
+        false
       );
     </script>
   </body>

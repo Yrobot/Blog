@@ -5,12 +5,6 @@ keywords: 闭包,JS,函数
 createTime: 2018年08月24日
 ---
 
-**本页目录：**  
-[JS 函数](#func)  
-[闭包](#bibao)
-
-<a id='func'></a>
-
 ## JS 函数
 
 #### 1. **js 函数的[[scope]]**
@@ -43,7 +37,7 @@ createTime: 2018年08月24日
   ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fukrw1ajtzj30ki0m2wr1.jpg)  
   ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fukrw1ajtzj30ki0m2wr1.jpg)
 
-<a id='bibao'></a>
+
 
 ## 闭包
 
@@ -66,10 +60,10 @@ function createComparisonFunction(propertyName) {
 }
 
 //创建函数
-var compareNames = createComparisonFunction('name');
+var compareNames = createComparisonFunction("name");
 
 //调用函数
-var result = compareNames({ name: 'Nicholas' }, { name: 'Greg' });
+var result = compareNames({ name: "Nicholas" }, { name: "Greg" });
 
 //解除对匿名函数的引用（以便释放内存）
 compareNames = null;

@@ -15,24 +15,24 @@ __本页目录：__
 [JS动画](#jsAnimation)   
 [推荐使用requestAnimationFrame绘制JS动画](#useAnimation)   
 
-<a id='setTimeout'></a>
+
 
 ## setTimeout
 - 在执行时,是在载入后延迟指定时间后执行一次表达式（仅执行一次）  
 
-<a id='setInterval'></a>
+
 
 ## setInterval
 - 在执行时,它从载入后,每隔指定的时间就执行一次表达式  
 - 在代码运行到间歇调用和超时调用时，定时器（浏览器中 __独立于js线程的一个线程__）会在相应的时间，将相应的代码放入宏代码队列中，所以不必考虑放代码时，js是否有程序在运行。所以这两个函数只能保证按时将代码放入队列，但具体的执行时间要看队列前的函数执行情况（什么时候轮到放入的函数）。由于这三个函数都是js异步编程的一种实现，所以详情参看[JS异步编程 #浏览器线程和Event Loop](/blog/JS/JS异步编程#eventLoop)
 ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fukmxrd5ixj30m409smxx.jpg)
 
-<a id='requestAnimationFrame'></a>
+
 
 ## requestAnimationFrame 
 - 不能指定延迟时间，而是根据浏览器的刷新频率而定（帧），即浏览器页面刷新一次函数就执行一次，适合实现页面动画  
 
-<a id='jsAnimation'></a>
+
 
 ## JS动画
 理解了上面的概念以后，我们不难发现，setTimeout 其实就是通过设置一个间隔时间来不断的改变元素属性，从而达到动画效果的。但我们会发现，利用 seTimeout 实现的动画在某些低端机上会出现卡顿、抖动的现象。 这种现象的产生有两个原因：

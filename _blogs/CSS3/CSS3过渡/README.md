@@ -12,7 +12,7 @@ __本页目录：__
 
 __CSS3的过渡属性：__  过渡属性可以设定元素在某些属性改变时，对变化过程填充逐渐变换的动画，类似于flash的补间动画
 
-<a id='id1'></a>
+
 
 ## 用前思考
 CSS3 过渡是元素从一种样式逐渐改变为另一种的效果  
@@ -24,7 +24,7 @@ CSS3 过渡是元素从一种样式逐渐改变为另一种的效果
 
 好了，有了这些的问题，看下面的内容也就顺多了。    
 
-<a id='id2'></a>
+
 
 ## 怎么使用  
 #### __语法：__   
@@ -45,7 +45,7 @@ _cubic-bezier(n,n,n,n)_ ： 在 cubic-bezier 函数中定义自己的值。可�
 #### __效果：__
 [参考W3school的demo](http://www.w3school.com.cn/tiy/t.asp?f=css3_transition1)
 
-<a id='id3'></a>
+
 
 ## 浏览器支持
 ![](https://ws1.sinaimg.cn/large/0069RVTdgy1fup7uarmc3j30u204sjsn.jpg)  

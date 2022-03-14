@@ -5,21 +5,10 @@ keywords: CSS3,属性,新增
 createTime: 2018年08月27日
 ---
 
-**本页目录：**  
-[CSS3 边框](#id1)  
-[CSS3 背景](#id2)  
-[CSS3 文本效果](#id3)  
-[CSS3 字体](#id4)  
-[CSS3 2D 转换](#id5)  
-[CSS3 3D 转换](#id6)  
-[CSS3 过渡](#id7)  
-[CSS3 动画](#id8)  
-[CSS3 多列](#id9)  
-[CSS3 用户界面](#id10)
 
 本文框架主要参考[W3school 的 CSS 教程](http://www.w3school.com.cn/css3/index.asp)，在此感谢!
 
-<a id='id1'></a>
+
 
 ## CSS3 边框
 
@@ -56,7 +45,7 @@ createTime: 2018年08月27日
 **浏览器支持：**
 ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fuo2czkkuaj318w0eidkx.jpg)
 
-<a id='id2'></a>
+
 
 ## CSS3 背景
 
@@ -79,7 +68,7 @@ createTime: 2018年08月27日
 **浏览器支持：**
 ![](https://ws2.sinaimg.cn/large/006tNbRwgy1fuo7a1mn2mj318w09q77m.jpg)
 
-<a id='id3'></a>
+
 
 ## CSS3 文本效果
 
@@ -103,7 +92,7 @@ createTime: 2018年08月27日
 **浏览器支持：**
 ![](https://ws3.sinaimg.cn/large/006tNbRwgy1fuo7ays4aaj318s09iada.jpg)
 
-<a id='id4'></a>
+
 
 ## CSS3 字体
 
@@ -171,7 +160,7 @@ createTime: 2018年08月27日
 **浏览器支持：**
 ![](https://ws3.sinaimg.cn/large/006tNbRwgy1fuo7ituu00j318q04odhc.jpg)
 
-<a id='id5'></a>
+
 
 ## CSS3 2D 转换
 
@@ -184,7 +173,7 @@ createTime: 2018年08月27日
 Chrome 和 Safari 需要前缀 -webkit-  
 Internet Explorer 9 需要前缀 -ms-
 
-<a id='id6'></a>
+
 
 ## CSS3 3D 转换
 
@@ -198,7 +187,7 @@ Internet Explorer 10 和 Firefox 支持 3D 转换。
 Chrome 和 Safari 需要前缀 -webkit-。  
 Opera 仍然不支持 3D 转换（它只支持 2D 转换）。
 
-<a id='id7'></a>
+
 
 ## CSS3 过渡
 
@@ -209,7 +198,7 @@ Opera 仍然不支持 3D 转换（它只支持 2D 转换）。
 **浏览器支持：**
 ![](https://ws1.sinaimg.cn/large/0069RVTdgy1fup7uarmc3j30u204sjsn.jpg)
 
-<a id='id8'></a>
+
 
 ## CSS3 动画
 
@@ -222,7 +211,7 @@ Opera 仍然不支持 3D 转换（它只支持 2D 转换）。
 Internet Explorer 10、Firefox 以及 Opera 支持 @keyframes 规则和 animation 属性。  
 Chrome 和 Safari 需要前缀 -webkit-。
 
-<a id='id9'></a>
+
 
 ## CSS3 多列
 
@@ -316,7 +305,7 @@ Internet Explorer 10 和 Opera 支持多列属性。
 Firefox 需要前缀 -moz-。  
 Chrome 和 Safari 需要前缀 -webkit-。
 
-<a id='id10'></a>
+
 
 ## CSS3 用户界面
 

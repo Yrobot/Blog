@@ -5,18 +5,6 @@ keywords: 多线程,Worker,JS,Web
 createTime: 2018年08月23日
 ---
 
-**本页目录：**  
-[为什么使用 Web Woker](#why)  
-[Web Woker 是什么](#what)  
-[检测浏览器支持](#support)  
-[新建 Web Worker](#new)  
-[mainjs 与 worker 之间的数据传递](#message)  
-[主线程中 worker 的属性](#workerPro)  
-[子线程中的全局属性](#selfPro)  
-[关闭子线程](#close)
-
-<a href="" id="why"></a>
-
 ## 为什么使用 Web Woker
 
 核心思想：一些容易阻塞主线程的事情，或者说主线程一个线程完成不了的事情（单页面多连接），可以交给 WebWoker
@@ -54,7 +42,7 @@ if (!Modernizr.webworker) {
 }
 
 //未引入modernizr.js的情况
-if (typeof Worker !== 'undefined') {
+if (typeof Worker !== "undefined") {
   //支持
 } else {
   //不支持code
@@ -74,7 +62,7 @@ Worker()构造函数，可以接受两个参数。第一个参数是脚本的网
 
 ```js
 // 主线程
-var myWorker = new Worker('worker.js', { name: 'myWorker' });
+var myWorker = new Worker("worker.js", { name: "myWorker" });
 
 // Worker 线程
 self.name; // myWorker
@@ -96,7 +84,7 @@ worker.postMessage(data);
 
 ```js
 worker.onmessage = function (event) {
-  console.log('Received message ' + event.data);
+  console.log("Received message " + event.data);
   //相应业务操作
 };
 ```
@@ -109,11 +97,11 @@ worker.onmessage = function (event) {
 
 ```js
 self.addEventListener(
-  'message',
+  "message",
   function (e) {
-    console.log('Main data: ' + e.data);
+    console.log("Main data: " + e.data);
   },
-  false,
+  false
 );
 ```
 
@@ -125,22 +113,22 @@ self.addEventListener(
 
 ```js
 self.addEventListener(
-  'message',
+  "message",
   function (e) {
     var data = e.data;
     switch (data.cmd) {
-      case 'start':
-        self.postMessage('WORKER STARTED: ' + data.msg);
+      case "start":
+        self.postMessage("WORKER STARTED: " + data.msg);
         break;
-      case 'stop':
-        self.postMessage('WORKER STOPPED: ' + data.msg);
+      case "stop":
+        self.postMessage("WORKER STOPPED: " + data.msg);
         self.close(); // Terminates the worker.
         break;
       default:
-        self.postMessage('Unknown command: ' + data.msg);
+        self.postMessage("Unknown command: " + data.msg);
     }
   },
-  false,
+  false
 );
 ```
 
@@ -158,11 +146,13 @@ self.addEventListener(
 
 ```js
 worker.onerror(function (event) {
-  console.log(['ERROR: Line ', e.lineno, ' in ', e.filename, ': ', e.message].join(''));
+  console.log(
+    ["ERROR: Line ", e.lineno, " in ", e.filename, ": ", e.message].join("")
+  );
 });
 
 // 或者
-worker.addEventListener('error', function (event) {
+worker.addEventListener("error", function (event) {
   // ...
 });
 ```

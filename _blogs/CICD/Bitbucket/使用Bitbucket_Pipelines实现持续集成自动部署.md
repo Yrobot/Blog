@@ -5,17 +5,7 @@ keywords: CI,CD,Bitbucket,Pipelines,持续集成,自动部署
 createTime: 2021年05月28日
 ---
 
-**本页目录：**  
-[什么是 Bitbucket](#bitbucket)  
-[什么是 CI/CD，好处又是什么？](#cicd)  
-[Bitbucket 的 CICD 工具 - Bitbucket Pipelines](#pipelines)  
-[配置 pipelines](#config)  
-[pipe 能力列表](#pipelist)  
-[在 CI/CD 过程中使用变量](#variables)  
-[在 bitbucket 查看 CI/CD 流程](#view)  
-[本管理和回滚](#rollback)
 
-<a id='bitbucket'></a>
 
 ## 什么是 Bitbucket
 
@@ -24,13 +14,13 @@ createTime: 2021年05月28日
 
 简单来说，Bitbucket 就是一个类似于 github 和 gitee 一样的 基于 git 的线上版本管理工具，也就是代码仓库的一种。
 
-<a id='cicd'></a>
+
 
 ## 什么是 CI/CD，好处又是什么？
 
 请参看[《什么是 CICD》](../什么是CICD)
 
-<a id='pipelines'></a>
+
 
 ## Bitbucket 的 CICD 工具 - Bitbucket Pipelines
 
@@ -40,7 +30,7 @@ createTime: 2021年05月28日
 Bitbucket 会根据代码包中的配置文件，在每次符合条件的 push 中运行对应的逻辑，包括指定运行环境，利用环境执行代码  
 除了语言环境的能力，pipelines 还支持使用 `pipe` 实现复杂的 CICD 能力，指定 `pipe` 后，可以进行测试、安全控制、消息推送、代码部署、等等
 
-<a id='config'></a>
+
 
 ## 配置 pipelines
 
@@ -73,17 +63,17 @@ pipelines:
           script:
             - pipe: atlassian/scp-deploy
               variables:
-                LOCAL_PATH: 'build/*'
+                LOCAL_PATH: "build/*"
 ```
 
-<a id='pipelist'></a>
+
 
 ## pipe 能力列表
 
 ![](https://gitee.com/yrobot/images/raw/master/2021-05-28/lHUyJN-17-30-34.png)
 [查看所有 pipe](https://bitbucket.org/product/zh/features/pipelines/integrations)
 
-<a id='variables'></a>
+
 
 ## 在 CI/CD 过程中使用变量
 
@@ -104,10 +94,10 @@ pipelines:
       script:
         - pipe: atlassian/scp-deploy
           variables:
-            REMOTE_PATH: '/web/v_$BITBUCKET_BUILD_NUMBER$'
+            REMOTE_PATH: "/web/v_$BITBUCKET_BUILD_NUMBER$"
 ```
 
-<a id='view'></a>
+
 
 ## 在 bitbucket 查看 CI/CD 流程
 
@@ -117,7 +107,7 @@ pipelines:
 查看 CICD 状态和 log：
 ![](https://gitee.com/yrobot/images/raw/master/2021-05-28/53OddV-17-37-44.jpg)
 
-<a id='rollback'></a>
+
 
 ## 版本管理和回滚
 

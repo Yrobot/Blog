@@ -6,12 +6,6 @@ createTime: 2021年07月01日
 draft: true
 ---
 
-**本页目录：**  
-[什么是 Prisma](#what)  
-[Prisma](#what)
-
-<a id='what'></a>
-
 ## 什么是 Prisma
 
 这是 Prisma 官网的 slogan
@@ -31,7 +25,7 @@ draft: true
 
 > prisma-vscode: 不仅支持 prisma 相关 API 的 Snippets。 在运行 `migrate` 生成 database 之后，还支持数据库字段的代码提示。
 
-## 优秀的数据库GUI管理工具 Prisma Studio
+## 优秀的数据库 GUI 管理工具 Prisma Studio
 
 <div align='center'>
   <img src='https://gitee.com/yrobot/images/raw/master/2021-06-30/KeOrAp-17-17-51.png' width='600' />

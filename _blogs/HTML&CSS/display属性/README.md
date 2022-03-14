@@ -9,7 +9,7 @@ __本页目录：__
 [display有哪些值,以及作用](#display)  
 [html元素嵌套规则](#nest)  
 
-<a id='display'></a>
+
 
 ## display有哪些值,以及作用
 
@@ -21,7 +21,7 @@ __本页目录：__
   - table 此元素会作为块级表格来显示。
   - inherit 规定应该从父元素继承display属性的值
 
-<a id='nest'></a>
+
 
 ## html元素嵌套规则
 

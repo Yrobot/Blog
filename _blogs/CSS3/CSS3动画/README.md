@@ -5,21 +5,13 @@ keywords: CSS3,动画
 createTime: 2018年08月28日
 ---
 
-**本页目录：**  
-[怎么使用](#id1)
-
-- [定义动画](#id11)
-- [引用动画，设定参数](#id12)
-
-[浏览器支持](#id3)
-
 **CSS3 新增的动画属性：** 通过 CSS3 动画，我们能够创建动画，这可以在许多网页中取代动画图片、Flash 动画 以及 JavaScript。作为页面切换的交互动画。
 
 **NOTE：**
 
 1.  一个元素要使用多个动画时（比如前一秒动画 1，后面动画 2），可以在 css 属性中用一个 animation 表示，动画之间用逗号相隔。例子：`animation: animation1 1s, animation2 1s 1s infinite alternate ;`
 
-<a id='id1'></a>
+
 
 ## 怎么使用
 

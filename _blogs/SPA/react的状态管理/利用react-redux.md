@@ -6,15 +6,6 @@ createTime: 2018年09月23日
 updateTime: 2022年02月26日
 ---
 
-**本页目录：**  
-[场景思考](#index)  
-[依然存在问题](#unprod)  
-[利用 react-redux](#redux)  
-[查看代码](#code)  
-[对比其他方案](#compare)
-
-<a id='index'></a>
-
 ## 场景思考
 
 现在我们用 react 去写一篇博客  
@@ -34,7 +25,7 @@ updateTime: 2022年02月26日
 
 react 的 context 只是对于数据传递的一种优雅的解决方案；但是状态管理还是利用顶层组件的 useState，在 state 变更后导致传入 Provider 的 value 值变更，从而引起监听组件的 rerender。
 
-<a id='unprod'></a>
+
 
 ## 依然存在问题
 
@@ -49,7 +40,7 @@ react 的 context 只是对于数据传递的一种优雅的解决方案；但�
 
 当然 redux 的优势还是其本身对于全局状态管理的实现设计。
 
-<a id='redux'></a>
+
 
 ## 利用 react-redux
 
@@ -75,7 +66,7 @@ redux 是一套专业解决应用状态管理的通用模块
 
 **当然优势的前提是场景已经相对复杂的情况了，简单场景使用状态提升就够了**
 
-<a id='code'></a>
+
 
 ## 查看代码
 
@@ -162,7 +153,7 @@ export default () => {
 };
 ```
 
-<a id='compare'></a>
+
 
 ## 对比其他方案
 

@@ -5,18 +5,6 @@ keywords: 3D,CSS3,转换
 createTime: 2018年08月31日
 ---
 
-**本页目录：**  
-[3D 元素的属性](#id1)
-
-- [transform](#id11)
-- [transform-origin](#id12)
-- [transform-style](#id13)
-- [perspective](#id14)
-- [perspective-origin](#id15)
-- [backface-visibility](#id16)
-
-[3D 元素的方法](#id2)
-
 **CSS3 新增的 3D 变换属性：** CSS3 3D 转换支持开发者在 css 代码中利用 css3 的 3D 函数，在页面里开发出一些简单的 3D 效果。
 
 **本节内容要点：**
@@ -172,7 +160,7 @@ createTime: 2018年08月31日
    **浏览器支持**  
     只有 Internet Explorer 10+ 和 Firefox 支持 backface-visibility 属性。  
     Opera 15+、Safari 和 Chrome 支持替代的 -webkit-backface-visibility 属性。  
-   <a id='id2'></a>
+   
 
 ## 3D 元素的方法
 

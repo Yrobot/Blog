@@ -5,15 +5,7 @@ keywords: Meta,Viewport,标签
 createTime: 2018年08月25日
 ---
 
-**本页目录：**  
-[Viewport 概念](#id1)  
-[看下效果](#id2)  
-[关于缩放](#id3)  
-[布局视口的大小](#id4)  
-[javascript 相关](#id5)  
-[总结](#id6)
 
-<a id='id1'></a>
 
 ## Viewport 概念
 
@@ -49,7 +41,7 @@ createTime: 2018年08月25日
 - initial-scale 默认值：
   - 根据测试，在 iphone 和 ipad 上，你给 viewport 设置的宽度后，而又没有指定初始的缩放值的话，iphone 和 ipad 会自动计算 initial-scale 这个值： 当前缩放值 = 理想视口宽度 / viewport 宽度
 
-<a id='id2'></a>
+
 
 ## 看下效果
 
@@ -94,7 +86,7 @@ createTime: 2018年08月25日
   ![](https://ws2.sinaimg.cn/large/006tNbRwgy1fumb1i32fjj30i60gimy4.jpg)
 - 可见 **`viewport宽度 = 理想视口宽度 / initial-scale值`**
 
-<a id='id3'></a>
+
 
 ## 关于缩放
 
@@ -103,7 +95,7 @@ createTime: 2018年08月25日
 
 - 据说移动端 css 布局不改变也是因为移动端进行重绘的成本太高
 
-<a id='id4'></a>
+
 
 ## 布局视口的大小
 
@@ -121,7 +113,7 @@ createTime: 2018年08月25日
 - 单独设置`width=x`或者`initial-scale=x`时，可以通过 width 直接获得或者通过 initial-scale（理想视口宽度/initial-scale）计算出 viewport 的尺寸，需要注意的是 viewport 是有范围的(最小: 1/5 \* 理想视口宽度)，所以当超出尺寸范围时，浏览器会选择相应的最大值或者最小值。
 - 如果 width 和 initial-scale 都存在时，会根据 initial-scale 计算出来的结果（理想视口宽度/initial-scale）与 width 值进行比较，取较大的值。（而 Android Webkit 则采用 width 值，IE 永远认为`initial-scale=1`，但是需要注意 layout 的取值范围）。
 
-<a id='id5'></a>
+
 
 ## javascript 相关
 
@@ -141,7 +133,7 @@ if (document.documentElement.clientWidth >= 600) {
 }
 ```
 
-<a id='id6'></a>
+
 
 ## 总结
 

@@ -5,14 +5,6 @@ keywords: Prisma,ORM,数据库,graphql,Nodejs,server,简介,使用
 createTime: 2021年06月30日
 ---
 
-**本页目录：**  
-[什么是 Prisma](#what)  
-[使用 Prisma](#usage)   
-[example 代码地址](#example-demo)  
-[Prisma 的优势与不足](#good)   
-
-<a id='what'></a>
-
 ## 什么是 Prisma
 
 这是 Prisma 官网的 slogan
@@ -47,8 +39,6 @@ createTime: 2021年06月30日
    > GUI to view and edit data in your database
 
    - 一个查看编辑数据库的可视化工具
-
-<a id='usage'></a>
 
 ## 使用 Prisma
 
@@ -141,7 +131,7 @@ client 生成：
 <summary>test.js:  // 点击展开代码  </summary>
 
 ```js
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
@@ -149,14 +139,14 @@ async function main() {
   // Create 3 users
   await Promise.all(
     [
-      { email: 'user1@mail.com', name: 'user1' },
-      { email: 'user2@mail.com', name: 'user2' },
-      { email: 'user3@mail.com', name: 'user3' },
+      { email: "user1@mail.com", name: "user1" },
+      { email: "user2@mail.com", name: "user2" },
+      { email: "user3@mail.com", name: "user3" },
     ].map(async (user) =>
       prisma.user.create({
         data: user,
-      }),
-    ),
+      })
+    )
   );
 
   // Read
@@ -165,17 +155,17 @@ async function main() {
   // Update user2 name as yrobot
   await prisma.user.update({
     where: {
-      email: 'user2@mail.com',
+      email: "user2@mail.com",
     },
     data: {
-      name: 'yrobot',
+      name: "yrobot",
     },
   });
 
   // Delete user3
   await prisma.user.delete({
     where: {
-      email: 'user3@mail.com',
+      email: "user3@mail.com",
     },
   });
 
@@ -219,21 +209,21 @@ open studio in Browser: [`http://localhost:5555`](http://localhost:5555)
 主要代码逻辑：server.js
 
 ```js
-const { PrismaClient } = require('@prisma/client');
-const express = require('express');
-const bodyParser = require('body-parser');
+const { PrismaClient } = require("@prisma/client");
+const express = require("express");
+const bodyParser = require("body-parser");
 
 const prisma = new PrismaClient();
 const app = express();
 app.use(bodyParser());
 const port = 3000;
 
-app.get('/users', async function (req, res) {
+app.get("/users", async function (req, res) {
   const users = await prisma.user.findMany();
   res.send(users);
 });
 
-app.get('/user/:id', async function (req, res) {
+app.get("/user/:id", async function (req, res) {
   const { id } = req.params;
   const user = await prisma.user.findUnique({
     where: {
@@ -243,7 +233,7 @@ app.get('/user/:id', async function (req, res) {
   res.send(user);
 });
 
-app.post('/user/create', async function (req, res) {
+app.post("/user/create", async function (req, res) {
   const { user } = req.body;
   const result = await prisma.user.create({
     data: user,
@@ -251,7 +241,7 @@ app.post('/user/create', async function (req, res) {
   res.send(result);
 });
 
-app.post('/user/update', async function (req, res) {
+app.post("/user/update", async function (req, res) {
   const { user, id } = req.body;
   const result = await prisma.user.update({
     where: {
@@ -262,7 +252,7 @@ app.post('/user/update', async function (req, res) {
   res.send(result);
 });
 
-app.delete('/user/delete', async function (req, res) {
+app.delete("/user/delete", async function (req, res) {
   const { id } = req.body;
   const result = await prisma.user.delete({
     where: {
@@ -296,14 +286,10 @@ POST http://localhost:3000/user/update
 DELETE http://localhost:3000/user/delete
 ```
 
-<a id='example-demo'></a>
-
 ## example 代码地址
 
 [<img src='https://gitee.com/yrobot/images/raw/master/2021-07-02/tGQsQN-17-51-18.png' width='600'/>](https://github.com/yrobot-demo/prisma-demo)  
 [prisma-demo](https://github.com/yrobot-demo/prisma-demo)
-
-<a id='good'></a>
 
 ## Prisma 的不足
 

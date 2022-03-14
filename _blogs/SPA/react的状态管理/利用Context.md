@@ -6,16 +6,6 @@ createTime: 2018年09月22日
 updateTime: 2022年02月25日
 ---
 
-**本页目录：**  
-[场景思考](#index)  
-[利用 Context](#context)  
-[查看代码](#code)  
-[利用 Context 实现全局状态管理的原理](#principle)  
-[存在的问题](#problem)  
-[更好的方案](#better)
-
-<a id='index'></a>
-
 ## 场景思考
 
 现在我们用 react 去写一篇博客  
@@ -34,7 +24,7 @@ updateTime: 2022年02月25日
 那有没有更直接的方法，搞一个共享状态，每个组件可以自由访问呢  
 react 自带的 [Context](https://zh-hans.reactjs.org/docs/context.html) 就是用来实现这一点的
 
-<a id='context'></a>
+
 
 ## 利用 Context
 
@@ -73,7 +63,7 @@ Context 会根据引用标识来决定何时进行渲染（本质上是 value �
 1. 只需要在顶层组件和用到状态的子组件进行操作，省去了 props 状态提升中对中间组件的数据传递操作。代码也更清晰。
 2. 无需引入第三方状态管理，学习成本也相对较低
 
-<a id='code'></a>
+
 
 ## 查看代码
 
@@ -169,14 +159,14 @@ class Content extends Component {
 }
 ```
 
-<a id='principle'></a>
+
 
 ## 利用 Context 实现全局状态管理的原理
 
 Context 本身只是解决的了跨组件数据传递的问题，即不需要一层层传递 state  
 状态管理的实现是利用顶层组件的 useState，在 state 变更后导致传入 Provider 的 value 值变更，从而引起监听组件的 rerender。
 
-<a id='problem'></a>
+
 
 ## 存在的问题
 
@@ -184,7 +174,7 @@ Context 本身只是解决的了跨组件数据传递的问题，即不需要一
 2. 代码冗杂：子组件为了避免无效 rerender，不得不嵌套上 memo 进行性能优化
 3. 状态管理混乱，无法像使用中间层一样轻易的给状态管理加上一些统一的逻辑
 
-<a id='better'></a>
+
 
 ## 更好的方案
 

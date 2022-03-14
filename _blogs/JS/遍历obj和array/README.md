@@ -12,7 +12,7 @@ __本页目录：__
 [array.forEach()方法](#foreach)  
 [总结](#summary)  
 
-<a id='for'></a>
+
 
 ## 1. 基础for循环
 ```
@@ -21,7 +21,7 @@ for (var index = 0; index < myArray.length; index++) {
 }
 ```
 
-<a id='forin'></a>
+
 
 ## 2. for in 循环
 - for...in 语句用于对数组或者对象的属性进行循环操作。
@@ -30,7 +30,7 @@ for(let i in array)  // i为数组的index：0，1，2，3.....
 for(let i in obj)  // i为obj 的属性名
 ```
 ![](https://ws3.sinaimg.cn/large/006tNbRwgy1fukqtphbb9j31e60bwgmv.jpg)
-<a id='forof'></a>
+
 
 ## 3. for of 循环
 参考链接：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...of
@@ -46,7 +46,7 @@ __iterable__ ( Array，Map，Set，String，TypedArray，arguments 对象等等)
 被迭代枚举其属性的对象。  
 ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fukqtq7vk6j31e60fqmzh.jpg)  
 
-<a id='foreach'></a>
+
 
 ## 4. array.forEach()方法
 ```
@@ -56,7 +56,7 @@ arr.forEach(function callback(value[, index[, array]]) { // value:属性值，in
 ``` 
 ![](https://ws2.sinaimg.cn/large/006tNbRwgy1fukqto6spyj31ec0c0dh4.jpg)
 
-<a id='summary'></a>
+
 
 ## 总结
 1. 少用for of，支持不好。性能也一般。性能基础for优化较好

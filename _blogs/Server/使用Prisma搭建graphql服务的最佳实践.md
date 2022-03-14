@@ -5,21 +5,6 @@ keywords: Prisma,graphql,Nodejs,server,typegraphql,typegraphql-prisma,Apollo,win
 createTime: 2021年07月09日
 ---
 
-**本页目录：**  
-[什么是 Prisma](#什么是-prisma)  
-[什么是 TypeGraphQL-Prisma](#什么是-typegraphql-prisma)  
-[什么是 TypeGraphQL](#什么是-typegraphql)  
-[什么是 graphql](#什么是-graphql)  
-[什么是 Apollo Server](#什么是-apollo-server)  
-[主流程思考和优化](#主流程思考和优化)  
-[暴露部分接口](#暴露部分接口)  
-[暴露部分字段](#暴露部分字段)  
-[接口返回结构控制](#接口返回结构控制)  
-[接口传参控制](#接口传参控制)  
-[处理 Authorization](#处理-authorization)  
-[Log 埋点](#log-埋点)  
-[example 代码地址](#example-代码地址)
-
 ## 什么是 Prisma
 
 > Prisma 是一个基于 Nodejs 和 TypeScript 的 ORM
@@ -130,25 +115,25 @@ createTime: 2021年07月09日
 > 查看 type-graphql 的 [Resolvers 教程](https://typegraphql.com/docs/resolvers.html)
 
 ```ts
-import { Resolver, Query, Ctx, Arg, ObjectType, Field } from 'type-graphql'
-import { AuthenticationError } from 'apollo-server'
+import { Resolver, Query, Ctx, Arg, ObjectType, Field } from "type-graphql";
+import { AuthenticationError } from "apollo-server";
 
-import { encode } from '../auth'
+import { encode } from "../auth";
 
 @ObjectType()
 class UserInfo {
   @Field()
-  name: string
+  name: string;
   @Field()
-  email: string
+  email: string;
 }
 
 @ObjectType()
 class Login {
   @Field()
-  token: string
+  token: string;
   @Field((type) => UserInfo)
-  user: UserInfo
+  user: UserInfo;
 }
 
 @Resolver()
@@ -156,19 +141,19 @@ export default class LoginResolver {
   @Query(() => Login)
   async login(
     @Ctx() { prisma },
-    @Arg('email') email: string,
-    @Arg('password') password: string,
+    @Arg("email") email: string,
+    @Arg("password") password: string
   ): Promise<Login> {
     const user = await prisma.user.findUnique({
       where: { email },
-    })
+    });
     if (user?.password === password) {
       return {
         user: user,
         token: encode(user),
-      }
+      };
     }
-    throw new AuthenticationError('No such account or the password error')
+    throw new AuthenticationError("No such account or the password error");
   }
 }
 ```
@@ -178,13 +163,13 @@ export default class LoginResolver {
 buildSchema `resolvers` 传参控制哪些接口对外暴露
 
 ```ts
-import { UserCrudResolver, PostCrudResolver } from '@generated/type-graphql'
-import LoginResolver from './LoginResolver'
+import { UserCrudResolver, PostCrudResolver } from "@generated/type-graphql";
+import LoginResolver from "./LoginResolver";
 
 const schema = await buildSchema({
   resolvers: [LoginResolver, UserCrudResolver, PostCrudResolver],
   validate: false,
-})
+});
 ```
 
 ## 接口入参结构控制
@@ -211,18 +196,18 @@ import {
   Authorized,
   Info,
   Mutation,
-} from 'type-graphql'
-import { Length } from 'class-validator'
-import { Post } from '@/generated/type-graphql/models/Post'
-import { CreatePostResolver } from '@/generated/type-graphql/resolvers/crud/Post/CreatePostResolver'
+} from "type-graphql";
+import { Length } from "class-validator";
+import { Post } from "@/generated/type-graphql/models/Post";
+import { CreatePostResolver } from "@/generated/type-graphql/resolvers/crud/Post/CreatePostResolver";
 
 @InputType()
 class PostInput {
   @Field()
   @Length(4, 50)
-  title: string
+  title: string;
   @Field({ defaultValue: false })
-  published: boolean
+  published: boolean;
 }
 
 @Resolver()
@@ -232,7 +217,7 @@ export class PostResolver {
   async createPost(
     @Ctx() ctx,
     @Info() Info,
-    @Arg('input') postInput: PostInput,
+    @Arg("input") postInput: PostInput
   ): Promise<Post> {
     return await new CreatePostResolver().createPost(ctx, Info, {
       data: {
@@ -243,7 +228,7 @@ export class PostResolver {
           },
         },
       },
-    })
+    });
   }
 }
 ```
@@ -280,23 +265,23 @@ export class PostResolver {
 UnField.ts
 
 ```ts
-import { getMetadataStorage } from 'type-graphql/dist/metadata/getMetadataStorage'
-import { MethodAndPropDecorator } from 'type-graphql/dist/decorators/types'
-import { SymbolKeysNotSupportedError } from 'type-graphql/dist/errors'
+import { getMetadataStorage } from "type-graphql/dist/metadata/getMetadataStorage";
+import { MethodAndPropDecorator } from "type-graphql/dist/decorators/types";
+import { SymbolKeysNotSupportedError } from "type-graphql/dist/errors";
 
-export function UnField(): MethodAndPropDecorator
+export function UnField(): MethodAndPropDecorator;
 export function UnField(): MethodDecorator | PropertyDecorator {
   return (prototype, propertyKey, descriptor) => {
-    if (typeof propertyKey === 'symbol') {
-      throw new SymbolKeysNotSupportedError()
+    if (typeof propertyKey === "symbol") {
+      throw new SymbolKeysNotSupportedError();
     }
 
-    const target = prototype.constructor
+    const target = prototype.constructor;
 
     getMetadataStorage().fields = getMetadataStorage().fields.filter(
-      (field) => !(propertyKey === field.name && field.target === target),
-    )
-  }
+      (field) => !(propertyKey === field.name && field.target === target)
+    );
+  };
 }
 ```
 
@@ -309,7 +294,7 @@ applyModelsEnhanceMap({
       password: [UnField()],
     },
   },
-})
+});
 ```
 
 原理是利用 typegraphql，将当前 field 从 fields 列表去除，这样 typegraphql 就不会把这个 field 转换成 graphql schema
@@ -319,16 +304,16 @@ applyModelsEnhanceMap({
 type-graphql 推荐配合 [class-validator](https://github.com/typestack/class-validator) 对参数进行校验,参看 [type-graphql#validation](https://typegraphql.com/docs/validation.html)
 
 ```ts
-import { MaxLength, Length, IsEmail } from 'class-validator'
+import { MaxLength, Length, IsEmail } from "class-validator";
 @InputType()
 export class UserInput {
   @Field()
   @MaxLength(16)
-  name: string
+  name: string;
 
   @Field({ nullable: true })
   @IsEmail()
-  email?: string
+  email?: string;
 }
 ```
 
@@ -343,7 +328,7 @@ applyArgsTypesEnhanceMap({
       data: [ValidateNested()],
     },
   },
-})
+});
 
 applyInputTypesEnhanceMap({
   UserCreateInput: {
@@ -351,7 +336,7 @@ applyInputTypesEnhanceMap({
       email: [IsEmail()],
     },
   },
-})
+});
 ```
 
 添加 email validation 后的效果
@@ -375,12 +360,12 @@ export default class AuthResolver {
   @Query(() => Login)
   async login(
     @Ctx() { prisma },
-    @Arg('email') email: string,
-    @Arg('password') password: string,
+    @Arg("email") email: string,
+    @Arg("password") password: string
   ): Promise<Login> {
     const user = await prisma.user.findUnique({
       where: { email },
-    })
+    });
     if (user?.password === password)
       return {
         user: user,
@@ -388,8 +373,8 @@ export default class AuthResolver {
           role: user.role,
           id: user.id,
         }),
-      }
-    throw new AuthenticationError('No such account or the password error')
+      };
+    throw new AuthenticationError("No such account or the password error");
   }
 }
 ```
@@ -398,19 +383,19 @@ export default class AuthResolver {
 
 ```ts
 interface Context {
-  prisma: PrismaClient
-  currentUser?: TokenUser
+  prisma: PrismaClient;
+  currentUser?: TokenUser;
 }
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 const server = new ApolloServer({
   schema: await getSchema(),
   context: ({ req }): Context => {
-    let currentUser = null
+    let currentUser = null;
     if (req.headers.authorization)
-      currentUser = decode(req.headers.authorization)
-    return { currentUser, prisma }
+      currentUser = decode(req.headers.authorization);
+    return { currentUser, prisma };
   },
-})
+});
 ```
 
 #### 利用 TypeGraphQL 的 Authorized 规范接口权限配置
@@ -423,22 +408,22 @@ class MyResolver {
   @Query()
   publicQuery(): MyObject {
     return {
-      publicField: 'Some public data',
-      authorizedField: 'Data for logged users only',
-      adminField: 'Top secret info for admin',
-    }
+      publicField: "Some public data",
+      authorizedField: "Data for logged users only",
+      adminField: "Top secret info for admin",
+    };
   }
 
   @Authorized()
   @Query()
   authedQuery(): string {
-    return 'Authorized users only!'
+    return "Authorized users only!";
   }
 
-  @Authorized('ADMIN', 'MODERATOR')
+  @Authorized("ADMIN", "MODERATOR")
   @Mutation()
   adminMutation(): string {
-    return 'You are an admin/moderator, you can safely drop the database ;)'
+    return "You are an admin/moderator, you can safely drop the database ;)";
   }
 }
 ```
@@ -449,16 +434,16 @@ typegraphql-prisma 使用 applyResolversEnhanceMap 控制对外接口的 Authori
 import {
   ResolversEnhanceMap,
   applyResolversEnhanceMap,
-} from '@generated/type-graphql'
-import { Authorized } from 'type-graphql'
+} from "@generated/type-graphql";
+import { Authorized } from "type-graphql";
 
 const resolversEnhanceMap: ResolversEnhanceMap = {
   Category: {
     createCategory: [Authorized(Role.ADMIN)],
   },
-}
+};
 
-applyResolversEnhanceMap(resolversEnhanceMap)
+applyResolversEnhanceMap(resolversEnhanceMap);
 ```
 
 #### 利用 TypeGraphQL buildSchema 的 authChecker 处理请求权限判断
@@ -466,15 +451,15 @@ applyResolversEnhanceMap(resolversEnhanceMap)
 ```ts
 const authChecker: AuthChecker<ContextType> = (
   { root, args, context, info },
-  roles,
+  roles
 ) => {
-  const role = context.user.role
-  return roles.includes(role) // false: access is denied
-}
+  const role = context.user.role;
+  return roles.includes(role); // false: access is denied
+};
 const schema = await buildSchema({
   resolvers: [MyResolver],
   authChecker: authChecker,
-})
+});
 ```
 
 ## Log 埋点
@@ -497,11 +482,11 @@ logger.ts
 > 利用 `winston-daily-rotate-file` 将 log 内容持久化到本地 log 文件
 
 ```ts
-import * as winston from 'winston'
-import * as DailyRotateFile from 'winston-daily-rotate-file'
+import * as winston from "winston";
+import * as DailyRotateFile from "winston-daily-rotate-file";
 
 interface Config {
-  bussiness: string
+  bussiness: string;
 }
 
 const createLogger = ({ bussiness }: Config) =>
@@ -510,20 +495,20 @@ const createLogger = ({ bussiness }: Config) =>
       // new winston.transports.Console(),
       new DailyRotateFile({
         filename: `%DATE%.log`,
-        datePattern: 'YYYY-MM-DD',
-        maxSize: '20m',
+        datePattern: "YYYY-MM-DD",
+        maxSize: "20m",
         dirname: `./logs/${bussiness}`,
       }),
     ],
-  })
+  });
 
 export const logRequest = createLogger({
-  bussiness: 'request',
-})
+  bussiness: "request",
+});
 
 export const logError = createLogger({
-  bussiness: 'server-error',
-})
+  bussiness: "server-error",
+});
 ```
 
 logPlugin.ts
@@ -538,49 +523,49 @@ logPlugin.ts
 > apollo-server plugin 生命周期解析，参看 [apollo 官网解析](https://www.apollographql.com/docs/apollo-server/integrations/plugins/)
 
 ```ts
-import { ApolloServerPlugin } from 'apollo-server-plugin-base'
+import { ApolloServerPlugin } from "apollo-server-plugin-base";
 
-import { logRequest, logError } from '@/src/utils/logger'
+import { logRequest, logError } from "@/src/utils/logger";
 
 export const logPlugin = (): ApolloServerPlugin => {
   return {
     async serverWillStart(service) {},
     async requestDidStart(requestContext) {
-      const startAt = Date.now()
-      const requestId = startAt
+      const startAt = Date.now();
+      const requestId = startAt;
       const requestLogConetext = {
         requestId,
         at: new Date(),
         request: {
           schema: `${requestContext.request.query}`,
           variables: requestContext.request.variables,
-          token: requestContext.request.http.headers.get('Authorization') || '',
+          token: requestContext.request.http.headers.get("Authorization") || "",
         },
         response: null,
-      }
-      requestContext.response.http.headers.set('request-id', requestId + '')
+      };
+      requestContext.response.http.headers.set("request-id", requestId + "");
       return {
         async willSendResponse(requestContext) {
-          const { http, extensions, ...response } = requestContext.response
-          requestLogConetext.response = JSON.parse(JSON.stringify(response))
-          requestLogConetext.runTime = Date.now() - startAt
-          logRequest.info('request', {
+          const { http, extensions, ...response } = requestContext.response;
+          requestLogConetext.response = JSON.parse(JSON.stringify(response));
+          requestLogConetext.runTime = Date.now() - startAt;
+          logRequest.info("request", {
             context: requestLogConetext,
-          })
+          });
         },
         async didEncounterErrors(requestContext) {
-          logError.error('error', {
+          logError.error("error", {
             context: {
               requestId,
               at: new Date(),
               errors: requestContext.errors,
             },
-          })
+          });
         },
-      }
+      };
     },
-  }
-}
+  };
+};
 ```
 
 server.ts
@@ -591,15 +576,15 @@ server.ts
 const server = new ApolloServer({
   schema: await getSchema(),
   context: ({ req }): Context => {
-    return { prisma, token: req.headers.authorization }
+    return { prisma, token: req.headers.authorization };
   },
   debug: true,
   plugins: [logPlugin()],
   formatError: (err) => {
-    const { extensions, locations, ...error } = err
-    return error
+    const { extensions, locations, ...error } = err;
+    return error;
   },
-})
+});
 ```
 
 #### 查看效果
@@ -671,7 +656,7 @@ logs/server-error/2021-08-04.log
 > run this three commond lines in your terminal
 
 - `git clone git@github.com:yrobot-demo/prisma-demo.git ./prisma-demo`
-- `cd ./prisma-demo`  
-- `git checkout graphql`  
+- `cd ./prisma-demo`
+- `git checkout graphql`
 
 接下来跟着 `README.md` 的教程一步步走即可
