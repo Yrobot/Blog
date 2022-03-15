@@ -10,7 +10,7 @@ export default function BlogContent({ blog = {} }) {
       <h1 className="mb-[6px] text-left text-xl font-medium md:mb-[10px] md:text-2xl md:font-bold xl:mb-[15px] xl:text-4xl">
         {title}
       </h1>
-      <div className="mb-[20px] whitespace-pre-wrap text-left text-[12px] font-light leading-[20px] text-gray-500 md:text-[14px]">
+      <div className="mb-4 whitespace-pre-wrap text-left text-[12px] font-light leading-[20px] text-gray-500 md:mb-6 md:text-[14px] xl:mb-8">
         {`${dayjs(date).format("YYYY-MM-DD")}  |  `}
         {parseInt(length / 300)}
         <Trans>min</Trans>
@@ -19,7 +19,7 @@ export default function BlogContent({ blog = {} }) {
         {keywords}
       </div>
       {catalog && catalog.length > 0 && (
-        <div className="mb-space xl:hidden">
+        <div className="mb-4 md:mb-6 xl:mb-8 xl:hidden">
           <BlogCatalog catalog={catalog} />
         </div>
       )}
