@@ -16,7 +16,7 @@ const languages = { zh, en };
 export default function Index({ typePosts = [], completed, draftCount }) {
   return (
     <TransProvider data={languages}>
-      <Layout>
+      <Layout className="space-x-space">
         <Head>
           <meta
             name="viewport"
@@ -33,12 +33,12 @@ export default function Index({ typePosts = [], completed, draftCount }) {
           <title>Yrobot's Blog</title>
         </Head>
         <Menu />
-        <div className="min-w-0 flex-auto flex-row items-start justify-between xl:flex">
-          <div className="min-w-0 xl:mr-[40px] xl:flex-auto xl:pt-[30px]">
+        <div className="min-w-0 flex-auto flex-row items-start justify-between xl:flex space-x-space">
+          <div className="min-w-0 xl:flex-auto xl:pt-[30px]">
             <BlogProgress completed={completed} progress={draftCount} />
             <BlogList typePosts={typePosts} />
           </div>
-          <div className="xl:w-[540px] xl:flex-none grid grid-cols-1 gap-5">
+          <div className="grid grid-cols-1 gap-space xl:w-[540px] xl:flex-none">
             <WelcomeCard />
             <GithubList />
             <Comment placeholder="Leave a comment!" />

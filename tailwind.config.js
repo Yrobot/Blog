@@ -19,6 +19,9 @@ module.exports = {
       fontFamily: {
         "helvetica-neue": "Helvetica Neue",
       },
+      spacing: {
+        space: "var(--space)",
+      },
       boxShadow: {
         menu: "20px 20px 40px rgba(0, 0, 0, 0.25)",
       },
