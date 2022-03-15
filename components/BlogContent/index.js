@@ -1,9 +1,10 @@
 import dayjs from "dayjs";
-
+import BlogCatalog from "components/BlogCatalog";
 import { Trans } from "I18N";
 
 export default function BlogContent({ blog = {} }) {
-  const { content, title, date, length, author, keywords } = blog || {};
+  const { content, title, date, length, author, keywords, catalog } =
+    blog || {};
   return (
     <div className="box">
       <h1 className="mb-[6px] text-left text-xl font-medium md:mb-[10px] md:text-2xl md:font-bold xl:mb-[15px] xl:text-4xl">
@@ -17,6 +18,11 @@ export default function BlogContent({ blog = {} }) {
         <span className="md:hidden">{`\n`}</span>
         {keywords}
       </div>
+      {catalog && catalog.length > 0 && (
+        <div className="mb-space">
+          <BlogCatalog catalog={catalog} />
+        </div>
+      )}
       <article
         className="prose prose-sm mb-[15px] break-all md:prose md:mb-[20px]"
         dangerouslySetInnerHTML={{ __html: content }}

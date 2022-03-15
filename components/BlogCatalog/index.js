@@ -12,9 +12,8 @@ function BlogContentMenu({ catalog = [] }) {
       .filter(({ level }) => level < 4);
   }, [catalog]);
   if (catalogArray.length === 0) return null;
-  console.log(catalogArray);
   return (
-    <div className="card catalog p-4">
+    <div className="catalog">
       <div className="title">
         <Trans>Catalog</Trans>
       </div>

@@ -22,7 +22,7 @@ const languages = { zh, en };
 export default function Index({ pre, blog, next }) {
   return (
     <TransProvider data={languages}>
-      <Layout className="space-x-space">
+      <Layout className="xl:space-x-space">
         <Head>
           <meta
             name="viewport"
@@ -36,17 +36,17 @@ export default function Index({ pre, blog, next }) {
           <title>{blog.title}</title>
         </Head>
         <Menu home />
-        <div className="flex min-w-0 flex-row items-stretch justify-between space-x-space">
+        <div className="min-w-0 flex-row items-stretch justify-between xl:flex xl:space-x-space">
           <div className="min-w-0">
             <a href="" id="TOP" />
             <BlogContent blog={blog} />
             <BlogBottomLink pre={pre} next={next} />
             <Comment placeholder="Leave a comment!" />
           </div>
-          <div className="w-[350px] flex-none space-y-space">
+          <div className="flex-none space-y-space xl:w-[350px]">
             {/* <WelcomeCard /> */}
             <GithubList />
-            <div className="sticky top-space">
+            <div className="card sticky top-space hidden p-4 xl:block">
               <BlogCatalog catalog={blog.catalog} />
             </div>
           </div>
