@@ -16,7 +16,7 @@ export default function BlogItem({ blog }) {
             {keywords.replace(/\,/g, ", ")}
           </div>
         </div>
-        <div className="mt-[12px] flex flex-row items-center justify-end md:hidden">
+        <div className="mt-[12px] flex flex-row items-center justify-start md:hidden">
           {/* <div className="mr-auto cursor-pointer text-[16px] font-bold">
             <Trans>view</Trans>
           </div> */}
@@ -40,7 +40,7 @@ export default function BlogItem({ blog }) {
           <span className="inline-block  min-w-[80px] text-[14px]">
             {dayjs(date).format("YYYY-MM-DD")}
           </span>
-          {/* <div className="cursor-pointer rounded-[8px] bg-black px-[20px] py-[8px] text-white">
+          {/* <div className="button">
             <Trans>view</Trans>
           </div> */}
         </div>

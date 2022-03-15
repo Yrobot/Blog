@@ -3,25 +3,39 @@
 @tailwind utilities
 
 @layer base
+  *::-webkit-scrollbar
+    width: 2px
+    height: 2px
+  *::-webkit-scrollbar-thumb
+    color: #000
+    border-radius: 0
+  *::-webkit-scrollbar-track
+    display: none
   html
     scroll-behavior: smooth
     @apply bg-gray/100
   :root
-    --space: 24px
+    --space: 12px
     --primary-color: #000
     --primary-color-oppo: #fff
   body
     @apply p-space
-  .box
-    @apply bg-white p-8 box-border rounded-lg mb-space
-  .card
-    @apply bg-white rounded-lg box-border
-  .menu
-    background-color: var(--primary-color)
-    color: var(--primary-color-oppo)
   .prose
     img
       @apply mx-auto
+
+@layer components
+  .box
+    @apply bg-white p-space box-border rounded-lg mb-space overflow-hidden md:overflow-auto
+  .card
+    @apply bg-white rounded-lg box-border
+  .button
+    @apply cursor-pointer rounded-lg bg-black px-4 py-2 text-white
+  .button-lg
+    @apply button text-lg px-6 py-3
+  .menu
+    background-color: var(--primary-color)
+    color: var(--primary-color-oppo)
   .catalog
     .title
       border-bottom: 1px solid #ccc
@@ -37,16 +51,13 @@
     .level-3
       @apply pl-6
 
-*::-webkit-scrollbar
-  width: 2px
-  height: 2px
+@media only screen and (min-width: 768px)
+  :root
+    --space: 20px
 
-*::-webkit-scrollbar-thumb
-  color: #000
-  border-radius: 0
-
-*::-webkit-scrollbar-track
-  display: none
+@media only screen and (min-width: 1280px)
+  :root
+    --space: 24px
 
 #vcomments>.vpower
   display: none

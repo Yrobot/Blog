@@ -29,7 +29,7 @@ export default function Index({}) {
           <title>Yrobot's Blog</title>
         </Head>
         <Menu home />
-        <div className="min-w-0 flex-auto pt-0">
+        <div className="min-w-0 flex-auto pt-0 flex flex-col items-center justify-center h-[calc(100vh-140px)]">
           <NotFound />
         </div>
       </Layout>

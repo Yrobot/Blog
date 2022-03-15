@@ -16,7 +16,7 @@ const languages = { zh, en };
 export default function Index({ typePosts = [], completed, draftCount }) {
   return (
     <TransProvider data={languages}>
-      <Layout className="space-x-space">
+      <Layout className="xl:space-x-space">
         <Head>
           <meta
             name="viewport"
@@ -33,7 +33,7 @@ export default function Index({ typePosts = [], completed, draftCount }) {
           <title>Yrobot's Blog</title>
         </Head>
         <Menu />
-        <div className="min-w-0 flex-auto flex-row items-start justify-between xl:flex space-x-space">
+        <div className="min-w-0 flex-auto flex-row items-start justify-between xl:flex xl:space-x-space">
           <div className="min-w-0 xl:flex-auto xl:pt-[30px]">
             <BlogProgress completed={completed} progress={draftCount} />
             <BlogList typePosts={typePosts} />
