@@ -46,7 +46,7 @@ export default function Index({ pre, blog, next }) {
           <div className="flex-none space-y-space xl:w-[350px]">
             {/* <WelcomeCard /> */}
             <GithubList />
-            <div className="card sticky top-space hidden p-4 xl:block">
+            <div className="card sticky top-space hidden max-h-[calc(100vh-var(--space)*2)] overflow-y-auto p-4 xl:block">
               <BlogCatalog catalog={blog.catalog} />
             </div>
           </div>

@@ -19,7 +19,7 @@ export default function BlogContent({ blog = {} }) {
         {keywords}
       </div>
       {catalog && catalog.length > 0 && (
-        <div className="mb-space">
+        <div className="mb-space xl:hidden">
           <BlogCatalog catalog={catalog} />
         </div>
       )}
