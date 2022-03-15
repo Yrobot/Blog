@@ -2393,7 +2393,7 @@ uuid@^3.0.0, uuid@^3.3.2:
   resolved "https://registry.npmmirror.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-valine@^1.4.14:
+valine@^1.4.16:
   version "1.4.16"
   resolved "https://registry.npmmirror.com/valine/-/valine-1.4.16.tgz#6b077734c94d75cb6b1cbfb88e9e634000c1bfef"
   integrity sha512-gKmVzOAYrHNKt2Oswu6+UFiR+qJfTuVjPj6XrqtoPNZFcoJaITftGI6qw/n//YhWMd/75E4WTL6WeZ5CHhADdA==
