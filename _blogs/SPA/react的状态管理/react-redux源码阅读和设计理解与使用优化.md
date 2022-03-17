@@ -15,6 +15,8 @@ draft: true
 
 然后，由于刚接触 redux，使用不是很规范，导致 dispatch 更新 state 之后多个组件发生了 rerender。怎么才能做到最大的性能优化呢？
 
+## 一些共识
+
 ## 我在使用 redux 过程中的一些发问
 
 ### 可以直接使用 store.dispatch 吗？
