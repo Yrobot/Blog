@@ -19,7 +19,7 @@ updateTime: 2022年02月26日
 
 #### 回顾上一节
 
-上一节我们使用 react 自带的 [利用 Context](../利用Context) 方法
+上一节我们使用 react 自带的 [利用 Context](./利用Context) 方法
 
 利用 react 的 context 实现跨组件数据传递很方便
 
@@ -157,7 +157,7 @@ export default () => {
 
 ## 对比其他方案
 
-之前已经探讨过使用原生 react 技术实现的全局状体的管理方案，[《利用 props 状态提升》](../利用props状态提升)和[《利用 react-redux》](../利用react-redux)
+之前已经探讨过使用原生 react 技术实现的全局状体的管理方案，[《利用 props 状态提升》](./利用props状态提升)和[《利用 react-redux》](./利用react-redux)
 
 但是多少都存在使用和性能问题。
 

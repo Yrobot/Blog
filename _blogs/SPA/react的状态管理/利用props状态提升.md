@@ -114,5 +114,5 @@ class Content extends Component {
 
 ### 请移步进阶的状态管理方案：
 
-- [《利用 Context》](../利用Context)
-- [《利用 react-redux》](../利用react-redux)
+- [《利用 Context》](./利用Context)
+- [《利用 react-redux》](./利用react-redux)

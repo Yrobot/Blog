@@ -19,7 +19,7 @@ updateTime: 2022年02月25日
 
 #### 回顾上一节
 
-上一节我们使用最基础的[《props 状态提升》](../利用props状态提升)的方法  
+上一节我们使用最基础的[《props 状态提升》](./利用props状态提升)的方法  
 但当组件链很长的时候，新增一个状态就必须修改途中每个组件的 props  
 那有没有更直接的方法，搞一个共享状态，每个组件可以自由访问呢  
 react 自带的 [Context](https://zh-hans.reactjs.org/docs/context.html) 就是用来实现这一点的
@@ -185,4 +185,4 @@ Context 本身只是解决的了跨组件数据传递的问题，即不需要一
 
 ### 请移步进阶的状态管理方案：
 
-- [《利用 react-redux》](../利用react-redux)
+- [《利用 react-redux》](./利用react-redux)
