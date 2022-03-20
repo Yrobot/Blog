@@ -19,7 +19,7 @@ function BlogContentMenu({ catalog = [] }) {
       </div>
       {catalogArray.map(({ text, level, anchor }) => (
         <div className={`line level-${level}`} key={anchor}>
-          <a href={`#${anchor}`}>{text}</a>
+          <a href={`#${anchor}`} dangerouslySetInnerHTML={{ __html: text }} />
         </div>
       ))}
     </div>
