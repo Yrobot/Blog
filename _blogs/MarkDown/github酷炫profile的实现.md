@@ -54,7 +54,7 @@ draft: true
 [方案的代码仓库地址](https://github.com/sindresorhus/css-in-readme-like-wat)
 
 svg 效果：  
-<img src='https://gitee.com/yrobot/images/raw/master/2021-06-14/header-10-48-04.svg' align='center'/>
+<img src='https://images.yrobot.top/2021-06-14/header-10-48-04.svg' align='center'/>
 
 svg 代码：
 

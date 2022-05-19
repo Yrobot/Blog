@@ -10,7 +10,7 @@ createTime: 2021年05月28日
 ## 什么是 Bitbucket
 
 根据[维基百科](https://zh.wikipedia.org/wiki/Bitbucket)的介绍，Bitbucket 是 Atlassian 公司提供的一个基于 web 的版本库托管服务。  
-![](https://gitee.com/yrobot/images/raw/master/2021-05-28/hTyxaV-16-14-43.png)
+![](https://images.yrobot.top/2021-05-28/hTyxaV-16-14-43.png)
 
 简单来说，Bitbucket 就是一个类似于 github 和 gitee 一样的 基于 git 的线上版本管理工具，也就是代码仓库的一种。
 
@@ -70,7 +70,7 @@ pipelines:
 
 ## pipe 能力列表
 
-![](https://gitee.com/yrobot/images/raw/master/2021-05-28/lHUyJN-17-30-34.png)
+![](https://images.yrobot.top/2021-05-28/lHUyJN-17-30-34.png)
 [查看所有 pipe](https://bitbucket.org/product/zh/features/pipelines/integrations)
 
 
@@ -102,10 +102,10 @@ pipelines:
 ## 在 bitbucket 查看 CI/CD 流程
 
 自动化进程列表：
-![](https://gitee.com/yrobot/images/raw/master/2021-05-28/ua3wLp-20-11-55.jpg)
+![](https://images.yrobot.top/2021-05-28/ua3wLp-20-11-55.jpg)
 
 查看 CICD 状态和 log：
-![](https://gitee.com/yrobot/images/raw/master/2021-05-28/53OddV-17-37-44.jpg)
+![](https://images.yrobot.top/2021-05-28/53OddV-17-37-44.jpg)
 
 
 
@@ -113,4 +113,4 @@ pipelines:
 
 Bitbucket 的 Piplines 把每次的 CICD 都记录下来了，我可以直接作为版本管理。也可以查看 Deployments，查看部署。  
 当我们需要回滚某一个版本时，只需要进入那次的 pipeline，点击 Rerun 就可以对那次的记录进行重新编译部署，从而实现回滚操作。
-![](https://gitee.com/yrobot/images/raw/master/2021-05-28/syxPYz-17-41-08.jpg)
+![](https://images.yrobot.top/2021-05-28/syxPYz-17-41-08.jpg)

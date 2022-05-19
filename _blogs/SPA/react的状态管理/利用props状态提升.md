@@ -13,7 +13,7 @@ updateTime: 2022年02月25日
 而我期望`标题`和`内容`的主题可以一键修改
 
 首先来看看项目的组件树：  
-<img src="https://gitee.com/yrobot/images/raw/master/2022-02-25/QiwCKp-15-35-08.png" width='500' />
+<img src="https://images.yrobot.top/2022-02-25/QiwCKp-15-35-08.png" width='500' />
 
 那么有什么方式使`Title`和`Content`的主题保持一致呢？
 
@@ -29,7 +29,7 @@ updateTime: 2022年02月25日
 本场景中需要共享的状态只有一个`theme`和一个修改 theme 的函数`changeTheme()`
 
 **具体流程如下图：**  
-![](https://gitee.com/yrobot/images/raw/master/2022-02-25/TnhgMb-15-46-48.png)
+![](https://images.yrobot.top/2022-02-25/TnhgMb-15-46-48.png)
 
 > 可以看到，需要在 Content 和 Title 中用 theme，需要通过组件 props 层层传递到需要用状态的组件，更新函数也是同理
 

@@ -19,7 +19,7 @@ createTime: 2021年05月28日
 CI/CD 是一种在软件开发过程中，通过自动化手段，不断向客户交付应用的方法。  
 CI/CD 中的“CI”指持续集成。主要包含代码构建，测试，合并。  
 CI/CD 中的“CD”指自动部署，主要包含代码部署，版本管理。
-![](https://gitee.com/yrobot/images/raw/master/2021-05-28/R5Kyo5-16-28-24.jpg)
+![](https://images.yrobot.top/2021-05-28/R5Kyo5-16-28-24.jpg)
 
 
 

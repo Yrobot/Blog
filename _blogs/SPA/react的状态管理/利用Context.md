@@ -13,7 +13,7 @@ updateTime: 2022年02月25日
 而我期望`标题`和`内容`的主题可以一键修改
 
 首先来看看项目的组件树：  
-<img src="https://gitee.com/yrobot/images/raw/master/2022-02-25/QiwCKp-15-35-08.png" width='500' />
+<img src="https://images.yrobot.top/2022-02-25/QiwCKp-15-35-08.png" width='500' />
 
 那么有什么方式使`Title`和`Content`的主题保持一致呢？
 
@@ -56,7 +56,7 @@ Context 会根据引用标识来决定何时进行渲染（本质上是 value �
    ```
 4. 保证状态位于顶层组件的`state`中，而共享的方法要更新状态也是利用`setState`，这样 UI 层才会刷新
 
-<img src="https://gitee.com/yrobot/images/raw/master/2022-02-25/FJJRoV-18-39-51.png" width='640' />
+<img src="https://images.yrobot.top/2022-02-25/FJJRoV-18-39-51.png" width='640' />
 
 ### context 的优势:
 

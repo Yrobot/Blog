@@ -235,11 +235,11 @@ export class PostResolver {
 
 使用自动生成 resolver 时的 graphql schema
 
-<img src='https://gitee.com/yrobot/images/raw/master/2021-07-30/UVQxpC-15-41-03.png' width='250'/>
+<img src='https://images.yrobot.top/2021-07-30/UVQxpC-15-41-03.png' width='250'/>
 
 替换成 customer PostResolver 后
 
-<img src='https://gitee.com/yrobot/images/raw/master/2021-07-30/mSotVl-16-57-40.png' width='250'/>
+<img src='https://images.yrobot.top/2021-07-30/mSotVl-16-57-40.png' width='250'/>
 
 ## 接口返回结构控制
 
@@ -253,10 +253,10 @@ export class PostResolver {
 
 > `/// @TypeGraphQL.omit(output: true)`
 
-<img src="https://gitee.com/yrobot/images/raw/master/2021-07-27/tiMQxY-17-02-06.png" width='400'/>
+<img src="https://images.yrobot.top/2021-07-27/tiMQxY-17-02-06.png" width='400'/>
 
 这样配置之后 `password` 就会从 graphql schema 的 `User` 中删除:  
-<img src="https://gitee.com/yrobot/images/raw/master/2021-07-27/nU5q7d-17-07-04.png" width='250'/>
+<img src="https://images.yrobot.top/2021-07-27/nU5q7d-17-07-04.png" width='250'/>
 
 具体参看文档[typegraphql-prims #hiding-field](https://prisma.typegraphql.com/docs/advanced/hiding-field)
 
@@ -341,7 +341,7 @@ applyInputTypesEnhanceMap({
 
 添加 email validation 后的效果
 
-![](https://gitee.com/yrobot/images/raw/master/2021-07-22/rVDLKP-16-52-18.png)
+![](https://images.yrobot.top/2021-07-22/rVDLKP-16-52-18.png)
 
 ## 处理 Authorization
 
@@ -648,7 +648,7 @@ logs/server-error/2021-08-04.log
 
 ## example 代码地址
 
-[<img src='https://gitee.com/yrobot/images/raw/master/2021-08-04/CouWgs-18-40-15.png' width='600'/>](https://github.com/yrobot-demo/prisma-demo/tree/graphql)  
+[<img src='https://images.yrobot.top/2021-08-04/CouWgs-18-40-15.png' width='600'/>](https://github.com/yrobot-demo/prisma-demo/tree/graphql)  
 [prisma-demo/graphql](hhttps://github.com/yrobot-demo/prisma-demo/tree/graphql)
 
 #### 获取 demo 代码 并 运行
