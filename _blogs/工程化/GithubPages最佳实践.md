@@ -110,8 +110,9 @@ jobs:
 这是由于 build 后资源的 url 为绝对路径导致的
 
 对于默认配置下，打包后的资源 url 映射关系如下：
-`https://yrobot.github.io/svg-inline/` => `index.html`
-`https://yrobot.github.io/svg-inline/index.<hash>.js` => `index.<hash>.js`
+
+- `https://yrobot.github.io/svg-inline/` => `index.html`
+- `https://yrobot.github.io/svg-inline/index.<hash>.js` => `index.<hash>.js`
 
 打包软件在默认配置下会将资源 url 转换为绝对路径：`./src/index.ts` => `/index.<hash>.js`
 
@@ -149,8 +150,9 @@ js 静态文件请求也会被解释成 `https://yrobot.github.io/svg-inline/ind
 此部分请先阅读 [Github Pages 配置自定义域名文档](https://docs.github.com/cn/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages)
 
 此方案的原理就是直接使用域名根目录访问，这样打包工具转换后的 url 就是可行的
-`https://custom.domain/` => `index.html`
-`https://custom.domain/index.<hash>.js` => `index.<hash>.js`
+
+- `https://custom.domain/` => `index.html`
+- `https://custom.domain/index.<hash>.js` => `index.<hash>.js`
 
 ## DEMOS
 
