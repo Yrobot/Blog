@@ -38,29 +38,24 @@ export default Page;
 
 ## 疏理 react-dom 源码
 
-```ts
+> 下述源码经过精简，仅保留主流程的逻辑
+
+### 主干逻辑解析
+
+```js
 function renderToString(
   children: ReactNodeList,
   options?: ServerOptions
 ): string {
-  return renderToStringImpl(
-    children,
-    options,
-    false,
-    'The server used "renderToString" which does not support Suspense. If you intended for this Suspense boundary to render the fallback content on the server consider throwing an Error somewhere within the Suspense boundary. If you intended to have the server wait for the suspended component please switch to "renderToPipeableStream" which supports Suspense on the server'
-  );
+  return renderToStringImpl(children, options);
 }
 ```
 
-```ts
+```js
 function renderToStringImpl(
   children: ReactNodeList,
-  options: void | ServerOptions,
-  generateStaticMarkup: boolean,
-  abortReason: string
+  options: void | ServerOptions
 ): string {
-  let didFatal = false;
-  let fatalError = null;
   let result = "";
   const destination = {
     push(chunk) {
@@ -69,50 +64,233 @@ function renderToStringImpl(
       }
       return true;
     },
-    destroy(error) {
-      didFatal = true;
-      fatalError = error;
-    },
   };
 
-  let readyToStream = false;
-  function onShellReady() {
-    readyToStream = true;
-  }
-  const request = createRequest(
-    children,
-    createResponseState(
-      generateStaticMarkup,
-      options ? options.identifierPrefix : undefined
-    ),
-    createRootFormatContext(),
-    Infinity,
-    onError,
-    undefined,
-    onShellReady,
-    undefined,
-    undefined
-  );
-  startWork(request);
-  // If anything suspended and is still pending, we'll abort it before writing.
-  // That way we write only client-rendered boundaries from the start.
-  abort(request, abortReason);
-  startFlowing(request, destination);
-  if (didFatal && fatalError !== abortReason) {
-    throw fatalError;
-  }
+  const request = createRequest(children);
 
-  if (!readyToStream) {
-    // Note: This error message is the one we use on the client. It doesn't
-    // really make sense here. But this is the legacy server renderer, anyway.
-    // We're going to delete it soon.
-    throw new Error(
-      "A component suspended while responding to synchronous input. This " +
-        "will cause the UI to be replaced with a loading indicator. To fix, " +
-        "updates that suspend should be wrapped with startTransition."
-    );
-  }
+  startWork(request);
+
+  startFlowing(request, destination);
 
   return result;
 }
 ```
+
+这部分代码主要是 `renderToString` 的主干逻辑，可以看到：
+
+1. `renderToString` 只是对于 `renderToStringImpl` 做了一层封装
+2. `renderToStringImpl` 返回 `result` 字符串，而 `result` 是通过 `startFlowing(request, destination)` 利用 `destination.push` 来拼接 stream。
+
+#### 通过 log 验证一下
+
+在 destination.push 中添加一个 log，然后跑一下逻辑：
+
+```js
+const destination = {
+  push(chunk) {
+    if (chunk !== null) {
+      result += chunk;
+      console.log(result);
+    }
+    return true;
+  },
+};
+```
+
+log 结果：  
+![zPSQyZ-21-10-21](https://images.yrobot.top/2022-07-13/zPSQyZ-21-10-21.png)
+
+#### 简单猜想一下
+
+1. `createRequest` 和 `startWork` 是转译服务的初始化工作
+2. `startFlowing(request, { push: chunk => {} })` 开始转译的触发函数，`push`作为结果的回调
+
+接下来就从 `createRequest` 、`startWork` 和 `startFlowing` 进行源码解读
+
+### createRequest
+
+```js
+export function createRequest(children: ReactNodeList): Request {
+  const pingedTasks = [];
+  const request = {
+    destination: null, // 储存startFlowing中传入的destination，用来回调输出stream
+    pingedTasks: pingedTasks,
+  };
+  // This segment represents the root fallback.
+  const rootSegment = createPendingSegment(request);
+  // There is no parent so conceptually, we're unblocked to flush this segment.
+  rootSegment.parentFlushed = true;
+  const rootTask = createTask(request, children, null, rootSegment);
+  pingedTasks.push(rootTask);
+  return request;
+}
+```
+
+```js
+function createPendingSegment(request: Request): Segment {
+  return {
+    status: PENDING,
+    id: -1, // lazily assigned later
+    index,
+    parentFlushed: false,
+    chunks: [],
+    children: [],
+    formatContext,
+    boundary,
+    lastPushedText,
+    textEmbedded,
+  };
+}
+```
+
+```js
+function createTask(
+  request: Request,
+  node: ReactNodeList,
+  blockedBoundary: Root | SuspenseBoundary,
+  blockedSegment: Segment
+): Task {
+  const task: Task = ({
+    node,
+    ping: () => pingTask(request, task),
+    blockedBoundary,
+    blockedSegment,
+  }: any);
+  return task;
+}
+```
+
+从数据流看逻辑：
+
+- children => rootTask.node
+- rootTask => request.pingedTasks.push(rootTask)
+
+### startWork
+
+```js
+export function startWork(request: Request): void {
+  setImmediate(() => performWork(request));
+}
+```
+
+```js
+export function performWork(request: Request): void {
+  const pingedTasks = request.pingedTasks;
+  let i;
+  for (i = 0; i < pingedTasks.length; i++) {
+    const task = pingedTasks[i];
+    retryTask(request, task);
+  }
+  pingedTasks.splice(0, i);
+  if (request.destination !== null) {
+    flushCompletedQueues(request, request.destination);
+  }
+}
+```
+
+```js
+function retryTask(request: Request, task: Task): void {
+  const segment = task.blockedSegment;
+  if (segment.status !== PENDING) return;
+  renderNodeDestructive(request, task, task.node);
+  pushSegmentFinale(
+    segment.chunks,
+    request.responseState,
+    segment.lastPushedText,
+    segment.textEmbedded
+  );
+  segment.status = COMPLETED;
+  finishedTask(request, task.blockedBoundary, segment);
+}
+```
+
+```js
+function renderNodeDestructive(
+  request: Request,
+  task: Task,
+  node: ReactNodeList
+): void {
+  return renderNodeDestructiveImpl(request, task, node);
+}
+```
+
+```js
+function renderNodeDestructiveImpl(
+  request: Request,
+  task: Task,
+  node: ReactNodeList
+): void {
+  task.node = node;
+
+  if (typeof node === "object" && node !== null) {
+    switch ((node: any).$$typeof) {
+      case REACT_ELEMENT_TYPE: {
+        const element: React$Element<any> = (node: any);
+        const type = element.type;
+        const props = element.props;
+        const ref = element.ref;
+        renderElement(request, task, type, props, ref);
+        return;
+      }
+      case REACT_LAZY_TYPE: {
+        const lazyNode: LazyComponentType<any, any> = (node: any);
+        const payload = lazyNode._payload;
+        const init = lazyNode._init;
+        let resolvedNode;
+        resolvedNode = init(payload);
+        renderNodeDestructive(request, task, resolvedNode);
+        return;
+      }
+    }
+
+    if (isArray(node)) {
+      renderChildrenArray(request, task, node);
+      return;
+    }
+
+    const iteratorFn = getIteratorFn(node);
+    if (iteratorFn) {
+      const iterator = iteratorFn.call(node);
+      if (iterator) {
+        let step = iterator.next();
+        if (!step.done) {
+          const children = [];
+          do {
+            children.push(step.value);
+            step = iterator.next();
+          } while (!step.done);
+          renderChildrenArray(request, task, children);
+          return;
+        }
+        return;
+      }
+    }
+
+    const childString = Object.prototype.toString.call(node);
+  }
+
+  if (typeof node === "string") {
+    const segment = task.blockedSegment;
+    segment.lastPushedText = pushTextInstance(
+      task.blockedSegment.chunks,
+      node,
+      request.responseState,
+      segment.lastPushedText
+    );
+    return;
+  }
+
+  if (typeof node === "number") {
+    const segment = task.blockedSegment;
+    segment.lastPushedText = pushTextInstance(
+      task.blockedSegment.chunks,
+      "" + node,
+      request.responseState,
+      segment.lastPushedText
+    );
+    return;
+  }
+}
+```
+
+### startFlowing
