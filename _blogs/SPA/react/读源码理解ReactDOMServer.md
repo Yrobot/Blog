@@ -42,7 +42,7 @@ export default Page;
 
 ### 主干逻辑解析
 
-```js
+```ts
 function renderToString(
   children: ReactNodeList,
   options?: ServerOptions
@@ -51,7 +51,7 @@ function renderToString(
 }
 ```
 
-```js
+```ts
 function renderToStringImpl(
   children: ReactNodeList,
   options: void | ServerOptions
@@ -66,7 +66,22 @@ function renderToStringImpl(
     },
   };
 
-  const request = createRequest(children);
+  function onShellReady() {
+    readyToStream = true;
+  }
+
+  const request = createRequest(
+    children,
+    createResponseState(
+      generateStaticMarkup,
+      options ? options.identifierPrefix : undefined
+    ),
+    createRootFormatContext(),
+    Infinity,
+    onError,
+    undefined,
+    onShellReady
+  );
 
   startWork(request);
 
@@ -85,7 +100,7 @@ function renderToStringImpl(
 
 在 destination.push 中添加一个 log，然后跑一下逻辑：
 
-```js
+```ts
 const destination = {
   push(chunk) {
     if (chunk !== null) {
@@ -109,24 +124,36 @@ log 结果：
 
 ### createRequest
 
-```js
-export function createRequest(children: ReactNodeList): Request {
+```ts
+export function createRequest(
+  children: ReactNodeList,
+  responseState: ResponseState,
+  rootFormatContext: FormatContext,
+  progressiveChunkSize: void | number,
+  onError: void | ((error: mixed) => ?string),
+  onAllReady: void | (() => void),
+  onShellReady: void | (() => void)
+): Request {
   const pingedTasks = [];
+  var abortSet = new Set();
   const request = {
     destination: null, // 储存startFlowing中传入的destination，用来回调输出stream
     pingedTasks: pingedTasks,
+    abortableTasks: abortSet,
+    onAllReady,
+    onShellReady,
   };
   // This segment represents the root fallback.
   const rootSegment = createPendingSegment(request);
   // There is no parent so conceptually, we're unblocked to flush this segment.
   rootSegment.parentFlushed = true;
-  const rootTask = createTask(request, children, null, rootSegment);
+  const rootTask = createTask(request, children, null, rootSegment, abortSet);
   pingedTasks.push(rootTask);
   return request;
 }
 ```
 
-```js
+```ts
 function createPendingSegment(request: Request): Segment {
   return {
     status: PENDING,
@@ -143,19 +170,22 @@ function createPendingSegment(request: Request): Segment {
 }
 ```
 
-```js
+```ts
 function createTask(
   request: Request,
   node: ReactNodeList,
   blockedBoundary: Root | SuspenseBoundary,
-  blockedSegment: Segment
+  blockedSegment: Segment,
+  abortSet: Set<Task>
 ): Task {
   const task: Task = ({
     node,
     ping: () => pingTask(request, task),
+    abortSet,
     blockedBoundary,
     blockedSegment,
   }: any);
+  abortSet.add(task);
   return task;
 }
 ```
@@ -164,16 +194,17 @@ function createTask(
 
 - children => rootTask.node
 - rootTask => request.pingedTasks.push(rootTask)
+- task|rootTask => request.abortableTasks.add(task) | rootTask.abortSet.add(task)
 
 ### startWork
 
-```js
+```ts
 export function startWork(request: Request): void {
   setImmediate(() => performWork(request));
 }
 ```
 
-```js
+```ts
 export function performWork(request: Request): void {
   const pingedTasks = request.pingedTasks;
   let i;
@@ -181,47 +212,27 @@ export function performWork(request: Request): void {
     const task = pingedTasks[i];
     retryTask(request, task);
   }
-  pingedTasks.splice(0, i);
-  if (request.destination !== null) {
-    flushCompletedQueues(request, request.destination);
-  }
 }
 ```
 
-```js
+```ts
 function retryTask(request: Request, task: Task): void {
   const segment = task.blockedSegment;
   if (segment.status !== PENDING) return;
-  renderNodeDestructive(request, task, task.node);
-  pushSegmentFinale(
-    segment.chunks,
-    request.responseState,
-    segment.lastPushedText,
-    segment.textEmbedded
-  );
+  renderNodeDestructiveImpl(request, task, task.node);
+  task.abortSet.delete(task);
   segment.status = COMPLETED;
   finishedTask(request, task.blockedBoundary, segment);
 }
 ```
 
-```js
-function renderNodeDestructive(
-  request: Request,
-  task: Task,
-  node: ReactNodeList
-): void {
-  return renderNodeDestructiveImpl(request, task, node);
-}
-```
-
-```js
+```ts
 function renderNodeDestructiveImpl(
   request: Request,
   task: Task,
   node: ReactNodeList
 ): void {
   task.node = node;
-
   if (typeof node === "object" && node !== null) {
     switch ((node: any).$$typeof) {
       case REACT_ELEMENT_TYPE: {
@@ -232,63 +243,20 @@ function renderNodeDestructiveImpl(
         renderElement(request, task, type, props, ref);
         return;
       }
-      case REACT_LAZY_TYPE: {
-        const lazyNode: LazyComponentType<any, any> = (node: any);
-        const payload = lazyNode._payload;
-        const init = lazyNode._init;
-        let resolvedNode;
-        resolvedNode = init(payload);
-        renderNodeDestructive(request, task, resolvedNode);
-        return;
-      }
     }
-
     if (isArray(node)) {
       renderChildrenArray(request, task, node);
       return;
     }
-
-    const iteratorFn = getIteratorFn(node);
-    if (iteratorFn) {
-      const iterator = iteratorFn.call(node);
-      if (iterator) {
-        let step = iterator.next();
-        if (!step.done) {
-          const children = [];
-          do {
-            children.push(step.value);
-            step = iterator.next();
-          } while (!step.done);
-          renderChildrenArray(request, task, children);
-          return;
-        }
-        return;
-      }
-    }
-
-    const childString = Object.prototype.toString.call(node);
   }
+}
+```
 
-  if (typeof node === "string") {
-    const segment = task.blockedSegment;
-    segment.lastPushedText = pushTextInstance(
-      task.blockedSegment.chunks,
-      node,
-      request.responseState,
-      segment.lastPushedText
-    );
-    return;
-  }
-
-  if (typeof node === "number") {
-    const segment = task.blockedSegment;
-    segment.lastPushedText = pushTextInstance(
-      task.blockedSegment.chunks,
-      "" + node,
-      request.responseState,
-      segment.lastPushedText
-    );
-    return;
+```ts
+function renderChildrenArray(request, task, children) {
+  const totalChildren = children.length;
+  for (let i = 0; i < totalChildren; i++) {
+    renderNodeDestructiveImpl(request, task, children[i]);
   }
 }
 ```
