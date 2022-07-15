@@ -66,22 +66,7 @@ function renderToStringImpl(
     },
   };
 
-  function onShellReady() {
-    readyToStream = true;
-  }
-
-  const request = createRequest(
-    children,
-    createResponseState(
-      generateStaticMarkup,
-      options ? options.identifierPrefix : undefined
-    ),
-    createRootFormatContext(),
-    Infinity,
-    onError,
-    undefined,
-    onShellReady
-  );
+  const request = createRequest(children);
 
   startWork(request);
 
@@ -125,48 +110,30 @@ log 结果：
 ### createRequest
 
 ```ts
-export function createRequest(
-  children: ReactNodeList,
-  responseState: ResponseState,
-  rootFormatContext: FormatContext,
-  progressiveChunkSize: void | number,
-  onError: void | ((error: mixed) => ?string),
-  onAllReady: void | (() => void),
-  onShellReady: void | (() => void)
-): Request {
+export function createRequest(children: ReactNodeList): Request {
   const pingedTasks = [];
   var abortSet = new Set();
   const request = {
     destination: null, // 储存startFlowing中传入的destination，用来回调输出stream
     pingedTasks: pingedTasks,
     abortableTasks: abortSet,
-    onAllReady,
-    onShellReady,
+    nextSegmentId: 0,
+    allPendingTasks: 0,
+    pendingRootTasks: 0,
   };
-  // This segment represents the root fallback.
-  const rootSegment = createPendingSegment(request);
-  // There is no parent so conceptually, we're unblocked to flush this segment.
-  rootSegment.parentFlushed = true;
+
+  const rootSegment = {
+    status: PENDING,
+    parentFlushed: true,
+    chunks: [],
+    children: [],
+    formatContext: {},
+    boundary: null,
+  };
+
   const rootTask = createTask(request, children, null, rootSegment, abortSet);
   pingedTasks.push(rootTask);
   return request;
-}
-```
-
-```ts
-function createPendingSegment(request: Request): Segment {
-  return {
-    status: PENDING,
-    id: -1, // lazily assigned later
-    index,
-    parentFlushed: false,
-    chunks: [],
-    children: [],
-    formatContext,
-    boundary,
-    lastPushedText,
-    textEmbedded,
-  };
 }
 ```
 
@@ -178,6 +145,13 @@ function createTask(
   blockedSegment: Segment,
   abortSet: Set<Task>
 ): Task {
+  request.allPendingTasks++;
+  if (blockedBoundary === null) {
+    request.pendingRootTasks++;
+  } else {
+    blockedBoundary.pendingTasks++;
+  }
+
   const task: Task = ({
     node,
     ping: () => pingTask(request, task),
