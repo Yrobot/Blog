@@ -235,4 +235,140 @@ function renderChildrenArray(request, task, children) {
 }
 ```
 
+```ts
+function renderElement(
+  request: Request,
+  task: Task,
+  type: any,
+  props: Object,
+  ref: any
+): void {
+  if (typeof type === "function") {
+    if (shouldConstruct(type)) {
+      renderClassComponent(request, task, type, props);
+      return;
+    } else {
+      renderIndeterminateComponent(request, task, type, props);
+      return;
+    }
+  }
+  if (typeof type === "string") {
+    renderHostElement(request, task, type, props);
+    return;
+  }
+
+  switch (type) {
+    case REACT_LEGACY_HIDDEN_TYPE:
+    case REACT_DEBUG_TRACING_MODE_TYPE:
+    case REACT_STRICT_MODE_TYPE:
+    case REACT_PROFILER_TYPE:
+    case REACT_FRAGMENT_TYPE: {
+      renderNodeDestructive(request, task, props.children);
+      return;
+    }
+    case REACT_SUSPENSE_LIST_TYPE: {
+      pushBuiltInComponentStackInDEV(task, "SuspenseList");
+      renderNodeDestructive(request, task, props.children);
+      popComponentStackInDEV(task);
+      return;
+    }
+    case REACT_SCOPE_TYPE: {
+      if (enableScopeAPI) {
+        renderNodeDestructive(request, task, props.children);
+        return;
+      }
+      throw new Error("ReactDOMServer does not yet support scope components.");
+    }
+    case REACT_SUSPENSE_TYPE: {
+      if (
+        enableSuspenseAvoidThisFallbackFizz &&
+        props.unstable_avoidThisFallback === true
+      ) {
+        renderBackupSuspenseBoundary(request, task, props);
+      } else {
+        renderSuspenseBoundary(request, task, props);
+      }
+      return;
+    }
+  }
+
+  if (typeof type === "object" && type !== null) {
+    switch (type.$$typeof) {
+      case REACT_FORWARD_REF_TYPE: {
+        renderForwardRef(request, task, type, props, ref);
+        return;
+      }
+      case REACT_MEMO_TYPE: {
+        renderMemo(request, task, type, props, ref);
+        return;
+      }
+      case REACT_PROVIDER_TYPE: {
+        renderContextProvider(request, task, type, props);
+        return;
+      }
+      case REACT_CONTEXT_TYPE: {
+        renderContextConsumer(request, task, type, props);
+        return;
+      }
+      case REACT_LAZY_TYPE: {
+        renderLazyComponent(request, task, type, props);
+        return;
+      }
+    }
+  }
+
+  throw new Error(
+    "Element type is invalid: expected a string (for built-in " +
+      "components) or a class/function (for composite components) " +
+      `but got: ${type == null ? type : typeof type}.${info}`
+  );
+}
+```
+
+render function component:
+
+```ts
+function renderIndeterminateComponent(
+  request: Request,
+  task: Task,
+  Component: any,
+  props: any
+): void {
+  let legacyContext;
+  if (!disableLegacyContext) {
+    legacyContext = getMaskedContext(Component, task.legacyContext);
+  }
+  pushFunctionComponentStackInDEV(task, Component);
+
+  const value = renderWithHooks(request, task, Component, props, legacyContext);
+  const hasId = checkDidRenderIdHook();
+
+  if (
+    !disableModulePatternComponents &&
+    typeof value === "object" &&
+    value !== null &&
+    typeof value.render === "function" &&
+    value.$$typeof === undefined
+  ) {
+    mountClassInstance(value, Component, props, legacyContext);
+    finishClassComponent(request, task, value, Component, props);
+  } else {
+    if (hasId) {
+      const prevTreeContext = task.treeContext;
+      const totalChildren = 1;
+      const index = 0;
+      task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index);
+      try {
+        renderNodeDestructive(request, task, value);
+      } finally {
+        task.treeContext = prevTreeContext;
+      }
+    } else {
+      renderNodeDestructive(request, task, value);
+    }
+  }
+  popComponentStackInDEV(task);
+}
+```
+
 ### startFlowing
