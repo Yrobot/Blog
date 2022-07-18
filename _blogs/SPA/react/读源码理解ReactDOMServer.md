@@ -13,6 +13,10 @@ createTime: 2022年7月12日
 
 所以，本文主要是为了弄明白 ReactDOMServer 如何将 react 转换为 html
 
+react-dom 将 react 组件转换为 html 的函数有两个： `renderToString()` 和 `renderToStaticMarkup()`
+
+主要区别是 `renderToStaticMarkup()` 不会创建 React 内部使用的额外 DOM 属性，如 `data-reactroot`。如果你只想把 React 作为简单的静态页面生成器使用，那么使用 `renderToStaticMarkup()` 是更好的选择，它会比 `renderToString()` 节省一些字节占用。
+
 ```tsx
 import React from "react";
 
@@ -372,3 +376,380 @@ function renderIndeterminateComponent(
 ```
 
 ### startFlowing
+
+```ts
+export function startFlowing(request: Request, destination: Destination): void {
+  request.destination = destination;
+  flushCompletedQueues(request, destination);
+}
+```
+
+```ts
+function flushCompletedQueues(
+  request: Request,
+  destination: Destination
+): void {
+  beginWriting(destination);
+  try {
+    const completedRootSegment = request.completedRootSegment;
+    if (completedRootSegment !== null && request.pendingRootTasks === 0) {
+      flushSegment(request, destination, completedRootSegment);
+      request.completedRootSegment = null;
+      writeCompletedRoot(destination, request.responseState);
+    }
+
+    const clientRenderedBoundaries = request.clientRenderedBoundaries;
+    let i;
+    for (i = 0; i < clientRenderedBoundaries.length; i++) {
+      const boundary = clientRenderedBoundaries[i];
+      if (!flushClientRenderedBoundary(request, destination, boundary)) {
+        request.destination = null;
+        i++;
+        clientRenderedBoundaries.splice(0, i);
+        return;
+      }
+    }
+    clientRenderedBoundaries.splice(0, i);
+
+    const completedBoundaries = request.completedBoundaries;
+    for (i = 0; i < completedBoundaries.length; i++) {
+      const boundary = completedBoundaries[i];
+      if (!flushCompletedBoundary(request, destination, boundary)) {
+        request.destination = null;
+        i++;
+        completedBoundaries.splice(0, i);
+        return;
+      }
+    }
+    completedBoundaries.splice(0, i);
+
+    completeWriting(destination);
+    beginWriting(destination);
+
+    const partialBoundaries = request.partialBoundaries;
+    for (i = 0; i < partialBoundaries.length; i++) {
+      const boundary = partialBoundaries[i];
+      if (!flushPartialBoundary(request, destination, boundary)) {
+        request.destination = null;
+        i++;
+        partialBoundaries.splice(0, i);
+        return;
+      }
+    }
+    partialBoundaries.splice(0, i);
+
+    const largeBoundaries = request.completedBoundaries;
+    for (i = 0; i < largeBoundaries.length; i++) {
+      const boundary = largeBoundaries[i];
+      if (!flushCompletedBoundary(request, destination, boundary)) {
+        request.destination = null;
+        i++;
+        largeBoundaries.splice(0, i);
+        return;
+      }
+    }
+    largeBoundaries.splice(0, i);
+  } finally {
+    completeWriting(destination);
+    flushBuffered(destination);
+    if (
+      request.allPendingTasks === 0 &&
+      request.pingedTasks.length === 0 &&
+      request.clientRenderedBoundaries.length === 0 &&
+      request.completedBoundaries.length === 0
+    ) {
+      close(destination);
+    }
+  }
+}
+```
+
+check finish logic:
+
+- request.allPendingTasks === 0
+- request.pingedTasks.length === 0
+- request.clientRenderedBoundaries.length === 0
+- request.completedBoundaries.length === 0
+
+```ts
+const VIEW_SIZE = 2048;
+let currentView = null;
+let writtenBytes = 0;
+let destinationHasCapacity = true;
+
+export function beginWriting(destination: Destination) {
+  currentView = new Uint8Array(VIEW_SIZE);
+  writtenBytes = 0;
+  destinationHasCapacity = true;
+}
+```
+
+```ts
+function flushSegment(
+  request: Request,
+  destination,
+  segment: Segment
+): boolean {
+  const boundary = segment.boundary;
+  if (boundary === null) {
+    // Not a suspense boundary.
+    return flushSubtree(request, destination, segment);
+  }
+  boundary.parentFlushed = true;
+  // This segment is a Suspense boundary. We need to decide whether to
+  // emit the content or the fallback now.
+  if (boundary.forceClientRender) {
+    // Emit a client rendered suspense boundary wrapper.
+    // We never queue the inner boundary so we'll never emit its content or partial segments.
+
+    writeStartClientRenderedSuspenseBoundary(
+      destination,
+      request.responseState,
+      boundary.errorDigest,
+      boundary.errorMessage,
+      boundary.errorComponentStack
+    );
+    // Flush the fallback.
+    flushSubtree(request, destination, segment);
+
+    return writeEndClientRenderedSuspenseBoundary(
+      destination,
+      request.responseState
+    );
+  } else if (boundary.pendingTasks > 0) {
+    // This boundary is still loading. Emit a pending suspense boundary wrapper.
+
+    // Assign an ID to refer to the future content by.
+    boundary.rootSegmentID = request.nextSegmentId++;
+    if (boundary.completedSegments.length > 0) {
+      // If this is at least partially complete, we can queue it to be partially emitted early.
+      request.partialBoundaries.push(boundary);
+    }
+
+    /// This is the first time we should have referenced this ID.
+    const id = (boundary.id = assignSuspenseBoundaryID(request.responseState));
+
+    writeStartPendingSuspenseBoundary(destination, request.responseState, id);
+
+    // Flush the fallback.
+    flushSubtree(request, destination, segment);
+
+    return writeEndPendingSuspenseBoundary(destination, request.responseState);
+  } else if (boundary.byteSize > request.progressiveChunkSize) {
+    // This boundary is large and will be emitted separately so that we can progressively show
+    // other content. We add it to the queue during the flush because we have to ensure that
+    // the parent flushes first so that there's something to inject it into.
+    // We also have to make sure that it's emitted into the queue in a deterministic slot.
+    // I.e. we can't insert it here when it completes.
+
+    // Assign an ID to refer to the future content by.
+    boundary.rootSegmentID = request.nextSegmentId++;
+
+    request.completedBoundaries.push(boundary);
+    // Emit a pending rendered suspense boundary wrapper.
+    writeStartPendingSuspenseBoundary(
+      destination,
+      request.responseState,
+      boundary.id
+    );
+
+    // Flush the fallback.
+    flushSubtree(request, destination, segment);
+
+    return writeEndPendingSuspenseBoundary(destination, request.responseState);
+  } else {
+    // We can inline this boundary's content as a complete boundary.
+    writeStartCompletedSuspenseBoundary(destination, request.responseState);
+
+    const completedSegments = boundary.completedSegments;
+
+    if (completedSegments.length !== 1) {
+      throw new Error(
+        "A previously unvisited boundary must have exactly one root segment. This is a bug in React."
+      );
+    }
+
+    const contentSegment = completedSegments[0];
+    flushSegment(request, destination, contentSegment);
+
+    return writeEndCompletedSuspenseBoundary(
+      destination,
+      request.responseState
+    );
+  }
+}
+```
+
+```ts
+export function writeCompletedRoot(
+  destination: Destination,
+  responseState: ResponseState
+): boolean {
+  const bootstrapChunks = responseState.bootstrapChunks;
+  let i = 0;
+  for (; i < bootstrapChunks.length - 1; i++) {
+    writeChunk(destination, bootstrapChunks[i]);
+  }
+  if (i < bootstrapChunks.length) {
+    return writeChunkAndReturn(destination, bootstrapChunks[i]);
+  }
+  return true;
+}
+```
+
+```ts
+export function writeChunk(
+  destination: Destination,
+  chunk: PrecomputedChunk | Chunk,
+): void {
+  if (typeof chunk === 'string') {
+    writeStringChunk(destination, chunk);
+  } else {
+    writeViewChunk(destination, ((chunk: any): PrecomputedChunk));
+  }
+}
+```
+
+```ts
+function writeStringChunk(destination: Destination, stringChunk: string) {
+  if (stringChunk.length === 0) {
+    return;
+  }
+  // maximum possible view needed to encode entire string
+  if (stringChunk.length * 3 > VIEW_SIZE) {
+    if (writtenBytes > 0) {
+      writeToDestination(
+        destination,
+        ((currentView: any): Uint8Array).subarray(0, writtenBytes),
+      );
+      currentView = new Uint8Array(VIEW_SIZE);
+      writtenBytes = 0;
+    }
+    writeToDestination(destination, textEncoder.encode(stringChunk));
+    return;
+  }
+
+  let target: Uint8Array = (currentView: any);
+  if (writtenBytes > 0) {
+    target = ((currentView: any): Uint8Array).subarray(writtenBytes);
+  }
+  const {read, written} = textEncoder.encodeInto(stringChunk, target);
+  writtenBytes += written;
+
+  if (read < stringChunk.length) {
+    writeToDestination(destination, (currentView: any));
+    currentView = new Uint8Array(VIEW_SIZE);
+    writtenBytes = textEncoder.encodeInto(stringChunk.slice(read), currentView)
+      .written;
+  }
+
+  if (writtenBytes === VIEW_SIZE) {
+    writeToDestination(destination, (currentView: any));
+    currentView = new Uint8Array(VIEW_SIZE);
+    writtenBytes = 0;
+  }
+}
+```
+
+```ts
+function writeViewChunk(destination: Destination, chunk: PrecomputedChunk) {
+  if (chunk.byteLength === 0) {
+    return;
+  }
+  if (chunk.byteLength > VIEW_SIZE) {
+    // this chunk may overflow a single view which implies it was not
+    // one that is cached by the streaming renderer. We will enqueu
+    // it directly and expect it is not re-used
+    if (writtenBytes > 0) {
+      writeToDestination(
+        destination,
+        ((currentView: any): Uint8Array).subarray(0, writtenBytes),
+      );
+      currentView = new Uint8Array(VIEW_SIZE);
+      writtenBytes = 0;
+    }
+    writeToDestination(destination, chunk);
+    return;
+  }
+
+  let bytesToWrite = chunk;
+  const allowableBytes = ((currentView: any): Uint8Array).length - writtenBytes;
+  if (allowableBytes < bytesToWrite.byteLength) {
+    // this chunk would overflow the current view. We enqueue a full view
+    // and start a new view with the remaining chunk
+    if (allowableBytes === 0) {
+      // the current view is already full, send it
+      writeToDestination(destination, (currentView: any));
+    } else {
+      // fill up the current view and apply the remaining chunk bytes
+      // to a new view.
+      ((currentView: any): Uint8Array).set(
+        bytesToWrite.subarray(0, allowableBytes),
+        writtenBytes,
+      );
+      writtenBytes += allowableBytes;
+      writeToDestination(destination, (currentView: any));
+      bytesToWrite = bytesToWrite.subarray(allowableBytes);
+    }
+    currentView = new Uint8Array(VIEW_SIZE);
+    writtenBytes = 0;
+  }
+  ((currentView: any): Uint8Array).set(bytesToWrite, writtenBytes);
+  writtenBytes += bytesToWrite.byteLength;
+
+  if (writtenBytes === VIEW_SIZE) {
+    writeToDestination(destination, (currentView: any));
+    currentView = new Uint8Array(VIEW_SIZE);
+    writtenBytes = 0;
+  }
+}
+```
+
+```ts
+export function writeChunkAndReturn(
+  destination: Destination,
+  chunk: PrecomputedChunk | Chunk
+): boolean {
+  writeChunk(destination, chunk);
+  return destinationHasCapacity;
+}
+```
+
+```ts
+function flushSubtree(
+  request: Request,
+  destination: Destination,
+  segment: Segment
+): boolean {
+  segment.parentFlushed = true;
+  switch (segment.status) {
+    case PENDING: {
+      const segmentID = (segment.id = request.nextSegmentId++);
+      return writePlaceholder(destination, request.responseState, segmentID);
+    }
+    case COMPLETED: {
+      segment.status = FLUSHED;
+      let r = true;
+      const chunks = segment.chunks;
+      let chunkIdx = 0;
+      const children = segment.children;
+      for (let childIdx = 0; childIdx < children.length; childIdx++) {
+        const nextChild = children[childIdx];
+        // Write all the chunks up until the next child.
+        for (; chunkIdx < nextChild.index; chunkIdx++) {
+          writeChunk(destination, chunks[chunkIdx]);
+        }
+        r = flushSegment(request, destination, nextChild);
+      }
+      // Finally just write all the remaining chunks
+      for (; chunkIdx < chunks.length - 1; chunkIdx++) {
+        writeChunk(destination, chunks[chunkIdx]);
+      }
+      if (chunkIdx < chunks.length) {
+        r = writeChunkAndReturn(destination, chunks[chunkIdx]);
+      }
+      return r;
+    }
+  }
+}
+```
