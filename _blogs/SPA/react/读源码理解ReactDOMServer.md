@@ -193,6 +193,8 @@ export function performWork(request: Request): void {
 }
 ```
 
+retryTask 将 node 解析放入 chunks 中
+
 ```ts
 function retryTask(request: Request, task: Task): void {
   const segment = task.blockedSegment;
@@ -203,6 +205,8 @@ function retryTask(request: Request, task: Task): void {
   finishedTask(request, task.blockedBoundary, segment);
 }
 ```
+
+chunks = task.blockedSegment.chunks
 
 ```ts
 function renderNodeDestructiveImpl(
@@ -372,6 +376,60 @@ function renderIndeterminateComponent(
     }
   }
   popComponentStackInDEV(task);
+}
+```
+
+```ts
+function renderWithHooks<Props, SecondArg>(
+  request: Request,
+  task: Task,
+  Component: (p: Props, arg: SecondArg) => any,
+  props: Props,
+  secondArg: SecondArg
+): any {
+  const componentIdentity = {};
+  prepareToUseHooks(task, componentIdentity);
+  const result = Component(props, secondArg);
+  return finishHooks(Component, props, result, secondArg);
+}
+```
+
+```ts
+let currentlyRenderingComponent: Object | null = null;
+let currentlyRenderingTask: Task | null = null;
+let localIdCounter: number = 0;
+
+let isInHookUserCodeInDev = false;
+export function prepareToUseHooks(task: Task, componentIdentity: Object): void {
+  currentlyRenderingComponent = componentIdentity;
+  localIdCounter = 0;
+}
+```
+
+```ts
+let didScheduleRenderPhaseUpdate: boolean = false;
+export function finishHooks(
+  Component: any,
+  props: any,
+  children: any,
+  refOrContext: any
+): any {
+  while (didScheduleRenderPhaseUpdate) {
+    // Updates were scheduled during the render phase. They are stored in
+    // the `renderPhaseUpdates` map. Call the component again, reusing the
+    // work-in-progress hooks and applying the additional updates on top. Keep
+    // restarting until no more updates are scheduled.
+    didScheduleRenderPhaseUpdate = false;
+    localIdCounter = 0;
+    numberOfReRenders += 1;
+
+    // Start over from the beginning of the list
+    workInProgressHook = null;
+
+    children = Component(props, refOrContext);
+  }
+  resetHooksState();
+  return children;
 }
 ```
 
