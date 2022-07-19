@@ -312,7 +312,7 @@ function retryTask(request: Request, task: Task): void {
 }
 ```
 
-chunks = task.blockedSegment.chunks
+chunks = task.blockedSegment.chunks = segment.chunks
 
 ```ts
 function renderNodeDestructiveImpl(
