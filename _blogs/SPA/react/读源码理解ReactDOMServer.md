@@ -173,11 +173,6 @@ createRequest {
   clientRenderedBoundaries: [],
   completedBoundaries: [],
   partialBoundaries: [],
-  onError: [Function: onError],
-  onAllReady: [Function: noop$1],
-  onShellReady: [Function: onShellReady],
-  onShellError: [Function: noop$1],
-  onFatalError: [Function: noop$1]
 }
 startWork {
   destination: null,
@@ -231,11 +226,6 @@ startWork {
   clientRenderedBoundaries: [],
   completedBoundaries: [],
   partialBoundaries: [],
-  onError: [Function: onError],
-  onAllReady: [Function: noop$1],
-  onShellReady: [Function: onShellReady],
-  onShellError: [Function: noop$1],
-  onFatalError: [Function: noop$1]
 }
 startFlowing {
   destination: { push: [Function: push], destroy: [Function: destroy] },
@@ -264,11 +254,6 @@ startFlowing {
   clientRenderedBoundaries: [],
   completedBoundaries: [],
   partialBoundaries: [],
-  onError: [Function: onError],
-  onAllReady: [Function: noop$1],
-  onShellReady: [Function: onShellReady],
-  onShellError: [Function: noop$1],
-  onFatalError: [Function: noop$1]
 } { push: [Function: push], destroy: [Function: destroy] }
 ```
 
@@ -348,6 +333,8 @@ function renderChildrenArray(request, task, children) {
   }
 }
 ```
+
+### renderElement
 
 ```ts
 function renderElement(
