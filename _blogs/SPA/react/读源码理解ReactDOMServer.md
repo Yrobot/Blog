@@ -104,75 +104,181 @@ const destination = {
 log 结果：  
 ![zPSQyZ-21-10-21](https://images.yrobot.top/2022-07-13/zPSQyZ-21-10-21.png)
 
-#### 简单猜想一下
+### 定位主要逻辑位置和数据结构
 
-1. `createRequest` 和 `startWork` 是转译服务的初始化工作
-2. `startFlowing(request, { push: chunk => {} })` 开始转译的触发函数，`push`作为结果的回调
-
-接下来就从 `createRequest` 、`startWork` 和 `startFlowing` 进行源码解读
-
-### createRequest
+在 renderToStringImpl 的 3 个主要步骤之后 log 一下结果
 
 ```ts
-export function createRequest(children: ReactNodeList): Request {
-  const pingedTasks = [];
-  var abortSet = new Set();
-  const request = {
-    destination: null, // 储存startFlowing中传入的destination，用来回调输出stream
-    pingedTasks: pingedTasks,
-    abortableTasks: abortSet,
-    nextSegmentId: 0,
-    allPendingTasks: 0,
-    pendingRootTasks: 0,
-  };
+const request = createRequest(children);
+console.log("createRequest", request);
 
-  const rootSegment = {
-    status: PENDING,
+startWork(request);
+console.log("startWork", request);
+
+startFlowing(request, destination);
+console.log("startFlowing", request, destination);
+```
+
+log 结果：
+
+```bash
+createRequest {
+  destination: null,
+  responseState: {
+    bootstrapChunks: [],
+    startInlineScript: '<script>',
+    placeholderPrefix: 'P:',
+    segmentPrefix: 'S:',
+    boundaryPrefix: 'B:',
+    idPrefix: '',
+    nextSuspenseID: 0,
+    sentCompleteSegmentFunction: false,
+    sentCompleteBoundaryFunction: false,
+    sentClientRenderFunction: false,
+    generateStaticMarkup: true
+  },
+  progressiveChunkSize: Infinity,
+  status: 0,
+  fatalError: null,
+  nextSegmentId: 0,
+  allPendingTasks: 1,
+  pendingRootTasks: 1,
+  completedRootSegment: null,
+  abortableTasks: <ref *1> Set(1) {
+    {
+      node: [Object],
+      ping: [Function: ping],
+      blockedBoundary: null,
+      blockedSegment: [Object],
+      abortSet: [Circular *1],
+      legacyContext: {},
+      context: null,
+      treeContext: [Object],
+      componentStack: null
+    }
+  },
+  pingedTasks: [
+    {
+      node: [Object],
+      ping: [Function: ping],
+      blockedBoundary: null,
+      blockedSegment: [Object],
+      abortSet: [Set],
+      legacyContext: {},
+      context: null,
+      treeContext: [Object],
+      componentStack: null
+    }
+  ],
+  clientRenderedBoundaries: [],
+  completedBoundaries: [],
+  partialBoundaries: [],
+  onError: [Function: onError],
+  onAllReady: [Function: noop$1],
+  onShellReady: [Function: onShellReady],
+  onShellError: [Function: noop$1],
+  onFatalError: [Function: noop$1]
+}
+startWork {
+  destination: null,
+  responseState: {
+    bootstrapChunks: [],
+    startInlineScript: '<script>',
+    placeholderPrefix: 'P:',
+    segmentPrefix: 'S:',
+    boundaryPrefix: 'B:',
+    idPrefix: '',
+    nextSuspenseID: 0,
+    sentCompleteSegmentFunction: false,
+    sentCompleteBoundaryFunction: false,
+    sentClientRenderFunction: false,
+    generateStaticMarkup: true
+  },
+  progressiveChunkSize: Infinity,
+  status: 0,
+  fatalError: null,
+  nextSegmentId: 0,
+  allPendingTasks: 0,
+  pendingRootTasks: 0,
+  completedRootSegment: {
+    status: 1,
+    id: -1,
+    index: 0,
     parentFlushed: true,
-    chunks: [],
+    chunks: [
+      '<div',    ' ',      'class',   '="',       'page',
+      '"',       '>',      '<header', ' ',        'class',
+      '="',      'header', '"',       '>',        'Header',
+      '</',      'header', '>',       '<section', ' ',
+      'class',   '="',     'content', '"',        '>',
+      '<div',    ' ',      'class',   '="',       'title',
+      '"',       '>',      'Title',   '</',       'div',
+      '>',       '<div',   ' ',       'class',    '="',
+      'detail',  '"',      '>',       'Detail',   '</',
+      'div',     '>',      '</',      'section',  '>',
+      '<footer', ' ',      'class',   '="',       'footer',
+      '"',       '>',      'Footer',  '</',       'footer',
+      '>',       '</',     'div',     '>'
+    ],
     children: [],
-    formatContext: {},
+    formatContext: { insertionMode: 1, selectedValue: null },
     boundary: null,
-  };
-
-  const rootTask = createTask(request, children, null, rootSegment, abortSet);
-  pingedTasks.push(rootTask);
-  return request;
+    lastPushedText: false,
+    textEmbedded: false
+  },
+  abortableTasks: Set(0) {},
+  pingedTasks: [],
+  clientRenderedBoundaries: [],
+  completedBoundaries: [],
+  partialBoundaries: [],
+  onError: [Function: onError],
+  onAllReady: [Function: noop$1],
+  onShellReady: [Function: onShellReady],
+  onShellError: [Function: noop$1],
+  onFatalError: [Function: noop$1]
 }
+startFlowing {
+  destination: { push: [Function: push], destroy: [Function: destroy] },
+  responseState: {
+    bootstrapChunks: [],
+    startInlineScript: '<script>',
+    placeholderPrefix: 'P:',
+    segmentPrefix: 'S:',
+    boundaryPrefix: 'B:',
+    idPrefix: '',
+    nextSuspenseID: 0,
+    sentCompleteSegmentFunction: false,
+    sentCompleteBoundaryFunction: false,
+    sentClientRenderFunction: false,
+    generateStaticMarkup: true
+  },
+  progressiveChunkSize: Infinity,
+  status: 0,
+  fatalError: null,
+  nextSegmentId: 0,
+  allPendingTasks: 0,
+  pendingRootTasks: 0,
+  completedRootSegment: null,
+  abortableTasks: Set(0) {},
+  pingedTasks: [],
+  clientRenderedBoundaries: [],
+  completedBoundaries: [],
+  partialBoundaries: [],
+  onError: [Function: onError],
+  onAllReady: [Function: noop$1],
+  onShellReady: [Function: onShellReady],
+  onShellError: [Function: noop$1],
+  onFatalError: [Function: noop$1]
+} { push: [Function: push], destroy: [Function: destroy] }
 ```
 
-```ts
-function createTask(
-  request: Request,
-  node: ReactNodeList,
-  blockedBoundary: Root | SuspenseBoundary,
-  blockedSegment: Segment,
-  abortSet: Set<Task>
-): Task {
-  request.allPendingTasks++;
-  if (blockedBoundary === null) {
-    request.pendingRootTasks++;
-  } else {
-    blockedBoundary.pendingTasks++;
-  }
+通过 log 可以得出一下 2 点：
 
-  const task: Task = ({
-    node,
-    ping: () => pingTask(request, task),
-    abortSet,
-    blockedBoundary,
-    blockedSegment,
-  }: any);
-  abortSet.add(task);
-  return task;
-}
-```
+- parse 后的主要数据利用 array 的形式储存于 request.completedRootSegment.chunks
+- 主要的 parse 工作在 startWork 中完成
 
-从数据流看逻辑：
-
-- children => rootTask.node
-- rootTask => request.pingedTasks.push(rootTask)
-- task|rootTask => request.abortableTasks.add(task) | rootTask.abortSet.add(task)
+由于整个 react-dom/server 还要处理很多场景，如懒加载等。  
+后面我们就把注意力主要放在 startWork 是怎么将 react components 转换为 chunks 的。
 
 ### startWork
 
@@ -430,15 +536,6 @@ export function finishHooks(
   }
   resetHooksState();
   return children;
-}
-```
-
-### startFlowing
-
-```ts
-export function startFlowing(request: Request, destination: Destination): void {
-  request.destination = destination;
-  flushCompletedQueues(request, destination);
 }
 ```
 
