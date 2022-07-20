@@ -20,13 +20,23 @@ react-dom 将 react 组件转换为 html 的函数有两个： `renderToString()
 ```tsx
 import React from "react";
 
-const Header = () => <header className="header">Header</header>;
-const Content = () => <section className="content">Content</section>;
+const Header = () => (
+  <header key="key" className="header">
+    Header
+  </header>
+);
+const Content = ({ name }: { name: string }) => (
+  <section className="content">Content:{name}</section>
+);
 const Footer = () => <footer className="footer">Footer</footer>;
+const SvgInline = () => (
+  <svg-inline src="https://yrobot.top/icons/svg-inline.svg"></svg-inline>
+);
 const Page = () => (
   <div className="page">
     <Header />
-    <Content />
+    <Content name="yrobot" />
+    <SvgInline />
     <Footer />
   </div>
 );
@@ -284,13 +294,11 @@ export function performWork(request: Request): void {
 }
 ```
 
-retryTask 将 node 解析放入 chunks 中
-
 ```ts
 function retryTask(request: Request, task: Task): void {
   const segment = task.blockedSegment;
   if (segment.status !== PENDING) return;
-  renderNodeDestructiveImpl(request, task, task.node);
+  renderNodeDestructiveImpl(request, task, task.node); // nodes => chunks
   task.abortSet.delete(task);
   segment.status = COMPLETED;
   finishedTask(request, task.blockedBoundary, segment);
@@ -334,6 +342,42 @@ function renderChildrenArray(request, task, children) {
 }
 ```
 
+可以看到 `renderNodeDestructiveImpl` 是一个递归函数，它从 rootNode 开始递归，利用 `renderElement` 对每一个节点进行处理。
+
+我们后面就着重解析 `renderElement` 是怎么将 node 转化为 html string 的
+
+### 在解读 renderElement 之前，我们需要先了解 node 的结构
+
+推荐优先阅读[《React 是怎么运行起来的》](./React%E6%98%AF%E6%80%8E%E4%B9%88%E8%BF%90%E8%A1%8C%E8%B5%B7%E6%9D%A5%E7%9A%84)
+
+node 的结构如下：
+
+```ts
+{
+  '$$typeof': Symbol(react.element), // symbol
+  type: [Function: Page], // string|function|object
+  key: null,
+  ref: null,
+  props: {},
+  _owner: null,
+  _store: {}
+}
+```
+
+简单的解释一下：
+
+- `$$typeof`: 表示 node 的类型，这里的类型是 Symbol(react.element)，表示一个 ReactElement
+- `type`: 表示 tag name, 可能的类型包括 string、function。
+  - html tag 在这里就是 string，比如'div'；
+  - react hooks component 在这里就是 function, 比如 [Function: Page]
+- `key`: 节点的 key 属性
+- `ref`: 节点的 ref 属性
+- `props`: 节点的剩余属性的集合
+
+```tsx
+<type key ref {...props} />
+```
+
 ### renderElement
 
 ```ts
@@ -345,7 +389,7 @@ function renderElement(
   ref: any
 ): void {
   if (typeof type === "function") {
-    if (shouldConstruct(type)) {
+    if (type.prototype && type.prototype.isReactComponent) {
       renderClassComponent(request, task, type, props);
       return;
     } else {
@@ -358,65 +402,7 @@ function renderElement(
     return;
   }
 
-  switch (type) {
-    case REACT_LEGACY_HIDDEN_TYPE:
-    case REACT_DEBUG_TRACING_MODE_TYPE:
-    case REACT_STRICT_MODE_TYPE:
-    case REACT_PROFILER_TYPE:
-    case REACT_FRAGMENT_TYPE: {
-      renderNodeDestructive(request, task, props.children);
-      return;
-    }
-    case REACT_SUSPENSE_LIST_TYPE: {
-      pushBuiltInComponentStackInDEV(task, "SuspenseList");
-      renderNodeDestructive(request, task, props.children);
-      popComponentStackInDEV(task);
-      return;
-    }
-    case REACT_SCOPE_TYPE: {
-      if (enableScopeAPI) {
-        renderNodeDestructive(request, task, props.children);
-        return;
-      }
-      throw new Error("ReactDOMServer does not yet support scope components.");
-    }
-    case REACT_SUSPENSE_TYPE: {
-      if (
-        enableSuspenseAvoidThisFallbackFizz &&
-        props.unstable_avoidThisFallback === true
-      ) {
-        renderBackupSuspenseBoundary(request, task, props);
-      } else {
-        renderSuspenseBoundary(request, task, props);
-      }
-      return;
-    }
-  }
-
-  if (typeof type === "object" && type !== null) {
-    switch (type.$$typeof) {
-      case REACT_FORWARD_REF_TYPE: {
-        renderForwardRef(request, task, type, props, ref);
-        return;
-      }
-      case REACT_MEMO_TYPE: {
-        renderMemo(request, task, type, props, ref);
-        return;
-      }
-      case REACT_PROVIDER_TYPE: {
-        renderContextProvider(request, task, type, props);
-        return;
-      }
-      case REACT_CONTEXT_TYPE: {
-        renderContextConsumer(request, task, type, props);
-        return;
-      }
-      case REACT_LAZY_TYPE: {
-        renderLazyComponent(request, task, type, props);
-        return;
-      }
-    }
-  }
+  // ...other types handlers
 
   throw new Error(
     "Element type is invalid: expected a string (for built-in " +
@@ -426,7 +412,7 @@ function renderElement(
 }
 ```
 
-render function component:
+### Hooks Component Handler
 
 ```ts
 function renderIndeterminateComponent(
@@ -435,463 +421,8 @@ function renderIndeterminateComponent(
   Component: any,
   props: any
 ): void {
-  let legacyContext;
-  if (!disableLegacyContext) {
-    legacyContext = getMaskedContext(Component, task.legacyContext);
-  }
-  pushFunctionComponentStackInDEV(task, Component);
+  const value = renderWithHooks(request, task, Component, props, {});
 
-  const value = renderWithHooks(request, task, Component, props, legacyContext);
-  const hasId = checkDidRenderIdHook();
-
-  if (
-    !disableModulePatternComponents &&
-    typeof value === "object" &&
-    value !== null &&
-    typeof value.render === "function" &&
-    value.$$typeof === undefined
-  ) {
-    mountClassInstance(value, Component, props, legacyContext);
-    finishClassComponent(request, task, value, Component, props);
-  } else {
-    if (hasId) {
-      const prevTreeContext = task.treeContext;
-      const totalChildren = 1;
-      const index = 0;
-      task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index);
-      try {
-        renderNodeDestructive(request, task, value);
-      } finally {
-        task.treeContext = prevTreeContext;
-      }
-    } else {
-      renderNodeDestructive(request, task, value);
-    }
-  }
-  popComponentStackInDEV(task);
-}
-```
-
-```ts
-function renderWithHooks<Props, SecondArg>(
-  request: Request,
-  task: Task,
-  Component: (p: Props, arg: SecondArg) => any,
-  props: Props,
-  secondArg: SecondArg
-): any {
-  const componentIdentity = {};
-  prepareToUseHooks(task, componentIdentity);
-  const result = Component(props, secondArg);
-  return finishHooks(Component, props, result, secondArg);
-}
-```
-
-```ts
-let currentlyRenderingComponent: Object | null = null;
-let currentlyRenderingTask: Task | null = null;
-let localIdCounter: number = 0;
-
-let isInHookUserCodeInDev = false;
-export function prepareToUseHooks(task: Task, componentIdentity: Object): void {
-  currentlyRenderingComponent = componentIdentity;
-  localIdCounter = 0;
-}
-```
-
-```ts
-let didScheduleRenderPhaseUpdate: boolean = false;
-export function finishHooks(
-  Component: any,
-  props: any,
-  children: any,
-  refOrContext: any
-): any {
-  while (didScheduleRenderPhaseUpdate) {
-    // Updates were scheduled during the render phase. They are stored in
-    // the `renderPhaseUpdates` map. Call the component again, reusing the
-    // work-in-progress hooks and applying the additional updates on top. Keep
-    // restarting until no more updates are scheduled.
-    didScheduleRenderPhaseUpdate = false;
-    localIdCounter = 0;
-    numberOfReRenders += 1;
-
-    // Start over from the beginning of the list
-    workInProgressHook = null;
-
-    children = Component(props, refOrContext);
-  }
-  resetHooksState();
-  return children;
-}
-```
-
-```ts
-function flushCompletedQueues(
-  request: Request,
-  destination: Destination
-): void {
-  beginWriting(destination);
-  try {
-    const completedRootSegment = request.completedRootSegment;
-    if (completedRootSegment !== null && request.pendingRootTasks === 0) {
-      flushSegment(request, destination, completedRootSegment);
-      request.completedRootSegment = null;
-      writeCompletedRoot(destination, request.responseState);
-    }
-
-    const clientRenderedBoundaries = request.clientRenderedBoundaries;
-    let i;
-    for (i = 0; i < clientRenderedBoundaries.length; i++) {
-      const boundary = clientRenderedBoundaries[i];
-      if (!flushClientRenderedBoundary(request, destination, boundary)) {
-        request.destination = null;
-        i++;
-        clientRenderedBoundaries.splice(0, i);
-        return;
-      }
-    }
-    clientRenderedBoundaries.splice(0, i);
-
-    const completedBoundaries = request.completedBoundaries;
-    for (i = 0; i < completedBoundaries.length; i++) {
-      const boundary = completedBoundaries[i];
-      if (!flushCompletedBoundary(request, destination, boundary)) {
-        request.destination = null;
-        i++;
-        completedBoundaries.splice(0, i);
-        return;
-      }
-    }
-    completedBoundaries.splice(0, i);
-
-    completeWriting(destination);
-    beginWriting(destination);
-
-    const partialBoundaries = request.partialBoundaries;
-    for (i = 0; i < partialBoundaries.length; i++) {
-      const boundary = partialBoundaries[i];
-      if (!flushPartialBoundary(request, destination, boundary)) {
-        request.destination = null;
-        i++;
-        partialBoundaries.splice(0, i);
-        return;
-      }
-    }
-    partialBoundaries.splice(0, i);
-
-    const largeBoundaries = request.completedBoundaries;
-    for (i = 0; i < largeBoundaries.length; i++) {
-      const boundary = largeBoundaries[i];
-      if (!flushCompletedBoundary(request, destination, boundary)) {
-        request.destination = null;
-        i++;
-        largeBoundaries.splice(0, i);
-        return;
-      }
-    }
-    largeBoundaries.splice(0, i);
-  } finally {
-    completeWriting(destination);
-    flushBuffered(destination);
-    if (
-      request.allPendingTasks === 0 &&
-      request.pingedTasks.length === 0 &&
-      request.clientRenderedBoundaries.length === 0 &&
-      request.completedBoundaries.length === 0
-    ) {
-      close(destination);
-    }
-  }
-}
-```
-
-check finish logic:
-
-- request.allPendingTasks === 0
-- request.pingedTasks.length === 0
-- request.clientRenderedBoundaries.length === 0
-- request.completedBoundaries.length === 0
-
-```ts
-const VIEW_SIZE = 2048;
-let currentView = null;
-let writtenBytes = 0;
-let destinationHasCapacity = true;
-
-export function beginWriting(destination: Destination) {
-  currentView = new Uint8Array(VIEW_SIZE);
-  writtenBytes = 0;
-  destinationHasCapacity = true;
-}
-```
-
-```ts
-function flushSegment(
-  request: Request,
-  destination,
-  segment: Segment
-): boolean {
-  const boundary = segment.boundary;
-  if (boundary === null) {
-    // Not a suspense boundary.
-    return flushSubtree(request, destination, segment);
-  }
-  boundary.parentFlushed = true;
-  // This segment is a Suspense boundary. We need to decide whether to
-  // emit the content or the fallback now.
-  if (boundary.forceClientRender) {
-    // Emit a client rendered suspense boundary wrapper.
-    // We never queue the inner boundary so we'll never emit its content or partial segments.
-
-    writeStartClientRenderedSuspenseBoundary(
-      destination,
-      request.responseState,
-      boundary.errorDigest,
-      boundary.errorMessage,
-      boundary.errorComponentStack
-    );
-    // Flush the fallback.
-    flushSubtree(request, destination, segment);
-
-    return writeEndClientRenderedSuspenseBoundary(
-      destination,
-      request.responseState
-    );
-  } else if (boundary.pendingTasks > 0) {
-    // This boundary is still loading. Emit a pending suspense boundary wrapper.
-
-    // Assign an ID to refer to the future content by.
-    boundary.rootSegmentID = request.nextSegmentId++;
-    if (boundary.completedSegments.length > 0) {
-      // If this is at least partially complete, we can queue it to be partially emitted early.
-      request.partialBoundaries.push(boundary);
-    }
-
-    /// This is the first time we should have referenced this ID.
-    const id = (boundary.id = assignSuspenseBoundaryID(request.responseState));
-
-    writeStartPendingSuspenseBoundary(destination, request.responseState, id);
-
-    // Flush the fallback.
-    flushSubtree(request, destination, segment);
-
-    return writeEndPendingSuspenseBoundary(destination, request.responseState);
-  } else if (boundary.byteSize > request.progressiveChunkSize) {
-    // This boundary is large and will be emitted separately so that we can progressively show
-    // other content. We add it to the queue during the flush because we have to ensure that
-    // the parent flushes first so that there's something to inject it into.
-    // We also have to make sure that it's emitted into the queue in a deterministic slot.
-    // I.e. we can't insert it here when it completes.
-
-    // Assign an ID to refer to the future content by.
-    boundary.rootSegmentID = request.nextSegmentId++;
-
-    request.completedBoundaries.push(boundary);
-    // Emit a pending rendered suspense boundary wrapper.
-    writeStartPendingSuspenseBoundary(
-      destination,
-      request.responseState,
-      boundary.id
-    );
-
-    // Flush the fallback.
-    flushSubtree(request, destination, segment);
-
-    return writeEndPendingSuspenseBoundary(destination, request.responseState);
-  } else {
-    // We can inline this boundary's content as a complete boundary.
-    writeStartCompletedSuspenseBoundary(destination, request.responseState);
-
-    const completedSegments = boundary.completedSegments;
-
-    if (completedSegments.length !== 1) {
-      throw new Error(
-        "A previously unvisited boundary must have exactly one root segment. This is a bug in React."
-      );
-    }
-
-    const contentSegment = completedSegments[0];
-    flushSegment(request, destination, contentSegment);
-
-    return writeEndCompletedSuspenseBoundary(
-      destination,
-      request.responseState
-    );
-  }
-}
-```
-
-```ts
-export function writeCompletedRoot(
-  destination: Destination,
-  responseState: ResponseState
-): boolean {
-  const bootstrapChunks = responseState.bootstrapChunks;
-  let i = 0;
-  for (; i < bootstrapChunks.length - 1; i++) {
-    writeChunk(destination, bootstrapChunks[i]);
-  }
-  if (i < bootstrapChunks.length) {
-    return writeChunkAndReturn(destination, bootstrapChunks[i]);
-  }
-  return true;
-}
-```
-
-```ts
-export function writeChunk(
-  destination: Destination,
-  chunk: PrecomputedChunk | Chunk,
-): void {
-  if (typeof chunk === 'string') {
-    writeStringChunk(destination, chunk);
-  } else {
-    writeViewChunk(destination, ((chunk: any): PrecomputedChunk));
-  }
-}
-```
-
-```ts
-function writeStringChunk(destination: Destination, stringChunk: string) {
-  if (stringChunk.length === 0) {
-    return;
-  }
-  // maximum possible view needed to encode entire string
-  if (stringChunk.length * 3 > VIEW_SIZE) {
-    if (writtenBytes > 0) {
-      writeToDestination(
-        destination,
-        ((currentView: any): Uint8Array).subarray(0, writtenBytes),
-      );
-      currentView = new Uint8Array(VIEW_SIZE);
-      writtenBytes = 0;
-    }
-    writeToDestination(destination, textEncoder.encode(stringChunk));
-    return;
-  }
-
-  let target: Uint8Array = (currentView: any);
-  if (writtenBytes > 0) {
-    target = ((currentView: any): Uint8Array).subarray(writtenBytes);
-  }
-  const {read, written} = textEncoder.encodeInto(stringChunk, target);
-  writtenBytes += written;
-
-  if (read < stringChunk.length) {
-    writeToDestination(destination, (currentView: any));
-    currentView = new Uint8Array(VIEW_SIZE);
-    writtenBytes = textEncoder.encodeInto(stringChunk.slice(read), currentView)
-      .written;
-  }
-
-  if (writtenBytes === VIEW_SIZE) {
-    writeToDestination(destination, (currentView: any));
-    currentView = new Uint8Array(VIEW_SIZE);
-    writtenBytes = 0;
-  }
-}
-```
-
-```ts
-function writeViewChunk(destination: Destination, chunk: PrecomputedChunk) {
-  if (chunk.byteLength === 0) {
-    return;
-  }
-  if (chunk.byteLength > VIEW_SIZE) {
-    // this chunk may overflow a single view which implies it was not
-    // one that is cached by the streaming renderer. We will enqueu
-    // it directly and expect it is not re-used
-    if (writtenBytes > 0) {
-      writeToDestination(
-        destination,
-        ((currentView: any): Uint8Array).subarray(0, writtenBytes),
-      );
-      currentView = new Uint8Array(VIEW_SIZE);
-      writtenBytes = 0;
-    }
-    writeToDestination(destination, chunk);
-    return;
-  }
-
-  let bytesToWrite = chunk;
-  const allowableBytes = ((currentView: any): Uint8Array).length - writtenBytes;
-  if (allowableBytes < bytesToWrite.byteLength) {
-    // this chunk would overflow the current view. We enqueue a full view
-    // and start a new view with the remaining chunk
-    if (allowableBytes === 0) {
-      // the current view is already full, send it
-      writeToDestination(destination, (currentView: any));
-    } else {
-      // fill up the current view and apply the remaining chunk bytes
-      // to a new view.
-      ((currentView: any): Uint8Array).set(
-        bytesToWrite.subarray(0, allowableBytes),
-        writtenBytes,
-      );
-      writtenBytes += allowableBytes;
-      writeToDestination(destination, (currentView: any));
-      bytesToWrite = bytesToWrite.subarray(allowableBytes);
-    }
-    currentView = new Uint8Array(VIEW_SIZE);
-    writtenBytes = 0;
-  }
-  ((currentView: any): Uint8Array).set(bytesToWrite, writtenBytes);
-  writtenBytes += bytesToWrite.byteLength;
-
-  if (writtenBytes === VIEW_SIZE) {
-    writeToDestination(destination, (currentView: any));
-    currentView = new Uint8Array(VIEW_SIZE);
-    writtenBytes = 0;
-  }
-}
-```
-
-```ts
-export function writeChunkAndReturn(
-  destination: Destination,
-  chunk: PrecomputedChunk | Chunk
-): boolean {
-  writeChunk(destination, chunk);
-  return destinationHasCapacity;
-}
-```
-
-```ts
-function flushSubtree(
-  request: Request,
-  destination: Destination,
-  segment: Segment
-): boolean {
-  segment.parentFlushed = true;
-  switch (segment.status) {
-    case PENDING: {
-      const segmentID = (segment.id = request.nextSegmentId++);
-      return writePlaceholder(destination, request.responseState, segmentID);
-    }
-    case COMPLETED: {
-      segment.status = FLUSHED;
-      let r = true;
-      const chunks = segment.chunks;
-      let chunkIdx = 0;
-      const children = segment.children;
-      for (let childIdx = 0; childIdx < children.length; childIdx++) {
-        const nextChild = children[childIdx];
-        // Write all the chunks up until the next child.
-        for (; chunkIdx < nextChild.index; chunkIdx++) {
-          writeChunk(destination, chunks[chunkIdx]);
-        }
-        r = flushSegment(request, destination, nextChild);
-      }
-      // Finally just write all the remaining chunks
-      for (; chunkIdx < chunks.length - 1; chunkIdx++) {
-        writeChunk(destination, chunks[chunkIdx]);
-      }
-      if (chunkIdx < chunks.length) {
-        r = writeChunkAndReturn(destination, chunks[chunkIdx]);
-      }
-      return r;
-    }
-  }
+  renderNodeDestructiveImpl(request, task, value);
 }
 ```
