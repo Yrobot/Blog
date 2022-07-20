@@ -426,3 +426,36 @@ function renderIndeterminateComponent(
   renderNodeDestructiveImpl(request, task, value);
 }
 ```
+
+renderWithHooks 将会调用 `Component` ，并且返回一个 ReactNode。
+
+将这个 ReactNode 重新利用 renderNodeDestructiveImpl 进行递归，直到 type 变为 string 类型，即 html tag 本身。
+
+### html tag handler
+
+```ts
+function renderHostElement(
+  request: Request,
+  task: Task,
+  type: string,
+  props: Object
+): void {
+  const segment = task.blockedSegment;
+  const children = pushStartInstance(
+    segment.chunks,
+    type,
+    props,
+    request.responseState,
+    segment.formatContext
+  );
+  segment.lastPushedText = false;
+  const prevContext = segment.formatContext;
+  segment.formatContext = getChildFormatContext(prevContext, type, props);
+
+  renderNode(request, task, children);
+
+  segment.formatContext = prevContext;
+  pushEndInstance(segment.chunks, type, props);
+  segment.lastPushedText = false;
+}
+```
