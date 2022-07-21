@@ -298,7 +298,7 @@ export function performWork(request: Request): void {
 function retryTask(request: Request, task: Task): void {
   const segment = task.blockedSegment;
   if (segment.status !== PENDING) return;
-  renderNodeDestructiveImpl(request, task, task.node); // nodes => chunks
+  renderNodeDestructive(request, task, task.node); // nodes => chunks
   task.abortSet.delete(task);
   segment.status = COMPLETED;
   finishedTask(request, task.blockedBoundary, segment);
@@ -308,7 +308,7 @@ function retryTask(request: Request, task: Task): void {
 chunks = task.blockedSegment.chunks = segment.chunks
 
 ```ts
-function renderNodeDestructiveImpl(
+function renderNodeDestructive(
   request: Request,
   task: Task,
   node: ReactNodeList
@@ -337,12 +337,12 @@ function renderNodeDestructiveImpl(
 function renderChildrenArray(request, task, children) {
   const totalChildren = children.length;
   for (let i = 0; i < totalChildren; i++) {
-    renderNodeDestructiveImpl(request, task, children[i]);
+    renderNodeDestructive(request, task, children[i]);
   }
 }
 ```
 
-可以看到 `renderNodeDestructiveImpl` 是一个递归函数，它从 rootNode 开始递归，利用 `renderElement` 对每一个节点进行处理。
+可以看到 `renderNodeDestructive` 是一个递归函数，它从 rootNode 开始递归，利用 `renderElement` 对每一个节点进行处理。
 
 我们后面就着重解析 `renderElement` 是怎么将 node 转化为 html string 的
 
@@ -423,13 +423,13 @@ function renderIndeterminateComponent(
 ): void {
   const value = renderWithHooks(request, task, Component, props, {});
 
-  renderNodeDestructiveImpl(request, task, value);
+  renderNodeDestructive(request, task, value);
 }
 ```
 
 renderWithHooks 将会调用 `Component` ，并且返回一个 ReactNode。
 
-将这个 ReactNode 重新利用 renderNodeDestructiveImpl 进行递归，直到 type 变为 string 类型，即 html tag 本身。
+将这个 ReactNode 重新利用 renderNodeDestructive 进行递归，直到 type 变为 string 类型，即 html tag 本身。
 
 ### html tag handler
 
@@ -441,6 +441,16 @@ function renderHostElement(
   props: Object
 ): void {
   const segment = task.blockedSegment;
+  // 处理 开始标签 和 节点props
+  /* ...[
+    "<svg-inline",
+    " ",
+    "src",
+    '="',
+    "https://yrobot.top/icons/svg-inline.svg",
+    '"',
+    ">",
+  ]*/
   const children = pushStartInstance(
     segment.chunks,
     type,
@@ -448,14 +458,170 @@ function renderHostElement(
     request.responseState,
     segment.formatContext
   );
-  segment.lastPushedText = false;
-  const prevContext = segment.formatContext;
-  segment.formatContext = getChildFormatContext(prevContext, type, props);
-
-  renderNode(request, task, children);
-
-  segment.formatContext = prevContext;
+  // 递归处理 children 节点
+  renderNodeDestructive(request, task, children);
+  // 处理 结束标签
+  // ...['</', 'svg-inline', '>']
   pushEndInstance(segment.chunks, type, props);
-  segment.lastPushedText = false;
+}
+```
+
+```ts
+export function pushStartInstance(
+  target: Array<Chunk | PrecomputedChunk>,
+  type: string,
+  props: Object,
+  responseState: ResponseState,
+  formatContext: FormatContext
+): ReactNodeList {
+  switch (type) {
+    // Special tags
+    case "select":
+      return pushStartSelect(target, props, responseState);
+    case "option":
+      return pushStartOption(target, props, responseState, formatContext);
+    case "textarea":
+      return pushStartTextArea(target, props, responseState);
+    case "input":
+      return pushInput(target, props, responseState);
+    case "menuitem":
+      return pushStartMenuItem(target, props, responseState);
+    case "title":
+      return pushStartTitle(target, props, responseState);
+    // Newline eating tags
+    case "listing":
+    case "pre": {
+      return pushStartPreformattedElement(target, props, type, responseState);
+    }
+    // Omitted close tags
+    case "area":
+    case "base":
+    case "br":
+    case "col":
+    case "embed":
+    case "hr":
+    case "img":
+    case "keygen":
+    case "link":
+    case "meta":
+    case "param":
+    case "source":
+    case "track":
+    case "wbr": {
+      return pushSelfClosing(target, props, type, responseState);
+    }
+    case "annotation-xml":
+    case "color-profile":
+    case "font-face":
+    case "font-face-src":
+    case "font-face-uri":
+    case "font-face-format":
+    case "font-face-name":
+    case "missing-glyph": {
+      return pushStartGenericElement(target, props, type, responseState);
+    }
+    case "html": {
+      if (formatContext.insertionMode === ROOT_HTML_MODE) {
+        target.push(DOCTYPE);
+      }
+      return pushStartGenericElement(target, props, type, responseState);
+    }
+    default: {
+      if (type.indexOf("-") === -1 && typeof props.is !== "string") {
+        // Generic element
+        return pushStartGenericElement(target, props, type, responseState);
+      } else {
+        // Custom element
+        return pushStartCustomElement(target, props, type, responseState);
+      }
+    }
+  }
+}
+```
+
+```ts
+export function pushEndInstance(
+  target: Array<Chunk | PrecomputedChunk>,
+  type: string,
+  props: Object
+): void {
+  switch (type) {
+    case "area":
+    case "base":
+    case "br":
+    case "col":
+    case "embed":
+    case "hr":
+    case "img":
+    case "input":
+    case "keygen":
+    case "link":
+    case "meta":
+    case "param":
+    case "source":
+    case "track":
+    case "wbr": {
+      break;
+    }
+    default: {
+      target.push("</", type, ">");
+    }
+  }
+}
+```
+
+```ts
+function pushStartGenericElement(
+  target: Array<Chunk | PrecomputedChunk>,
+  props: Object,
+  tag: string,
+  responseState: ResponseState
+): ReactNodeList {
+  target.push("<" + tag); // ...['<div']
+
+  let children = null;
+  let innerHTML = null;
+  for (const propKey in props) {
+    if (hasOwnProperty.call(props, propKey)) {
+      const propValue = props[propKey];
+      if (propValue == null) {
+        continue;
+      }
+      switch (propKey) {
+        case "children":
+          children = propValue;
+          break;
+        case "dangerouslySetInnerHTML":
+          innerHTML = propValue;
+          break;
+        default:
+          // 处理 react props 
+          // ...[' ', 'class', '="', 'page',  '"',]
+          pushAttribute(target, responseState, propKey, propValue);
+          break;
+      }
+    }
+  }
+
+  target.push(">"); // ...['>']
+  pushInnerHTML(target, innerHTML, children);
+  if (typeof children === "string") {
+    target.push(encodeHTMLTextNode(children));
+    return null;
+  }
+  return children;
+}
+```
+
+```ts
+function pushAttribute(
+  target: Array<Chunk | PrecomputedChunk>,
+  responseState: ResponseState,
+  name: string,
+  value: string | boolean | number | Function | Object // not null or undefined
+): void {
+  // 将 react element prop 转换为 html tag prop
+  // 具体逻辑参看 https://github.com/facebook/react/blob/HEAD/packages/react-dom/src/server/ReactDOMServerFormatConfig.js#L418
+  // 本文不展开赘述
 }
 ```
