@@ -47,7 +47,7 @@ export default Page;
 => `ReactDOMServer.renderToString(<Page />)` =>
 
 ```ts
-'<div class="page"><header class="header">Header</header><section class="content">Content</section><footer class="footer">Footer</footer></div>';
+'<div class="page"><header class="header">Header</header><section class="content">Content:<!-- -->yrobot</section><svg-inline src="https://yrobot.top/icons/svg-inline.svg"></svg-inline><footer class="footer">Footer</footer></div>';
 ```
 
 ## 疏理 react-dom 源码
