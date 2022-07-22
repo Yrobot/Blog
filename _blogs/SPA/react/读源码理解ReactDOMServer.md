@@ -272,8 +272,8 @@ startFlowing {
 - parse 后的主要数据利用 array 的形式储存于 request.completedRootSegment.chunks
 - 主要的 parse 工作在 startWork 中完成
 
-由于整个 react-dom/server 还要处理很多场景，如懒加载等。  
-后面我们就把注意力主要放在 startWork 是怎么将 react components 转换为 chunks 的。
+由于整个 react-dom/server 还要处理很多场景，如懒加载等，这些场景属于特殊流程分支，逻辑和主要流程类似，本文就不做解析。  
+后面我们就把注意力主要放在 startWork 是怎么将 react components 解析到 chunks 的。
 
 ### startWork
 
@@ -618,3 +618,7 @@ function pushAttribute(
   // 本文不展开赘述
 }
 ```
+
+## 主要逻辑的流程图
+
+![Y9XDC6-17-24-35](https://images.yrobot.top/2022-07-22/Y9XDC6-17-24-35.png)
