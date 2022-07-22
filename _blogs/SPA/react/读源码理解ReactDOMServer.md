@@ -314,6 +314,12 @@ function renderNodeDestructive(
   node: ReactNodeList
 ): void {
   task.node = node;
+  if (isArray(node)) {
+    for (let i = 0; i < children.length; i++) {
+      renderNodeDestructive(request, task, children[i]);
+    }
+    return;
+  }
   if (typeof node === "object" && node !== null) {
     switch ((node: any).$$typeof) {
       case REACT_ELEMENT_TYPE: {
@@ -325,19 +331,6 @@ function renderNodeDestructive(
         return;
       }
     }
-    if (isArray(node)) {
-      renderChildrenArray(request, task, node);
-      return;
-    }
-  }
-}
-```
-
-```ts
-function renderChildrenArray(request, task, children) {
-  const totalChildren = children.length;
-  for (let i = 0; i < totalChildren; i++) {
-    renderNodeDestructive(request, task, children[i]);
   }
 }
 ```
@@ -595,7 +588,7 @@ function pushStartGenericElement(
           innerHTML = propValue;
           break;
         default:
-          // 处理 react props 
+          // 处理 react props
           // ...[' ', 'class', '="', 'page',  '"',]
           pushAttribute(target, responseState, propKey, propValue);
           break;
