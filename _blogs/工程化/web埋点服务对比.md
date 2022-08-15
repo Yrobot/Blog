@@ -50,6 +50,20 @@ createTime: 2022年08月14日
 | Android    | [tencentcloud-cls-sdk-android](https://github.com/TencentCloud/tencentcloud-cls-sdk-android) |
 | iOS        | [tencentcloud-cls-sdk-ios](https://github.com/TencentCloud/tencentcloud-cls-sdk-ios)         |
 
+#### 数据展示
+
+| 图表类型 | 使用场景                                                                                                                                            | 详细信息                                                       |
+| :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------- |
+| 表格     | 表格是最常见的数据展示类型，通过对数据结构化的整理，实现数据的对比与统计。大多数场景均适用。                                                        | [表格](https://cloud.tencent.com/document/product/614/74026)   |
+| 时序图   | 时序图需要统计数据具备时序字段，依据时间顺序组织与聚合指标。可直观反映指标随时间的变化趋势。统计近一周，每天 404 错误出现的次数等趋势分析场景适用。 | [时序图](https://cloud.tencent.com/document/product/614/74027) |
+| 柱状图   | 柱状图描述的是分类数据，直观表现每一个分类项的大小对比关系。统计近一天各错误码类型出现的次数等分类统计场景适用。                                    | [柱状图](https://cloud.tencent.com/document/product/614/74028) |
+| 饼图     | 饼图描述的是不同分类的占比情况，通过扇区大小来衡量各分类项的占比情况。错误码占比情况分析等占比统计场景适用。                                        | [饼图](https://cloud.tencent.com/document/product/614/74029)   |
+| 单值图   | 单值图描述的是单个指标，一般选择具备有业务价值的关键性指标。统计天、周、月 PV、UV 等单指标场景适用。                                                | [单值图](https://cloud.tencent.com/document/product/614/74030) |
+| 计量仪   | 计量仪描述的是单个指标，与单值图不同的是，计量仪一般搭配阈值使用，用来衡量该指标的状态。系统健康度监控等有分级标准的场景适用。                      | [计量仪](https://cloud.tencent.com/document/product/614/74031) |
+| 地图     | 地图通过图形的位置来表现数据的地理位置，通常来展示数据在不同地理区域上的分布情况。攻击 IP 地理分布等地理位置统计场景适用。                          | [地图](https://cloud.tencent.com/document/product/614/74032)   |
+| 桑基图   | 桑基图是一种特定类型的流图，用于描述一组值到另一组值的流向。防火墙目的与源 IP 流量统计等场景适用。                                                  | [桑基图](https://cloud.tencent.com/document/product/614/74033) |
+| 词云图   | 词云是文本数据的视觉表示，用于展示文本数据的出现频率。在高频操作人员统计等审计场景适用。                                                            | [词云图](https://cloud.tencent.com/document/product/614/74034) |
+
 #### JS SDK 使用 Example
 
 ```ts
@@ -72,8 +86,168 @@ let data = await client.PutLogs(request);
 console.log(data);
 ```
 
+## 阿里云日志服务 SLS
+
+> 日志服务 SLS 是云原生观测与分析平台，为 Log、Metric、Trace 等数据提供大规模、低成本、实时的平台化服务。日志服务一站式提供数据采集、加工、查询与分析、可视化、告警、消费与投递等功能，全面提升您在研发、运维、运营、安全等场景的数字化能力。
+
+[SLS 官网](https://help.aliyun.com/product/28958.html)
+
+### 使用流程
+
+1. 开通日志服务
+2. 创建 Project 和 Logstore
+3. 开启 WebTracking
+4. 上报日志
+5. 查询与分析日志
+
+### 数据上报方式
+
+日志服务支持采集服务器与应用、开源软件、物联网、移动端、标准协议、阿里云产品等多种来源的数据。包括 HTTP 请求和 SDK 上报等方式。
+
+| 类别   | 来源           | 接入方式                                    | 更多                |     |
+| ------ | -------------- | ------------------------------------------- | ------------------- | --- |
+| 语言   | Java           | Log Service Java SDK Java Producer Library  | 无                  |     |
+|        | C              | Log Service C SDK                           | 无                  |     |
+|        | Python         | Log Service Python SDK                      | 无                  |     |
+|        | Python Logging | Python Logging Handler                      | 无                  |     |
+|        | PHP            | Log Service PHP SDK                         | 无                  |     |
+|        | .Net           | Log Service csharp SDK                      | 无                  |     |
+|        | C++            | Log Service C++ SDK                         | 无                  |     |
+|        | Go             | Log Service Go SDK Golang Producer Library  | 无                  |     |
+|        | NodeJS         | NodeJs                                      | 无                  |     |
+|        | JS             | JS/Web Tracking                             | 无                  |     |
+| OS     | Linux          | Logtail                                     | 无                  |     |
+|        | Windows        | Logtail                                     | 无                  |     |
+|        | Mac/Unix       | Native C                                    | 无                  |     |
+|        | Docker 文件    | Logtail 文件采集                            | 无                  |     |
+|        | Docker 输出    | Logtail 容器输出                            | 无                  |     |
+| 移动端 | iOS、Android   | Log Service Android SDK Log Service iOS SDK | 无                  |     |
+|        | 网页           | JS/Web Tracking                             | 无                  |     |
+|        | 智能 IoT       | C Producer Library                          | 采集-IoT/嵌入式日志 |     |
+
+[阿里云日志服务 - 数据采集概述](https://help.aliyun.com/document_detail/28981.html)  
+[阿里云日志服务 - 使用 Web Tracking 采集日志](https://help.aliyun.com/document_detail/31752.htm?spm=a2c4g.11186623.0.0.60246e8bvfNJe8#t13028.html)
+
+#### SDK 列表
+
+| SDK 语言       | 参考文档                                                                                                                                                                               | GitHub 源码                                                                                                                                                     |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Java           | [Java SDK 概述](/document_detail/29068.htm#reference-cxs-zdm-12b "日志服务Java SDK封装了日志服务的所有API接口。您可以通过日志服务Java SDK方便地调用日志服务的所有API接口。")           | [Log Service Java SDK](https://github.com/aliyun/aliyun-log-java-sdk)、[Log Service SDK for Java 0.6.0 API](http://log-java-docs.oss-cn-hangzhou.aliyuncs.com/) |
+| .NET Core      | [.NET Core SDK 概述](/document_detail/84882.htm#task-fxd-m2r-32b "日志服务.NET Core SDK封装了日志服务的所有API接口。您可以通过日志服务.NET Core SDK方便地调用日志服务的所有API接口。") | [Log Service .NET Core SDK](https://github.com/aliyun/aliyun-log-dotnetcore-sdk)                                                                                |
+| .NET           | [.NET SDK 概述](/document_detail/29071.htm#reference-cd1-2wq-12b "日志服务.NET SDK封装了日志服务的所有API接口。您可以通过日志服务.NET SDK方便地调用日志服务的所有API接口。")           | [Log Service .NET SDK](https://github.com/aliyun/aliyun-log-chsarp-sdk)                                                                                         |
+| PHP            | [PHP SDK](/document_detail/29074.htm#task-2334635 "本文介绍安装日志服务PHP SDK及使用PHP SDK完成常见操作的相关步骤。")                                                                  | [Log Service PHP SDK](https://github.com/aliyun/aliyun-log-php-sdk)                                                                                             |
+| Python         | [Python SDK 概述](/document_detail/29077.htm#task-2323893 "日志服务Python SDK封装了日志服务的所有API接口。您可以通过日志服务Python SDK方便地调用日志服务的所有API接口。")              | [Log Service Python SDK](https://github.com/aliyun/aliyun-log-python-sdk)、[User Guide](http://aliyun-log-python-sdk.readthedocs.io/README_CN.html)             |
+| Node.js        | [Node.js SDK](/document_detail/141789.htm#task-2325110 "本文介绍安装日志服务Node.js SDK及使用Node.js SDK完成常见操作的相关步骤。")                                                     | [Log Service Node.js SDK](https://github.com/aliyun-UED/aliyun-sdk-js/tree/master/samples/sls)                                                                  |
+| C              | [C SDK](/document_detail/34913.htm#reference-klg-gwq-12b "本文介绍使用C SDK的基本操作。")                                                                                              | [Log Service C SDK](https://github.com/aliyun/aliyun-log-c-sdk)                                                                                                 |
+| GO             | [Go SDK 概述](/document_detail/53906.htm#reference-kjq-gwq-12b "日志服务Go SDK封装了日志服务的所有API接口。您可以通过日志服务Go SDK方便地调用日志服务的所有API接口。")                 | [Log Service Go SDK](https://github.com/aliyun/aliyun-log-go-sdk)                                                                                               |
+| iOS            | [iOS SDK](/document_detail/43145.htm#reference-qyv-vh4-12b "本文介绍安装日志服务iOS SDK的示例代码。")                                                                                  | [Log Service iOS SDK](https://github.com/aliyun/aliyun-log-ios-sdk)、[Objective-C SDK](https://github.com/lujiajing1126/AliyunLogObjc)                          |
+| Android        | [Android SDK 概述](/document_detail/43200.htm#reference-lnl-wh4-12b "日志服务Android SDK封装了日志服务的日志采集相关API接口。您可以通过日志服务Android SDK方便地采集Android日志。")    | [Log Service Android SDK](https://github.com/aliyun/aliyun-log-android-sdk)                                                                                     |
+| C++            | [C++ SDK](/document_detail/108042.htm#concept-vtl-hmv-vgb "阿里云日志服务C++ SDK帮助您在C++ 程序中调用日志服务的API接口，仅用于Linux平台。")                                           | [Log Service C++ SDK](https://github.com/aliyun/aliyun-log-cpp-sdk)                                                                                             |
+| JavaScript SDK | [JavaScript SDK](/document_detail/31752.htm#section-ktl-vm5-vdb)                                                                                                                       | 无                                                                                                                                                              |
+
+#### 数据展示
+
+| 项目             | 说明                                                                                                                                                  |
+| :--------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 仪表盘           | 仪表盘是日志服务提供的实时 分析大盘。您可以在仪表盘查看多个基于查询与分析结果的统计图表。当您打开或刷新仪表盘时，统计图表自动执行一次查询与分析操作。 |
+| 统计图表         | 统计图表是日志服务根据查询与分析语句渲染出的结果。日志服务提供表格、线图、柱状图等多种图表类型。目前，统计图表包括 Pro 版本和普通版本。               |
+| 第三方可视化工具 | 您可以将日志服务与 DataV、Grafana、Tableau 等第三方可视化工具对接，进行大屏数据展示。                                                                 |
+
+统计图表：
+
+- [表格](/document_detail/69314.htm#concept-e3d-bnq-zdb)
+- [线图](/document_detail/69468.htm#concept-ehy-cnq-zdb)
+- [柱状图](/document_detail/69491.htm#concept-vrr-dnq-zdb)
+- [条形图](/document_detail/69521.htm#concept-dt3-2nq-zdb)
+- [饼图](/document_detail/69541.htm#concept-yyr-fnq-zdb)
+- [面积图](/document_detail/69567.htm#concept-ndk-hnq-zdb)
+- [单值图](/document_detail/69562.htm#concept-sqg-gnq-zdb)
+- [进度条](/document_detail/114025.htm#concept-ptq-2j5-jhb)
+- [时间轴](/document_detail/171223.htm#task-2445065)
+- [地图](/document_detail/69570.htm#concept-wdv-gnq-zdb)
+- [流图](/document_detail/69571.htm#concept-tmy-hnq-zdb)
+- [桑基图](/document_detail/69572.htm#concept-tdq-3nq-zdb)
+- [词云](/document_detail/69581.htm#concept-o1f-jnq-zdb)
+- [矩形树图](/document_detail/87927.htm#concept-ztv-sz1-v2b)
+- [漏斗图](/document_detail/171222.htm#task-2445067)
+- [轨迹图](/document_detail/159727.htm#task-2455885)
+- [中国行政区地图](/document_detail/159725.htm#task-2456340)
+- [气泡图](/document_detail/170844.htm#task-2526640)
+- [变更图](/document_detail/170845.htm#task-2530184)
+
+#### JS SDK 使用 Example
+
+[浏览器 JavaScript SDK](https://help.aliyun.com/document_detail/427748.htm?spm=a2c4g.11186623.0.0.3e767c6fE3A5ZH#task-2211485)
+
+```ts
+import SlsTracker from "@aliyun-sls/web-track-browser";
+const opts = {
+  host: "${host}", // 所在地域的服务入口。例如cn-hangzhou.log.aliyuncs.com
+  project: "${project}", // Project名称。
+  logstore: "${logstore}", // Logstore名称。
+  time: 10, // 发送日志的时间间隔，默认是10秒。
+  count: 10, // 发送日志的数量大小，默认是10条。
+  topic: "topic", // 自定义日志主题。
+  source: "source",
+  tags: {
+    tags: "tags",
+  },
+};
+const tracker = new SlsTracker(opts);
+
+// send data
+tracker.send({
+  customer: "zhangsan",
+  product: "iphone 12",
+  price: 7998,
+});
+```
+
+可以看到 阿里云的 SDK 支持延迟上报，自动汇总一段时间内的 logs，然后一次性上报。可以有效减少网络请求的数量，并降低 日志服务的写入次数。
+
+<!-- ## DEMO
+
+>
+
+[官网]()
+
+### 使用流程
+
+1.
+
+### 数据上报方式
+
+#### SDK 列表
+
+#### JS SDK 使用 Example -->
+
+## 价格对比
+
+这是[腾讯云价格计算器](https://buy.cloud.tencent.com/price/cls/calculator)给出的一天 1G 埋点数据的价格：
+
+- 100%索引：
+
+  | 计费项       | 预估用量（仅供参考） | 每天费用   | 每月费用    |
+  | ------------ | -------------------- | ---------- | ----------- |
+  | 写流量       | 170.667 MB           | 0.03 元/天 | 21.40 元/月 |
+  | 标准索引流量 | 1 G                  | 0.35 元/天 |             |
+  | 标准日志存储 | 5 GB                 | 0.06 元/天 |             |
+  | 标准索引存储 | 30 GB                | 0.35 元/天 |             |
+
+- 50%索引：
+
+  | 计费项       | 预估用量（仅供参考） | 每天费用   | 每月费用    |
+  | ------------ | -------------------- | ---------- | ----------- |
+  | 写流量       | 170.667 MB           | 0.03 元/天 | 13.20 元/月 |
+  | 标准索引流量 | 512 MB               | 0.18 元/天 |             |
+  | 标准日志存储 | 5 GB                 | 0.06 元/天 |             |
+  | 标准索引存储 | 15 GB                | 0.17 元/天 |             |
+
+可以看到主导价格的主要要素是： 标准索引流量 和 标准索引存储，而且需要尽量降低索引比例。
+
 ## 各服务横向对比表
 
-|                    | 是否有 js-SDK                    | 是否基于 Cookie | 扩展服务端埋点成本 | 数据展示能力                                                                   | 告警                                         | 价格                          |
-| :----------------- | :------------------------------- | --------------- | ------------------ | ------------------------------------------------------------------------------ | -------------------------------------------- | ----------------------------- |
-| 腾讯云日志服务 CLS | 有，但是是面向 nodejs 的 log SDK | 否              | 成本低             | 展示类型充足，参看[文档](https://cloud.tencent.com/document/product/614/74025) | 短信、电话、邮件、微信、企业微信、自定义回调 | 标准存储，100w RPD 约 5 元/月 |
+|                    | 是否有 js-SDK                       | 是否基于 Cookie | 扩展服务端埋点成本       | 数据展示能力                                                                   | 告警                                                        | 价格                                                        | 优势                                               | 不足                                                             |
+| :----------------- | :---------------------------------- | --------------- | ------------------------ | ------------------------------------------------------------------------------ | ----------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------------------- |
+| 腾讯云日志服务 CLS | 有，但是是面向 nodejs 的 log SDK    | 否              | 成本低                   | 展示类型充足，参看[文档](https://cloud.tencent.com/document/product/614/74025) | 短信、电话、邮件、微信、企业微信、自定义回调                | 标准索引流量 0.35 元/GB/日； 标准索引存储 0.0115 元/GB/日； | 价格透明，展示能力强，告警能力强                   | 文档和 SDK 优点拉胯，特别是 SDK，js-SDK 都没分 browser 和 nodejs |
+| 阿里云日志服务 SLS | 有，而且分为 nodejs 版和 browser 版 | 否              | 成本低，且横向扩展能力强 | 类型充足                                                                       | 短信、语音、邮件、钉钉、企业微信、飞书、Slack、通用 Webhook | 标准索引流量 0.35 元/GB/日； 标准索引存储 0.0115 元/GB/日； | 展示能力强，SDK 做的很好，告警能力强，文档写的很好 |
