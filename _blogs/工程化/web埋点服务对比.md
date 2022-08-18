@@ -1,7 +1,7 @@
 ---
 title: Web 埋点服务对比
 author: yrobot
-keywords: website,埋点,track,方案,服务,对比
+keywords: website,埋点,web tracking,方案,服务,对比
 createTime: 2022年08月14日
 ---
 
@@ -205,6 +205,76 @@ tracker.send({
 
 可以看到 阿里云的 SDK 支持延迟上报，自动汇总一段时间内的 logs，然后一次性上报。可以有效减少网络请求的数量，并降低 日志服务的写入次数。
 
+## Mixpanel
+
+> Powerful, self-serve product analytics to help you convert, engage, and retain more users.
+
+> Mixpanel 是一个强大的自助产品分析工具，可帮助您转换、吸引和留住更多用户。
+
+[Mixpanel 官网](https://mixpanel.com/)
+
+### 使用流程
+
+1. 在 Mixpanel 新建项目，获取上报 token
+2. 安装 Mixpanel SDK，并上报数据
+3. 在 Mixpanel 上查看数据
+
+### 数据上报方式
+
+客户端通过 SDK 或者 API 发送数据到 Mixpanel
+
+#### SDK 列表
+
+- [JS](https://developer.mixpanel.com/docs/javascript-quickstart)
+- [Node.js](https://developer.mixpanel.com/docs/nodejs)
+- [Objective-C](https://developer.mixpanel.com/docs/ios-objective-c-quickstart)
+- [Swift](https://developer.mixpanel.com/docs/ios-swift-quickstart)
+- [Android](https://developer.mixpanel.com/docs/android-quickstart)
+- [Python](https://developer.mixpanel.com/docs/python)
+- [Java](https://developer.mixpanel.com/docs/java)
+- [PHP](https://developer.mixpanel.com/docs/php)
+- [Ruby](https://developer.mixpanel.com/docs/ruby)
+- [React Native](https://developer.mixpanel.com/docs/react-native-quickstart)
+- [Flutter](https://developer.mixpanel.com/docs/flutter-quickstart)
+- [Unity](https://developer.mixpanel.com/docs/unity-quickstart)
+
+#### 数据展示
+
+- Bar
+- Stacked Bar
+- Line
+- Stacked Line
+- Metric
+- Pie
+- Table
+
+#### JS SDK 使用 Example
+
+[JS SDK 文档](https://developer.mixpanel.com/docs/javascript-quickstart)
+
+```ts
+var mixpanel = require("mixpanel-browser");
+
+mixpanel.init("YOUR_TOKEN", {
+  // the whole config visit here: https://github.com/mixpanel/mixpanel-js/blob/8b2e1f7b/src/mixpanel-core.js#L87-L110
+  autotrack: true,
+  cross_subdomain_cookie: true,
+  persistence: "cookie",
+  persistence_name: "",
+  upgrade: false,
+  disable_persistence: false,
+  disable_cookie: false,
+  secure_cookie: false,
+  ip: true,
+  property_blacklist: [],
+});
+
+mixpanel.track("event-name", {
+  age: 28,
+  gender: "male",
+});
+```
+
 <!-- ## DEMO
 
 >
@@ -218,6 +288,8 @@ tracker.send({
 ### 数据上报方式
 
 #### SDK 列表
+
+#### 数据展示
 
 #### JS SDK 使用 Example -->
 
@@ -247,7 +319,8 @@ tracker.send({
 
 ## 各服务横向对比表
 
-|                    | 是否有 js-SDK                       | 是否基于 Cookie | 扩展服务端埋点成本       | 数据展示能力                                                                   | 告警                                                        | 价格                                                        | 优势                                               | 不足                                                             |
-| :----------------- | :---------------------------------- | --------------- | ------------------------ | ------------------------------------------------------------------------------ | ----------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------------------- |
-| 腾讯云日志服务 CLS | 有，但是是面向 nodejs 的 log SDK    | 否              | 成本低                   | 展示类型充足，参看[文档](https://cloud.tencent.com/document/product/614/74025) | 短信、电话、邮件、微信、企业微信、自定义回调                | 标准索引流量 0.35 元/GB/日； 标准索引存储 0.0115 元/GB/日； | 价格透明，展示能力强，告警能力强                   | 文档和 SDK 优点拉胯，特别是 SDK，js-SDK 都没分 browser 和 nodejs |
-| 阿里云日志服务 SLS | 有，而且分为 nodejs 版和 browser 版 | 否              | 成本低，且横向扩展能力强 | 类型充足                                                                       | 短信、语音、邮件、钉钉、企业微信、飞书、Slack、通用 Webhook | 标准索引流量 0.35 元/GB/日； 标准索引存储 0.0115 元/GB/日； | 展示能力强，SDK 做的很好，告警能力强，文档写的很好 |
+|                    | 是否有 js-SDK                       | 是否基于 Cookie                      | 扩展服务端埋点成本       | 数据展示能力                                                                   | 告警                                                        | 价格                                                        | 优势                                                                                                              | 不足                                                             |
+| :----------------- | :---------------------------------- | ------------------------------------ | ------------------------ | ------------------------------------------------------------------------------ | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| 腾讯云日志服务 CLS | 有，但是是面向 nodejs 的 log SDK    | 否                                   | 成本低                   | 展示类型充足，参看[文档](https://cloud.tencent.com/document/product/614/74025) | 短信、电话、邮件、微信、企业微信、自定义回调                | 标准索引流量 0.35 元/GB/日； 标准索引存储 0.0115 元/GB/日； | 价格透明，展示能力强，告警能力强                                                                                  | 文档和 SDK 优点拉胯，特别是 SDK，js-SDK 都没分 browser 和 nodejs |
+| 阿里云日志服务 SLS | 有，而且分为 nodejs 版和 browser 版 | 否                                   | 成本低，且横向扩展能力强 | 类型充足                                                                       | 短信、语音、邮件、钉钉、企业微信、飞书、Slack、通用 Webhook | 标准索引流量 0.35 元/GB/日； 标准索引存储 0.0115 元/GB/日； | 展示能力强，SDK 做的很好，告警能力强，文档写的很好                                                                |
+| Mixpanel           | 有，专业的 web tracking 工具        | 默认 cookie，可以切换成 localStorage | 支持                     | 一些基础的图表都有                                                             | 告警比较简单，支持邮箱通知                                  | 免费量：100K users，付费 25$/月                             | SDK 做的很好，文档很好，产品好看，支持 GDPR，支持配置化使用 localStorage，有用户体系 可以对单一用户的行为进行分析 | 告警比较简单                                                     |
