@@ -275,6 +275,57 @@ mixpanel.track("event-name", {
 });
 ```
 
+## Google Analytics
+
+>
+
+[官网]()
+
+### 使用流程
+
+1. 注册 GA
+2. 新建项目
+3. 项目引入代码，上报数据
+4. 进入 GA Dashboard 查看
+
+### 数据上报方式
+
+通过 SDK 发送
+
+#### SDK 列表
+
+IOS、Android、js
+
+#### 数据展示
+
+- 表格
+- 环形图
+- 折线图
+- 散点图
+- 柱状图
+- 地理分布图
+
+#### JS SDK 使用 Example
+
+```html
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+
+  gtag("config", "GA_MEASUREMENT_ID");
+
+  gtag("event", "event-name", { name: "yrobot" });
+</script>
+```
+
 <!-- ## DEMO
 
 >
