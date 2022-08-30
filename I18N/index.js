@@ -1,17 +1,19 @@
-import React, { useState, useContext, useCallback, useMemo } from 'react';
+import React, { useState, useContext, useCallback, useMemo } from "react";
 
-const key = '_local';
+const key = "_local";
 
 const I18NContext = React.createContext();
 
-export function TransProvider({ children, data = {}, local: _local = 'zh' }) {
-  const [local, setLocal] = useState((typeof window !== 'undefined' && localStorage.getItem(key)) || _local);
+export function TransProvider({ children, data = {}, local: _local = "zh" }) {
+  const [local, setLocal] = useState(
+    (typeof window !== "undefined" && localStorage.getItem(key)) || _local
+  );
   const set = useCallback(
     function (local) {
       setLocal(local);
       localStorage.setItem(key, local);
     },
-    [setLocal],
+    [setLocal]
   );
   const value = useMemo(() => {
     return [data[local], set, local];
@@ -24,7 +26,7 @@ function useTrans() {
 }
 
 function keyValue(obj = {}, key) {
-  const keyList = key.split('.');
+  const keyList = key.split(".");
   var temp = obj;
   for (let i = 0; i < keyList.length; i++) {
     if (temp === undefined) break;
