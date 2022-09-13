@@ -131,6 +131,8 @@ export default appWithTranslation(App);
 
 - `/`,`/console`将失效
 
+最完美的方案是，这些页面将展示默认语言的页面。  
+
 ## 参考文献
 
 - [《Internationalized Routing》- Next.js](https://www.nextjs.cn/docs/advanced-features/i18n-routing)
