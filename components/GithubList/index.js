@@ -40,6 +40,14 @@ const list = [
   {
     src: `${GITHUB_STATS_DOMAIN}/api/pin`,
     params: {
+      repo: "mina-tools-client",
+      ...commonParams,
+    },
+    href: "https://github.com/Yrobot/mina-tools-client",
+  },
+  {
+    src: `${GITHUB_STATS_DOMAIN}/api/pin`,
+    params: {
       repo: "mina-popups",
       ...commonParams,
     },
