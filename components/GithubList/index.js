@@ -1,47 +1,49 @@
-import GithubCard from '../GithubCard';
+import GithubCard from "../GithubCard";
 
 const commonParams = {
-  username: 'yrobot',
-  title_color: '000000',
-  icon_color: '000000',
-  text_color: '000000',
-  border_color: 'ffffff',
-  bg_color: 'ffffff',
+  username: "yrobot",
+  title_color: "000000",
+  icon_color: "000000",
+  text_color: "000000",
+  border_color: "ffffff",
+  bg_color: "ffffff",
 };
+
+const GITHUB_STATS_DOMAIN = "https://github-stats.yrobot.top";
 
 const list = [
   {
-    src: 'https://github-stats.yrobot.vercel.app/api',
+    src: `${GITHUB_STATS_DOMAIN}/api`,
     params: {
       count_private: true,
       show_icons: true,
       ...commonParams,
     },
-    href: 'https://github.com/Yrobot',
+    href: "https://github.com/Yrobot",
   },
   {
-    src: 'https://github-stats.yrobot.vercel.app/api/pin',
+    src: `${GITHUB_STATS_DOMAIN}/api/pin`,
     params: {
-      repo: 'mina-touch',
+      repo: "mina-touch",
       ...commonParams,
     },
-    href: 'https://github.com/Yrobot/mina-touch',
+    href: "https://github.com/Yrobot/mina-touch",
   },
   {
-    src: 'https://github-stats.yrobot.vercel.app/api/pin',
+    src: `${GITHUB_STATS_DOMAIN}/api/pin`,
     params: {
-      repo: 'react-mobile-table',
+      repo: "react-mobile-table",
       ...commonParams,
     },
-    href: 'https://github.com/Yrobot/react-mobile-table',
+    href: "https://github.com/Yrobot/react-mobile-table",
   },
   {
-    src: 'https://github-stats.yrobot.vercel.app/api/pin',
+    src: `${GITHUB_STATS_DOMAIN}/api/pin`,
     params: {
-      repo: 'mina-popups',
+      repo: "mina-popups",
       ...commonParams,
     },
-    href: 'https://github.com/Yrobot/mina-popups',
+    href: "https://github.com/Yrobot/mina-popups",
   },
 ];
 
