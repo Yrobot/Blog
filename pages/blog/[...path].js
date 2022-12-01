@@ -36,8 +36,8 @@ export default function Index({ pre, blog, next }) {
           <title>{blog.title}</title>
         </Head>
         <Menu home />
-        <div className="min-w-0 flex-row items-stretch justify-between xl:flex xl:space-x-space">
-          <div className="min-w-0">
+        <div className="min-w-0 flex-auto flex-row items-stretch justify-between xl:flex xl:space-x-space">
+          <div className="min-w-0 flex-auto">
             <a href="" id="TOP" />
             <BlogContent blog={blog} />
             <BlogBottomLink pre={pre} next={next} />

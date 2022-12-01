@@ -31,8 +31,6 @@ ssh-copy-id $username@x.x.x.x
 
 ## 测试 用 ssh key 登录
 
-### 尝试连接
-
 ```bash
 ssh $username@x.x.x.x
 ```
