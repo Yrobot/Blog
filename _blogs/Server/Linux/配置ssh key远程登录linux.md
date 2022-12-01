@@ -21,39 +21,17 @@ cat ~/.ssh/id_rsa.pub
 
 # 将 公钥 配置到远程 linux 中
 
-## 连接远程服务器
+## 将公钥配置到远程 linux ssh server
 
 ```bash
-ssh $username@x.x.x.x
+ssh-copy-id $username@x.x.x.x
 ```
 
-需要输入当前用户的登录密码进行连接
-
-## 配置 本地机 公钥 到 远程服务器
-
-### 远程服务器中新建 ~/.ssh/authorized_keys 文件
-
-```bash
-touch ~/.ssh/authorized_keys
-```
-
-### 将公钥粘贴到 ~/.ssh/authorized_keys
-
-```bash
-vi ~/.ssh/authorized_keys
-```
-
-进入编辑模式，粘贴本机的公钥，保存
+输入用户密码后，即可完成配置
 
 ## 测试 用 ssh key 登录
 
-### 先推出连接
-
-```bash
-exit
-```
-
-### 尝试重新连接
+### 尝试连接
 
 ```bash
 ssh $username@x.x.x.x
