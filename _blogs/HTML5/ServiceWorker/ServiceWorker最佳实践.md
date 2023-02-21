@@ -89,6 +89,8 @@ self.addEventListener("install", () => {
 
 ![6mEcdh-22-20-35](https://images.yrobot.top/2023-02-19/6mEcdh-22-20-35.jpg)
 
+如果当前旧的 sw 实例存在 client 引用，且没有 skipWaiting，那么新的 sw 会进入 waiting 状态，直到旧的 sw 不被引用。
+
 当 sw 进入激活状态后，触发 `activate` 的回调：
 
 ```js
@@ -137,3 +139,11 @@ event.respondWith(
   )
 );
 ```
+
+## 一些技巧
+
+### 如何在 Next.ts 中引入 service worker
+
+## 参考资料
+
+[《lavas-project/Service Worker》](https://lavas-project.github.io/pwa-book/chapter04.html)
