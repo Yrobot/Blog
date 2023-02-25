@@ -18,7 +18,7 @@ createTime: 2023年2月21日
 
 ## 解决方案主要思路
 
-1. 先利用 tsc 将 sw.ts 转化 public/sw.js
+1. 先利用 rollup 将 sw.ts 转化 public/sw.js
 2. 利用 next.js 的能力，将 sw.js 作为静态资源发布
 3. 利用 package.json 的 scripts 将 命令合并为一个
 
@@ -26,19 +26,51 @@ createTime: 2023年2月21日
 
 ### 1. 配置 service worker 的 tsconfig.json
 
+ts 代码提示所需
+
 `service-worker/tsconfig.json`
 
 ```json
 {
   "compilerOptions": {
-    "lib": ["ES6", "WebWorker"],
-    "target": "ES5",
-    "moduleResolution": "node",
-    "outDir": "../public"
+    "lib": ["ES6", "WebWorker"]
   },
   "include": ["**/*.ts"],
   "files": ["sw.ts"]
 }
+```
+
+### 安装 并 配置 rollup
+
+#### 安装 rollup 和相关插件
+
+```bash
+yarn add -D rollup rollup-plugin-ts @rollup/plugin-typescript
+```
+
+#### 配置 rollup 编译 ts
+
+将 `service-worker/sw.ts` 打包为 `public/sw.js`
+
+`rollup.config.ts`
+
+```ts
+import ts from "rollup-plugin-ts";
+
+/** @type {import('rollup').RollupOptions} */
+export default {
+  input: "service-worker/sw.ts",
+  output: {
+    dir: "public",
+    format: "cjs",
+    name: "sw",
+  },
+  plugins: [
+    ts({
+      tsconfig: "service-worker/tsconfig.json",
+    }),
+  ],
+};
 ```
 
 ### 2. 添加 输出 sw.js 的命令
@@ -49,8 +81,8 @@ createTime: 2023年2月21日
 {
   // ...
   "scripts": {
-    "sw:dev": "tsc -p service-worker -w",
-    "sw:build": "tsc -p service-worker",
+    "sw:dev": "yarn sw:build -w",
+    "sw:build": "rollup --config ./rollup.config.ts --configPlugin typescript",
     "dev": "yarn sw:dev & next dev",
     "build": "yarn sw:build & next build && next export -o build"
   }
@@ -58,12 +90,17 @@ createTime: 2023年2月21日
 }
 ```
 
-### 3. 将 public/sw.js 加入 .gitignore
+### 3. 将 public/sw.js 和 临时文件 加入 .gitignore
 
 `.gitignore`
 
 ```bash
+# build output files
 public/sw.js
+
+# build temp files
+.rollup.cache
+tsconfig.tsbuildinfo
 ```
 
 ### 4. sw.ts 支持 tsc 和类型检测
