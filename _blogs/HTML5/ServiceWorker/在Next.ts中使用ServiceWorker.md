@@ -45,7 +45,7 @@ ts 代码提示所需
 #### 安装 rollup 和相关插件
 
 ```bash
-yarn add -D rollup rollup-plugin-ts @rollup/plugin-typescript
+yarn add -D rollup rollup-plugin-ts @rollup/plugin-typescript @rollup/plugin-node-resolve
 ```
 
 #### 配置 rollup 编译 ts
@@ -56,6 +56,7 @@ yarn add -D rollup rollup-plugin-ts @rollup/plugin-typescript
 
 ```ts
 import ts from "rollup-plugin-ts";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 /** @type {import('rollup').RollupOptions} */
 export default {
@@ -69,6 +70,7 @@ export default {
     ts({
       tsconfig: "service-worker/tsconfig.json",
     }),
+    nodeResolve(),
   ],
 };
 ```
