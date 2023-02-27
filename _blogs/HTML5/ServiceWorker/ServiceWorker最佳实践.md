@@ -140,6 +140,43 @@ event.respondWith(
 );
 ```
 
+### 外部 service worker 激活时的回调
+
+在确认 service worker 已经激活后，再进行请求，避免 service worker 还未激活就发出请求，导致请求失败。
+
+```js
+export const waitUntil = (
+  checker: () => boolean,
+  option?: { timeout?: number, max?: number }
+) =>
+  new Promise((resolve, reject) => {
+    const { timeout = 100, max = 0 } = option ?? {};
+    let start = Date.now();
+    const id = setInterval(() => {
+      if (checker()) {
+        clearInterval(id);
+        resolve(true);
+      } else if (max > 0 && Date.now() - start > max) {
+        clearInterval(id);
+        reject("waitUntil max time run out.");
+      }
+    }, timeout);
+  });
+
+// check if service worker is active
+waitUntil(() => !!navigator.serviceWorker.controller, { max: 10000 }).then(
+  () => {
+    fetch(`/hi`);
+  }
+);
+```
+
+[ServiceWorkerContainer.controller](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/controller)
+
+> The controller read-only property of the ServiceWorkerContainer interface returns a ServiceWorker object if its state is activating or activated (the same object returned by ServiceWorkerRegistration.active). This property returns null if the request is a force refresh (Shift + refresh) or if there is no active worker.
+
+此属性 只有在 当前页面 有 active service worker 时才会返回 service worker 实例，否则返回 null
+
 ## 一些技巧
 
 ### 如何在 Next.ts 中引入 service worker
