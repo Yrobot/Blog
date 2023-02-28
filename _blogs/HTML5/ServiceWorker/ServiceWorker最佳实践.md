@@ -5,6 +5,12 @@ keywords: js,service worker,offline,proxy
 createTime: 2023年2月15日
 ---
 
+## 先看看 Service Worker 能做什么
+
+[Service Worker Demo](https://service-worker-demo-yrobot.vercel.app/)
+
+Demo 的 github 地址：[https://github.com/Yrobot/serviceWorker-demo](https://github.com/Yrobot/serviceWorker-demo)
+
 ## Service Worker 是什么
 
 > Service workers essentially act as proxy servers that sit between web applications, the browser, and the network (when available).
@@ -180,6 +186,8 @@ waitUntil(() => !!navigator.serviceWorker.controller, { max: 10000 }).then(
 ## 一些技巧
 
 ### 如何在 Next.ts 中引入 service worker
+
+参看 [《在 Next.ts 中使用 ServiceWorker》](./%E5%9C%A8Next.ts%E4%B8%AD%E4%BD%BF%E7%94%A8ServiceWorker)
 
 ## 参考资料
 
