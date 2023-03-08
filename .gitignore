@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+# sitemap generate files
+**/sitemap*.xml
+**/robots.txt
+
 # testing
 /coverage
 
