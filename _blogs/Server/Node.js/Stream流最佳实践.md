@@ -59,3 +59,7 @@ readDir("dist", reader.push);
 
 1. 每次以一个文件的大小为单位进行处理，不会因为处理内容过大而导致内存溢出
 2. 通过 pipe 逻辑顺序，将处理逻辑进行了分离，各个 pipe 可以使用纯函数实现，使得项目逻辑更加清晰
+
+# 参考资料
+
+[《深入学习 Node.js Stream 基础篇》](https://github.com/semlinker/node-deep/blob/master/stream/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0%20Node.js%20Stream%20%E5%9F%BA%E7%A1%80%E7%AF%87.md)
