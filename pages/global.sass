@@ -23,7 +23,7 @@
   .prose
     img
       @apply mx-auto
-  a[id] // 锚点 跳转更准确
+  a[id]:not([class]) // 锚点（不带class的a tag） 跳转更准确
     @apply relative -top-48
 
 @layer components
