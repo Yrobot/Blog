@@ -3,6 +3,7 @@ title: Prisma的简介和使用
 author: yrobot
 keywords: Prisma,ORM,数据库,graphql,Nodejs,server,简介,使用
 createTime: 2021年06月30日
+updateTime: 2023年11月10日
 ---
 
 ## 什么是 Prisma
@@ -15,6 +16,16 @@ createTime: 2021年06月30日
 
 关于是 ORM (Object/Relational Mapping)，简单的来说就是一个可以像操作对象一样操作数据库的工具。  
 具体 ORM 介绍可以参看 阮一峰 老师的[《ORM 实例教程》](http://www.ruanyifeng.com/blog/2019/02/orm-tutorial.html)
+
+### 明确几个实体
+
+基本上所有 ORM 都在处理这几个实体之间的关系：数据库 DB、ORM 客户端、数据结构描述文件
+
+一个完整的 ORM 需要做的事有以下几个：
+
+- 一种支持特别语法的数据结构描述文件，来 1 声明数据库结构 和 2 生成客户端类型声明代码：`/prisma/schema.prisma`
+- 编译时 可以根据数据结构描述文件更新数据库结构
+- 运行时 可以通过操作 ORM 客户端 操作 数据库
 
 ### Prisma 组成
 
