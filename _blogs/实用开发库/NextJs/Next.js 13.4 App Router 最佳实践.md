@@ -50,17 +50,6 @@ export default async function Page() {
 1. 当前路由的页面文件名由 `xxx/index.ts` 变为了 `xxx/page.ts`
 2. 组件支持 async 函数，可以直接在组件内部进行异步操作（因为 app router 的组件默认是 server component，他只运行在 server 的 node 环境中）
 
-##### 什么是 Server Component（Server Component 的运行逻辑）
-
-Server Component 的运行逻辑是:
-
-1. 用户访问某个页面,发起页面请求
-1. Next.js 接收到请求,检查是否有对应路由的页面文件 `app/xxx/page.ts`
-1. `app/xxx/page.ts` 文件开头不是 `'use client;'`
-1. 然后服务端运行这个页面 export default 的函数, 生成页面的 HTML
-1. 将生成的 HTML 返回给客户端,客户端接收到 HTML 并进行页面展示
-1. 当页面需要更新时,重新发起请求,重复上面的流程
-
 ##### Server Component 和 Client Component 的区别
 
 [![EVDtVM-20-25-08](https://images.yrobot.top/2023-08-19/EVDtVM-20-25-08.png)](https://nextjs.org/docs/getting-started/react-essentials)
@@ -70,10 +59,66 @@ Server Component 的运行逻辑是:
 好处：
 
 - 异步依赖可以直接在组件内部直接使用 await 请求，代码逻辑更清晰
-- SSR 的 SEO 更友好
 - 数据直接嵌入 html 中，无需再次请求（接口安全和数据精简）
 - 请求直接在 server 端完成，页面初始化时间更短（减少了一次 server-client 的请求时间和 react 初始化时间）（可以使用 Suspense(xxx/loading.ts) 来优化页面加载体验）
--
+- server component 的 大依赖只在 server 端引入，不会打包到 js 里，减少了客户端下载压力
+
+### 实际上组件作为 server/client component 处理 和 jsx 渲染的结构（组件树结构）无关，而是和 import 相关联
+
+所以 client component 中不要直接 `import` server component，而是在 client 上层通过 props 传入 子 server component 的实例。
+
+```tsx
+// app/layout.tsx
+import "./globals.css";
+import ThemeContextProvider from "./ThemeContext"; // client component
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <ThemeContextProvider>{children}</ThemeContextProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+#### 所以可以将一些 client 逻辑独立出来做一个 Wrapper 组件，来最大化 server component 的好处
+
+```tsx
+// ListPage.tsx
+
+import { fetchList } from "@/services";
+import { DeleteItemWrapper } from "@/clientActions"; // client component
+
+const ItemView = ({ item }) => {
+  return (
+    <div>
+      // ...
+      <DeleteItemWrapper id={item.id}>
+        <button>Delete</button> // 可能有一些复杂的format逻辑，放在server
+        component里可以减少js包大小
+      </DeleteItemWrapper>
+      // ...
+    </div>
+  );
+};
+
+export default async function ListPage() {
+  const list = await fetchList();
+  return (
+    <main>
+      {list.map((item) => (
+        <ItemView item={item} />
+      ))}
+    </main>
+  );
+}
+```
 
 ### Turbopack
 
