@@ -58,3 +58,7 @@ Uncaught TypeError: os.platform is not a function
 ```
 
 tailwindcss 运行时逻辑包含 os.platform 导致报错
+
+### 运行时方案：twind
+
+https://github.com/tw-in-js/twind
