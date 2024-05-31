@@ -16,6 +16,7 @@ const loadValine = (props) => {
       recordIP: true,
       requiredFields: ["nick"],
       visitor: true, // 阅读量统计
+      path: window.location.pathname,
       ...props,
     });
   }

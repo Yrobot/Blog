@@ -7,8 +7,14 @@ export default function WelcomeCard(props) {
         <div className="mb-2 text-xl font-bold md:mb-4 md:text-2xl xl:text-4xl">
           <Trans>Hi! I am Yrobot</Trans>
         </div>
-        <div className="text-xs md:text-base">
-          <Trans>Welcome to my blog, wish you a good time here!</Trans>
+        <div className="space-y-1 text-xs md:text-base">
+          <p>
+            <Trans>Welcome to my blog!</Trans>
+          </p>
+          <p className="text-xs md:text-sm">
+            <Trans>Feel free to email me:</Trans>{" "}
+            <a href="mailto:blog@yrobot.top">blog@yrobot.top</a>
+          </p>
         </div>
         <img
           className="absolute bottom-0 right-space h-[120px] md:h-[150px] xl:h-[190px]"
