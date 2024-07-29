@@ -50,7 +50,7 @@ bunx prisma generate
 
 > Prisma migrate 目前无法直接更新数D1据库表结构，需要配合 wrangler CLI 来对 D1 表进行更新
 
-> 并且，为了确保 prisma client 的 ts 类型能够正常工作，需要优先在 schema.prisma 设计编写表结构，在讲其映射到 D1 数据库表结构
+> 并且，为了确保 prisma client 的 ts 类型能够正常工作，需要优先在 schema.prisma 设计编写表结构，再将其映射到 D1 数据库表结构
 
 #### 1. Prisma 添加 User 表
 
@@ -99,6 +99,7 @@ bunx wrangler d1 migrations apply $DB_NAME $ENV
 
 如：`.wrangler/state/v3/d1/miniflare-D1DatabaseObject/6de0879fcb46a1de6a4d5f51906dc8254b3a1c18d7d21528ed6a5ed129c438a0.sqlite`
 
+查看 这个 .sqlite 文件，会发现 其包含 一个 User 表，有 id\username\createdAt 3列。
 
 ## 目标2: 使用 Prisma Client 操作数据库
 
