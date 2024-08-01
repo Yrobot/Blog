@@ -150,7 +150,14 @@ export const getPrisma = () => {
 
 prisma client 的操作就会正确的作用到 `.wrangler/state/v3/d1/miniflare-D1DatabaseObject/6de0879fcb46a1de6a4d5f51906dc8254b3a1c18d7d21528ed6a5ed129c438a0.sqlite` 上
 
-## 目标3: 在 Next.js runtime='nodejs' 下获取 D1 环境变量
+## ~~目标3: 在 Next.js runtime='nodejs' 下获取 D1 环境变量~~
+
+__！！！Cloudflare Pages 目前不支持 runtime='nodejs'，所以对于项目中需要使用用到 edge以外的环境时，cloudflare pages 是个坏选择。换部署平台吧。__
+
+
+<details>
+
+<summary>仍然查看方案</summary>
 
 > "@cloudflare/next-on-pages" getRequestContext 目前只支持在 runtime=edge 环境下运行
 > 如果 项目依赖在 edge 环境 无法运行 就会存在冲突
@@ -186,3 +193,5 @@ declare global {
 const DB =
   process.env.NODE_ENV === "development" ? binding<D1Database>("DB") : process.env.DB;
 ```
+
+</details>
