@@ -149,3 +149,40 @@ export const getPrisma = () => {
 ### 阶段结果
 
 prisma client 的操作就会正确的作用到 `.wrangler/state/v3/d1/miniflare-D1DatabaseObject/6de0879fcb46a1de6a4d5f51906dc8254b3a1c18d7d21528ed6a5ed129c438a0.sqlite` 上
+
+## 目标3: 在 Next.js runtime='nodejs' 下获取 D1 环境变量
+
+> "@cloudflare/next-on-pages" getRequestContext 目前只支持在 runtime=edge 环境下运行
+> 如果 项目依赖在 edge 环境 无法运行 就会存在冲突
+
+最合理的情况应该是 getRequestContext 也得支持 nodejs 环境，但是问题还没解决
+
+#### 改为 使用 `cf-bindings-proxy` 获取测试环境 D1 环境变量
+
+> 感谢作者
+https://github.com/james-elicx/cf-bindings-proxy
+
+#### 1. 使用 `cf-bindings-proxy` 服务暴露 D1
+
+```bash
+npx cf-bindings-proxy 
+```
+
+#### 2. 在本地环境 使用 `cf-bindings-proxy` 获取 D1 环境变量
+
+
+```ts
+import { binding } from "cf-bindings-proxy";
+import type { D1Database } from "@cloudflare/workers-types";
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      DB: D1Database;
+    }
+  }
+}
+
+const DB =
+  process.env.NODE_ENV === "development" ? binding<D1Database>("DB") : process.env.DB;
+```
