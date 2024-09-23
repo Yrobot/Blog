@@ -233,7 +233,7 @@ And we should store the token into user DB
 
 ### 3. Require available page - There is no available page as the Root Page
 
-Since it could that user access no pages for Us, or select some pages which NOT follow our rule(like page title should be `xxxx`).
+Since there could be no pages we can access, or user select some pages which NOT follow our rule(like page title should be `xxxx`).
 
 And Notion requires the `parent.page_id` when create new pages. So we have to ask user to provide at least one available page for our Integration.
 
