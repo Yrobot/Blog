@@ -25,6 +25,12 @@
       @apply mx-auto
   a[id]:not([class]) // 锚点（不带class的a tag） 跳转更准确
     @apply relative -top-48
+  [data-tooltip]
+    @apply relative
+  [data-tooltip]:hover::after
+    content: attr(data-tooltip)
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6)
+    @apply block absolute -right-2 top-1/2 -translate-y-1/2 translate-x-full text-white px-2 py-1 bg-black rounded-md text-xs
 
 @layer components
   .box
