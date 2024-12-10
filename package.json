@@ -8,13 +8,16 @@
     "start": "next start",
     "urls": "node ./lib/scripts/fresh-urls.js",
     "baidu-seo": "node ./lib/scripts/baidu-seo-push.mjs",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap && yarn run rss && yarn run seo",
+    "seo": "yarn run urls && yarn run baidu-seo",
+    "rss": "node ./lib/scripts/rss.js"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.2",
     "classnames": "^2.3.1",
     "date-fns": "^2.21.2",
     "dayjs": "^1.10.4",
+    "feed": "^4.2.2",
     "highlight.js": "^10.7.2",
     "marked": "^4.0.12",
     "next": "^12.1.0",
@@ -53,5 +56,6 @@
   "bugs": {
     "url": "https://github.com/Yrobot/Blog/issues"
   },
-  "homepage": "https://blog.yrobot.top"
+  "homepage": "https://blog.yrobot.top",
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
