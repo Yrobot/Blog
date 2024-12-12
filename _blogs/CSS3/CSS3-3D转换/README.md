@@ -15,11 +15,11 @@ createTime: 2018年08月31日
 
 <a href="" id="id1"></a>
 
-## 3D 元素的属性
+## 3D 元素的属性
 
 <a href="" id="id11"></a>
 
-1. **transform**：利用一些方法对元素进行 2D 或者 3D 转换。具体  转换方法参看 [3D 元素的方法](#id2)  
+1. **transform**：利用一些方法对元素进行 2D 或者 3D 转换。具体 转换方法参看 [3D 元素的方法](#id2)  
    **语法：** `transform: none|transform-functions;`
    - `none` 定义不进行转换。
    - `transform-functions` 使用[3D 元素的方法](#id2)
@@ -70,7 +70,7 @@ createTime: 2018年08月31日
 <a href="" id="id13"></a>
 
 3. **transform-style**：规定如何在 3D 空间中呈现被嵌套的元素  
-    **语法：** `transform-style: flat|preserve-3d;` 
+    **语法：** `transform-style: flat|preserve-3d;`
 
    - `flat` 所有子元素在 2D 平面呈现。  
       沿着 X 轴或 Y 轴方向旋转该元素将导致位于正或负 Z 轴位置的子元素显示在该元素的平面上，而不是它的前面或者后面。著作权归作者所有。
@@ -159,8 +159,7 @@ createTime: 2018年08月31日
 
    **浏览器支持**  
     只有 Internet Explorer 10+ 和 Firefox 支持 backface-visibility 属性。  
-    Opera 15+、Safari 和 Chrome 支持替代的 -webkit-backface-visibility 属性。  
-   
+    Opera 15+、Safari 和 Chrome 支持替代的 -webkit-backface-visibility 属性。
 
 ## 3D 元素的方法
 
