@@ -236,6 +236,13 @@
   dependencies:
     "@types/node" "*"
 
+"@yrobot/feed@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@yrobot/feed/-/feed-1.0.0.tgz#3a73084ba3cacb08a38db01c52e2ad2c07682acd"
+  integrity sha512-n3ZZHpgPABJDYaDIarUuAxOR8roQ6czEbH4cQzNt0CMm9rsJT4Vz7+VAnoiVKzi9IXSdOBhehH+93cvDEyD+IQ==
+  dependencies:
+    xml-js "^1.6.11"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.npmmirror.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -836,13 +843,6 @@ fdir@^5.0.0:
   version "5.2.0"
   resolved "https://registry.npmmirror.com/fdir/-/fdir-5.2.0.tgz#5b3d6ae282f8bc0ef48bf913d46f9e08496304ea"
   integrity sha512-skyI2Laxtj9GYzmktPgY6DT8uswXq+VoxH26SskykvEhTSbi7tRM/787uZt/p8maxrQCJdzC90zX1btbxiJ6lw==
-
-feed@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/feed/-/feed-4.2.2.tgz#865783ef6ed12579e2c44bbef3c9113bc4956a7e"
-  integrity sha512-u5/sxGfiMfZNtJ3OvQpXcvotFpYkL0n9u9mM2vkui2nGo8b4wvDkJ8gAkYqbA8QpGyFCv3RK0Z+Iv+9veCS9bQ==
-  dependencies:
-    xml-js "^1.6.11"
 
 fetch-blob@^3.1.2, fetch-blob@^3.1.4:
   version "3.1.4"

@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.2",
+    "@yrobot/feed": "^1.0.0",
     "classnames": "^2.3.1",
     "date-fns": "^2.21.2",
     "dayjs": "^1.10.4",
-    "feed": "^4.2.2",
     "highlight.js": "^10.7.2",
     "marked": "^4.0.12",
     "next": "^12.1.0",
