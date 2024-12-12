@@ -10,7 +10,6 @@ createTime: 2018年09月03日
 1. css 绘制多边形的原理(一定要理解)
 2. 一些简单多边形的绘制示例
 
-
 ## css 绘制多边形的原理
 
 <a href="" id="id11"></a>
@@ -26,13 +25,13 @@ createTime: 2018年09月03日
 
 组成理解(_简单介绍_ )：  
 `内容` 元素内 文本、内元素 所包含的区域  
-`padding`  内容 与 border 之间的距离，用于处理 border 和内容的表现关系  
+`padding` 内容 与 border 之间的距离，用于处理 border 和内容的表现关系  
 `border` 边框，将内容包围的轮廓  
 `margin` 元素 与 其他元素之间的距离，用于处理元素间的表现关系，位置样式
 
 一般理解的 元素 由 内容、padding、border 组成，因为这 3 个影响到元素的表现样式。  
 css2 中`width`的默认指向是内容宽度，而不是元素(包括 padding、border)的宽度。  
- 可以 利用 `box-sizing` 去修改 width 的指向：
+可以 利用 `box-sizing` 去修改 width 的指向：
 
 - `box-sizing: content-box;` width、height 指向内容  
    ![](https://ws2.sinaimg.cn/large/0069RVTdgy1fuw5olkw8wj303o010mx2.jpg)
@@ -97,8 +96,6 @@ css 是怎么处理 border 重叠的部分的？
 
 [css 伪元素的用法](https://www.cnblogs.com/wonyun/p/5807191.html)
 
-
-
 ## css 绘制正四边形
 
 绘制正四边形最简单的方法就是利用内容，直接使用 width、height
@@ -126,8 +123,6 @@ css 是怎么处理 border 重叠的部分的？
 ```
 
 ![](https://ws3.sinaimg.cn/large/0069RVTdgy1fuw6ypx233j30a208s74d.jpg)
-
-
 
 ## css 绘制非正四边形
 
@@ -160,7 +155,7 @@ css 是怎么处理 border 重叠的部分的？
 }
 .parallelogram2:after {
   display: block;
-  content: '';
+  content: "";
   width: 0px;
   height: 0px;
   border-top: 80px solid #393;
@@ -184,7 +179,7 @@ css 是怎么处理 border 重叠的部分的？
 }
 .rhombus:after {
   display: block;
-  content: '';
+  content: "";
   width: 0px;
   width: 0px;
   border-top: 69.3px solid #393;
@@ -195,14 +190,24 @@ css 是怎么处理 border 重叠的部分的？
 
 ![](https://ws4.sinaimg.cn/large/0069RVTdgy1fuwb07zx8zj308605o748.jpg)
 
-
-
 ## css 绘制三角形
 
 #### 绘制直角三角形
 
 ```css
-.rightTriangle width 0px height 0px border-bottom 80px solid #393 border-left 80px solid transparent;
+.rightTriangle
+  width
+  0px
+  height
+  0px
+  border-bottom
+  80px
+  solid
+  #393
+  border-left
+  80px
+  solid
+  transparent;
 ```
 
 ![](https://ws2.sinaimg.cn/large/0069RVTdgy1fuwcpx6dhfj306s06aa9x.jpg)
@@ -210,7 +215,7 @@ css 是怎么处理 border 重叠的部分的？
 #### 绘制等边三角形
 
 等边三角形的宽高比为 1 : sqr(3)/2  
-所以  可以根据底边长计算三角形高`height = sqr(3)*width/2`  
+所以 可以根据底边长计算三角形高`height = sqr(3)*width/2`  
 本例中左右 border 宽为 40，所以底边长为 80，从而计算出底部 border 宽应为 69.3
 
 ```css
@@ -235,8 +240,6 @@ css 是怎么处理 border 重叠的部分的？
 
 ![](https://ws1.sinaimg.cn/large/0069RVTdgy1fuwb2kyyzqj306g064746.jpg)
 
-
-
 ## css 绘制圆形
 
 圆形最简单的方式就是设置`border-radius`为 50%
@@ -253,16 +256,26 @@ css 是怎么处理 border 重叠的部分的？
 .circle2 width 0px height 0px border 40px solid #393 border-radius 50%;
 ```
 
- 哎？猜猜这时候设置 padding 是什么样子的
+哎？猜猜这时候设置 padding 是什么样子的
 
 ```css
-.circle3 width 0px height 0px border 40px solid #393 border-radius 50% padding 20px;
+.circle3
+  width
+  0px
+  height
+  0px
+  border
+  40px
+  solid
+  #393
+  border-radius
+  50%
+  padding
+  20px;
 ```
 
 ![](https://ws3.sinaimg.cn/large/0069RVTdgy1fuwcyjhdw6j308408874b.jpg)  
 看来 border-radius 把内外角度都设置了
-
-
 
 ## css 绘制梯形
 
@@ -288,8 +301,6 @@ css 是怎么处理 border 重叠的部分的？
 
 ![](https://ws1.sinaimg.cn/large/0069RVTdgy1fuwd59x6bsj306w04gwec.jpg)
 
-
-
 ## css 绘制正五边形
 
 正五边形可以拆分成上下两个部分：上边一个等腰三角形，下面一个等腰梯形，具体长宽计算这里不做介绍
@@ -308,7 +319,7 @@ css 是怎么处理 border 重叠的部分的？
   left: -81px;
   top: 59px;
   display: block;
-  content: '';
+  content: "";
   width: 100px;
   height: 0px;
   border-top: 95px solid #393;
@@ -318,8 +329,6 @@ css 是怎么处理 border 重叠的部分的？
 ```
 
 ![](https://ws3.sinaimg.cn/large/0069RVTdgy1fuwdlbgoi3j30be0a8t8r.jpg)
-
-
 
 ## css 绘制正七边形
 
@@ -340,7 +349,7 @@ css 是怎么处理 border 重叠的部分的？
 }
 .heptagon:before {
   display: block;
-  content: '';
+  content: "";
   width: 0px;
   height: 0px;
   border-right: 90px solid transparent;
@@ -352,7 +361,7 @@ css 是怎么处理 border 重叠的部分的？
 .heptagon:after {
   width: 100px;
   height: 0px;
-  content: '';
+  content: "";
   display: block;
   border-top: 78px solid #393;
   border-left: 62px solid transparent;

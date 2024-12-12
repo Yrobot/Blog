@@ -5,10 +5,7 @@ keywords: CSS3,属性,新增
 createTime: 2018年08月27日
 ---
 
-
 本文框架主要参考[W3school 的 CSS 教程](http://www.w3school.com.cn/css3/index.asp)，在此感谢!
-
-
 
 ## CSS3 边框
 
@@ -16,7 +13,7 @@ createTime: 2018年08月27日
 
 1. **border-radius**：设置元素的圆角，还支持单个圆角设置，`border-top(bottom)-left(right)-radius`。  
    **语法：** `border-radius: 1-4 length|% / 1-4 length|%;`
-   - 按此顺序设置每个 radii 的四个值(类似 margin 属性设置， 对边相同可简写)。
+   - 按此顺序设置每个 radii 的四个值(类似 margin 属性设置，对边相同可简写)。
    - `ength` 定义圆角的形状。
    - `%` 以百分比定义圆角的形状。  
      **示例：** `border-radius:2em;`  
@@ -45,8 +42,6 @@ createTime: 2018年08月27日
 **浏览器支持：**
 ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fuo2czkkuaj318w0eidkx.jpg)
 
-
-
 ## CSS3 背景
 
 **CSS3 新增的背景属性：**
@@ -67,8 +62,6 @@ createTime: 2018年08月27日
 
 **浏览器支持：**
 ![](https://ws2.sinaimg.cn/large/006tNbRwgy1fuo7a1mn2mj318w09q77m.jpg)
-
-
 
 ## CSS3 文本效果
 
@@ -91,8 +84,6 @@ createTime: 2018年08月27日
 
 **浏览器支持：**
 ![](https://ws3.sinaimg.cn/large/006tNbRwgy1fuo7ays4aaj318s09iada.jpg)
-
-
 
 ## CSS3 字体
 
@@ -148,19 +139,17 @@ createTime: 2018年08月27日
 
    ```css
    @font-face {
-     font-family: 'Bitstream Vera Serif Bold';
-     src: url('http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf');
+     font-family: "Bitstream Vera Serif Bold";
+     src: url("http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf");
    }
 
    body {
-     font-family: 'Bitstream Vera Serif Bold', serif;
+     font-family: "Bitstream Vera Serif Bold", serif;
    }
    ```
 
 **浏览器支持：**
 ![](https://ws3.sinaimg.cn/large/006tNbRwgy1fuo7ituu00j318q04odhc.jpg)
-
-
 
 ## CSS3 2D 转换
 
@@ -172,8 +161,6 @@ createTime: 2018年08月27日
 ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fuo7z8j9byj318s04s3zs.jpg)  
 Chrome 和 Safari 需要前缀 -webkit-  
 Internet Explorer 9 需要前缀 -ms-
-
-
 
 ## CSS3 3D 转换
 
@@ -187,8 +174,6 @@ Internet Explorer 10 和 Firefox 支持 3D 转换。
 Chrome 和 Safari 需要前缀 -webkit-。  
 Opera 仍然不支持 3D 转换（它只支持 2D 转换）。
 
-
-
 ## CSS3 过渡
 
 **CSS3 的过渡属性：** 过渡属性可以设定元素在某些属性改变时，对变化过程填充逐渐变换的动画，类似于 flash 的补间动画
@@ -197,8 +182,6 @@ Opera 仍然不支持 3D 转换（它只支持 2D 转换）。
 
 **浏览器支持：**
 ![](https://ws1.sinaimg.cn/large/0069RVTdgy1fup7uarmc3j30u204sjsn.jpg)
-
-
 
 ## CSS3 动画
 
@@ -211,11 +194,9 @@ Opera 仍然不支持 3D 转换（它只支持 2D 转换）。
 Internet Explorer 10、Firefox 以及 Opera 支持 @keyframes 规则和 animation 属性。  
 Chrome 和 Safari 需要前缀 -webkit-。
 
-
-
 ## CSS3 多列
 
-**CSS3 新增的多列属性：** 使用 css3 多列属性，可以将内容  分成几列，类似报纸中文章的形式。
+**CSS3 新增的多列属性：** 使用 css3 多列属性，可以将内容 分成几列，类似报纸中文章的形式。
 
 1. **column-count**: 规定元素应该被分隔的列数。  
    **语法：** `column-count: number|auto;`
@@ -305,8 +286,6 @@ Internet Explorer 10 和 Opera 支持多列属性。
 Firefox 需要前缀 -moz-。  
 Chrome 和 Safari 需要前缀 -webkit-。
 
-
-
 ## CSS3 用户界面
 
 **CSS3 新增的用户界面属性：** 利用 css3 的用户界面属性，可以重设元素尺寸、盒尺寸以及轮廓等。
@@ -324,13 +303,13 @@ Chrome 和 Safari 需要前缀 -webkit-。
 - `outline-offset` 对轮廓进行偏移，并在超出边框边缘的位置绘制轮廓。
 - `resize` 规定是否可由用户对元素的尺寸进行调整。
 
-** 我这边简单介绍一下 浏览器支持比较好的 几个属性**
+**我这边简单介绍一下 浏览器支持比较好的 几个属性**
 
 1. **box-sizing**: 改变 css 的 width、height 在盒模型中的指向。
 
    - 因为 css 默认 width 指向的是盒模型的内容宽度(图中蓝色部分)，而 整个盒模型的宽度 = padding + border + 内容 width，整个盒模型所占据文本流的位置还要包括其 margin 值。
-   - 而一般我们所想的，我们设置的 width 值，应该是 整个  盒模型的宽度，所以问题就产生了。
-   - 那么这个`box-sizing`，就是用来解决 width、height 在盒模型中的指向问题的。  
+   - 而一般我们所想的，我们设置的 width 值，应该是 整个 盒模型的宽度，所以问题就产生了。
+   - 那么这个`box-sizing`，就是用来解决 width、height 在盒模型中的指向问题的。  
      ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fusoa0l7n5j30ak0aa74j.jpg)
 
    **语法：** `box-sizing: content-box|border-box|inherit;`
@@ -380,5 +359,5 @@ Chrome 和 Safari 需要前缀 -webkit-。
    **浏览器支持：**  
     所有主流浏览器都支持 outline-offset 属性，除了 Internet Explorer。
 
-** 其余几个属性只有小部分浏览器支持**  
+**其余几个属性只有小部分浏览器支持**  
 [**参看所有转换属性的使用**](http://www.w3school.com.cn/css3/css3_user_interface.asp)

@@ -9,16 +9,14 @@ createTime: 2018年08月28日
 
 **NOTE：**
 
-1.  一个元素要使用多个动画时（比如前一秒动画 1，后面动画 2），可以在 css 属性中用一个 animation 表示，动画之间用逗号相隔。例子：`animation: animation1 1s, animation2 1s 1s infinite alternate ;`
-
-
+1. 一个元素要使用多个动画时（比如前一秒动画 1，后面动画 2），可以在 css 属性中用一个 animation 表示，动画之间用逗号相隔。例子：`animation: animation1 1s, animation2 1s 1s infinite alternate ;`
 
 ## 怎么使用
 
 首先用我的话来大致概括一下 css3 动画的使用流程：
 
 1. 首先定义一个动画，使用`@keyframes`来定义动画(包括动画名、动画过程状态)
-2. 在一个元素的 class 中引用刚定义的动画，设定相关参数(动画时长、动画线性、动画延迟、元素开始和结束的状态、动画是否暂停 )
+2. 在一个元素的 class 中引用刚定义的动画，设定相关参数(动画时长、动画线性、动画延迟、元素开始和结束的状态、动画是否暂停)
 
 这样一个 css3 动画就被定义和使用了。
 
@@ -191,7 +189,7 @@ createTime: 2018年08月28日
 
 #### **效果：**
 
-[ 参考 W3school 的 demo](http://www.w3school.com.cn/tiy/t.asp?f=css3_animation4)
+[参考 W3school 的 demo](http://www.w3school.com.cn/tiy/t.asp?f=css3_animation4)
 
 <a href="" id="id3"></a>
 

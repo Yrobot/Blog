@@ -24,7 +24,7 @@ createTime: 2018年08月24日
 
 #### 4. **函数如何查找变量**
 
-- 从[[scope]]作用域链的顶端开始向下查找。即从自身  的执行器上下文开始找变量，未找到则转向[[scope]]的下一个上下文。
+- 从[[scope]]作用域链的顶端开始向下查找。即从自身 的执行器上下文开始找变量，未找到则转向[[scope]]的下一个上下文。
 
 #### 例子
 
@@ -36,8 +36,6 @@ createTime: 2018年08月24日
 - 例 2：  
   ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fukrw1ajtzj30ki0m2wr1.jpg)  
   ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fukrw1ajtzj30ki0m2wr1.jpg)
-
-
 
 ## 闭包
 
