@@ -13,7 +13,7 @@ export default function WelcomeCard(props) {
           </p>
           <p className="text-xs md:text-sm">
             <Trans>Feel free to email me:</Trans>{" "}
-            <a href="mailto:blog@yrobot.top">blog@yrobot.top</a>
+            <a href="mailto:y_robot@yeah.net">y_robot@yeah.net</a>
           </p>
         </div>
         <img
