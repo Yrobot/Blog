@@ -5,8 +5,6 @@ keywords: Playwright,浏览器自动化,Node.js,Next.js,图片生成,Chrome DevT
 createTime: 2025年10月25日
 ---
 
-# Playwright 实战：从基础原理到构建 Markdown 图片生成服务
-
 ## 一、初识 Playwright：不仅仅是自动化测试工具
 
 ### 1.1 Playwright 是什么？
