@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import BlogCatalog from "components/BlogCatalog";
+import MermaidRenderer from "components/MermaidRenderer";
 import { Trans } from "I18N";
 
 export default function BlogContent({ blog = {} }) {
@@ -27,6 +28,7 @@ export default function BlogContent({ blog = {} }) {
         className="prose prose-sm mb-[15px] break-all md:prose md:mb-[20px]"
         dangerouslySetInnerHTML={{ __html: content }}
       ></article>
+      <MermaidRenderer />
     </div>
   );
 }
