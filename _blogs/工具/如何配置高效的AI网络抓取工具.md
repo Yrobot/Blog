@@ -334,7 +334,7 @@ createTime: 2025年11月12日
 
 ## 工具安装与配置
 
-### SearXNG 安装与配置
+### SearXNG-安装与配置
 
 - http 版本：
 
@@ -360,7 +360,7 @@ npm install -g @tisddm/searxng-mcp
 claude mcp add searxng npx -y @tisddm/searxng-mcp
 ```
 
-### Scrapling 安装与配置
+### Scrapling-安装与配置
 
 - https://scrapling.readthedocs.io/en/latest/ai/mcp-server/
 
@@ -396,14 +396,14 @@ docker run -d \
 claude mcp add -s user -t http scrapling http://127.0.0.1:8301/mcp
 ```
 
-### Playwright 安装与配置
+### Playwright-安装与配置
 
 ```bash
 # 添加 MCP
 claude mcp add -s user -t stdio playwright -- npx @playwright/mcp@latest --headless --isolated
 ```
 
-### Brightdata 安装与配置
+### Brightdata-安装与配置
 
 - github: https://github.com/bright-cn/brightdata-mcp
 
