@@ -2,7 +2,7 @@
 title: Claude Code 扩展机制实战：自动化流程的实现
 author: yrobot
 keywords: Claude Code,Subagent,Skills,MCP,Hooks,自动化
-createTime: 2025年01月17日
+createTime: 2025年11月17日
 ---
 
 ## 背景：一个自动化需求引发的思考
